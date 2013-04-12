@@ -29,8 +29,22 @@ db.open(function(err, db) {
 
 exports.list = function(req, res) {
   db.collection('cocktails', function(err, collection) {
-    collection.find().toArray(function(err, items) {
+    collection.find().sort({rating: 1}).toArray(function(err, items) {
       res.send(items);
+    });
+  });
+}
+
+exports.findById = function(req, res) {
+  var id = req.params.id;
+  console.log('Retrieving cocktail: ' + id);
+  db.collection('cocktails', function(err, collection) {
+    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
+      if (!err) {
+        res.send(item);
+      } else {
+        console.log("Error: cocktail " + id + " doesn't exist.");
+      }
     });
   });
 }
