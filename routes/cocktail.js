@@ -49,6 +49,20 @@ exports.findById = function(req, res) {
   });
 }
 
+exports.post = function(req, res) {
+  var cktl = req.body;
+  console.log('Receiving cocktail: ' + cktl);
+  db.collection('cocktails', function(err, collection) {
+    collection.insert(cktl, function(err, item) {
+      if (!err) {
+        console.log("Cocktail inserted: " + cktl);
+      } else {
+        console.log("Error: cocktail couldn't be inserted: " + cktl);
+      }
+    });
+  })
+}
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 // Populate database with sample data -- Only used once: the first time the application is started.
 // You'd typically not find this code in a real-life app, since the database would already exist.
