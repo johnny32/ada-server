@@ -36,7 +36,7 @@ app.get('/users/twitter/:id_twitter', user.findByTwitter);
 app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/:id', cocktail.findById);
-app.post('/cocktails', cocktail.post);
+app.post('/cocktails', cocktail.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

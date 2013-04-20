@@ -27,6 +27,16 @@ db.open(function(err, db) {
   }
 });
 
+/**
+ * Llista tots els cocktails.
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-04-09
+ */
 exports.list = function(req, res) {
   db.collection('cocktails', function(err, collection) {
     collection.find().sort({rating: 1}).toArray(function(err, items) {
@@ -35,6 +45,16 @@ exports.list = function(req, res) {
   });
 }
 
+/**
+ * Busca un cocktail pel seu id.
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-04-09
+ */
 exports.findById = function(req, res) {
   var id = req.params.id;
   console.log('Retrieving cocktail: ' + id);
@@ -43,72 +63,79 @@ exports.findById = function(req, res) {
       if (!err) {
         res.send(item);
       } else {
-        console.log("Error: cocktail " + id + " doesn't exist.");
+        console.log("Error: cocktail " + id + " doesn't exist");
       }
     });
   });
 }
 
-exports.post = function(req, res) {
+/**
+ * Crea un cocktail nou.
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.1
+ * @date    2013-04-18
+ */
+exports.create = function(req, res) {
   var cktl = req.body;
-  console.log('Receiving cocktail: ' + cktl);
-  db.collection('cocktails', function(err, collection) {
-    collection.insert(cktl, function(err, item) {
-      if (!err) {
-        console.log("Cocktail inserted: " + cktl);
-      } else {
-        console.log("Error: cocktail couldn't be inserted: " + cktl);
-      }
-    });
-  })
+  console.log('Receiving cocktail: ' + cktl.nombre);
+  //Comprovem que els camps del cocktail siguin els correctes
+  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.color && cktl.creador) {
+    db.collection('cocktails', function(err, collection) {
+      //Filtrem la resta de camps
+      var cktl_ok =
+      {
+        zumos:      cktl.zumos,
+        licores:    cktl.licores,
+        carbonico:  cktl.carbonico,
+        vaso:       cktl.vaso,
+        nombre:     cktl.nombre,
+        color:      cktl.color,
+        creador:    cktl.creador
+      };
+      collection.insert(cktl_ok, function(err, item) {
+        if (!err) {
+          console.log("Cocktail inserted: " + cktl_ok.nombre);
+        } else {
+          console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
+        }
+      });
+    })
+  } else {
+    console.log("Error: cocktail not inserted (missing fields).");
+    console.log(cktl);
+  }
 }
 
-/*--------------------------------------------------------------------------------------------------------------------*/
-// Populate database with sample data -- Only used once: the first time the application is started.
-// You'd typically not find this code in a real-life app, since the database would already exist.
+/**
+ * Crea dades de prova per la base de dades.
+ *
+ * @author  jclara
+ * @version 1.1
+ * @date    2013-04-09
+ */
 var populateDB = function() {
   var cocktails = [
     {
-      name:         "El mejor",
-      author:       "Johnny",
-      ingredients:  ["Cerveza", "Mas cerveza", "Mucha mas cerveza"],
-      rating:       9.5
+      zumos:        ["Zumo de manzana", "Zumo de fresa"],
+      licores:      ["Wishky"],
+      carbonico:    "Lim&oacute;n",
+      vaso:         "Chupito",
+      nombre:       "El mejor",
+      color:        "Verde",
+      creador:      "Johnny"
     },
     {
-      name:         "Hercorzumo",
-      author:       "Hercules",
-      ingredients:  ["Zumo de los dioses"],
-      rating:       9.1
-    },
-    {
-      name:         "Cocktail de zanahoria",
-      author:       "Bugs Bunny",
-      ingredients:  ["Zanahoria", "Vodka"],
-      rating:       8.5
-    },
-    {
-      name:         "Grog",
-      author:       "Guybrush Threepwood",
-      ingredients:  ["queroseno", "glicol propilico", "endulzantes artificiales", "acido sulfurico", "ron", "acetona", "tinte rojo n2", "SCUMM", "grasa para ejes", "acido para baterias", "pepperoni"],
-      rating:       8
-    },
-    {
-      name:         "Absenta negra",
-      author:       "Metaleros unidos S.A.",
-      ingredients:  ["absenta", "color negro"],
-      rating:       6.66
-    },
-    {
-      name:         "Sunset Sarsaparilla",
-      author:       "Bethesda",
-      ingredients:  ["sunset", "nuka cola", "agua radioactiva"],
-      rating:       5.25
-    },
-    {
-      name:         "Basura de cocktail",
-      author:       "Xose",
-      ingredients:  ["Guild Wars 2", "es una mierda"],
-      rating:       3.5
+      zumos:        ["Zumo de pi&ntilde;a"],
+      licores:      ["Ron", "Ginebra"],
+      carbonico:    "Cola",
+      vaso:         "Cubata",
+      nombre:       "Sex on the mountain",
+      color:        "Amarillo",
+      creador:      "Johnny"
     }
   ];
 

@@ -25,7 +25,7 @@ db.open(function(err, db) {
 });
 
 /**
- * Busca un usuari per id intern.
+ * Busca un usuari per id.
  *
  * @param req
  * @param res
@@ -96,6 +96,16 @@ exports.findByTwitter = function(req, res) {
   });
 }
 
+/**
+ * Llista tots els usuaris (borrar a la versio final, perque no te sentit que es pugui fer).
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-04-11
+ */
 exports.list = function(req, res) { //TODO Esborrar aquesta funcio
   db.collection('users', function(err, collection) {
     collection.find().toArray(function(err, items) {
@@ -115,9 +125,17 @@ exports.list = function(req, res) { //TODO Esborrar aquesta funcio
  * @date    2013-04-18
  */
 exports.friends = function(req, res) {
-  //TODO Necessitem token d'app
+  //TODO Necessitem token d'app (a Facebook)
+  //TODO Mirar com funciona a Twitter!
 }
 
+/**
+ * Crea dades de prova per la base de dades.
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-04-11
+ */
 var populateDB = function() {
   var users = [
     {
