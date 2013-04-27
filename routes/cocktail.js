@@ -128,10 +128,49 @@ exports.image = function(req, res) {
       if (!err) {
         var img = "/public/images/" + item.vaso + "_" + item.color + ".jpg";
         res.send({
+          id_cocktail: id_cocktail,
           img: img
         });
       } else {
-        console.log("Error: cocktail " + id + " doesn't exist");
+        console.log("Error: cocktail " + id_cocktail + " doesn't exist");
+      }
+    });
+  });
+}
+
+/**
+ * Obte la puntuacio mitja d'un cocktail
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-04-27
+ */
+exports.rating = function(req, res) {
+  var id_cocktail = req.params.id_cocktail;
+  console.log('Retrieving rating for cocktail: ' + id_cocktail);
+  db.collection('cocktails', function(err, collection) {
+    collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
+      if (!err) {
+        db.collection('ratings', function(err, collection) {
+          collection.find({'id_cocktail': id_cocktail}).toArray(function(err, items) {
+            var rating = 0;
+            if (items.length > 0) {
+              for (var i in items) {
+                rating += items[i].rating;
+              }
+              rating = rating / items.length;
+            }
+            res.send({
+              id_cocktail: id_cocktail,
+              rating: rating
+            });
+          });
+        });
+      } else {
+        console.log("Error: cocktail " + id_cocktail + " doesn't exist");
       }
     });
   });
@@ -168,5 +207,5 @@ var populateDB = function() {
 
   db.collection('cocktails', function(err, collection) {
     collection.insert(cocktails, {safe:true}, function(err, result) {});
-  })
+  });
 }
