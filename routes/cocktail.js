@@ -111,6 +111,33 @@ exports.create = function(req, res) {
 }
 
 /**
+ * Obte la URL de la imatge d'un cocktail segons el seu color i el seu got
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-04-27
+ */
+exports.image = function(req, res) {
+  var id_cocktail = req.params.id_cocktail;
+  console.log('Retrieving image for cocktail: ' + id_cocktail);
+  db.collection('cocktails', function(err, collection) {
+    collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
+      if (!err) {
+        var img = "/public/images/" + item.vaso + "_" + item.color + ".jpg";
+        res.send({
+          img: img
+        });
+      } else {
+        console.log("Error: cocktail " + id + " doesn't exist");
+      }
+    });
+  });
+}
+
+/**
  * Crea dades de prova per la base de dades.
  *
  * @author  jclara

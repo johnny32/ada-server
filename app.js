@@ -22,6 +22,9 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.options('*', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+});
 
 // development only
 if ('development' == app.get('env')) {
@@ -36,6 +39,8 @@ app.get('/users/twitter/:id_twitter', user.findByTwitter);
 app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/:id', cocktail.findById);
+app.get('/images/:id_cocktail', cocktail.image);
+app.get('/ratings/:id_cocktail', cocktail.rating);
 app.post('/cocktails', cocktail.create);
 
 http.createServer(app).listen(app.get('port'), function(){
