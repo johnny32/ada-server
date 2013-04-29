@@ -1,7 +1,12 @@
 doctype 5
 html
   head
-    title= title
+    title #{title} | Sinatra Cockteleria
+    script(src='/javascripts/jquery-1.9.1.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/javascripts/sha256.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.min.css')
   body
     block content

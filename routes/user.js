@@ -159,5 +159,5 @@ var populateDB = function() {
 
   db.collection('users', function(err, collection) {
     collection.insert(users, {safe:true}, function(err, result) {});
-  })
+  });
 }

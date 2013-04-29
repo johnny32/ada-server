@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , admin = require('./routes/admin')
   , cocktail = require('./routes/cocktail')
   , http = require('http')
   , path = require('path');
@@ -20,6 +21,8 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({ secret: "test" }));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.options('*', function(req, res) {
@@ -43,6 +46,18 @@ app.get('/images/:id_cocktail', cocktail.image);
 app.get('/ratings/:id_cocktail', cocktail.rating);
 app.post('/cocktails', cocktail.create);
 
+//Backend
+app.get('/admin', checkLogged, admin.index);
+app.get('/login', admin.loginPage);
+app.post('/login', admin.loginAction);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+function checkLogged(req,res,next){
+  if (req.session.logged)
+    next()
+  else
+    res.redirect('/login')
+}

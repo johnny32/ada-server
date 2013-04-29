@@ -1,0 +1,20 @@
+//
+   Created with JetBrains WebStorm.
+   User: Johnny
+   Date: 28/04/13
+   Time: 16:31
+   To change this template use File | Settings | File Templates.
+
+extends layout
+
+block content
+  #header.well
+    h1 #{title}
+
+  #img-uploader.well
+    p Subida de im&aacute;genes
+    form(action="/images", method="post", enctype="multipart/form-data")
+      input(type="file", name="imageFile")
+      input(type="submit", name="submitButton")
+        i.btn.btn-success
+          Subir
