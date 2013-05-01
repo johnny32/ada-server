@@ -10,9 +10,7 @@ extends layout
 block scripts
   script
     $(document).ready(function() {
-      if ($('#errors').text() == '') {
-        $('#errors').hide();
-      }
+      checkErrors($('#errors'));
     });
 
 block content

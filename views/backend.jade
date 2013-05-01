@@ -7,6 +7,93 @@
 
 extends layout
 
+block scripts
+  script
+    $(document).ready(function() {
+      $('#info-cktl').on('hide', function () {
+        $('#info-cktl-title').empty();
+        $('#info-cktl-img').empty();
+        $('#info-cktl-info').empty();
+      });
+
+      var progressbar = $('#progress-bar')[0];
+      $.ajax({
+        url: '/cocktails',
+        method: 'get',
+        dataType: 'json',
+        beforeSend: function(header) {
+          progressbar.style.width = '40%';
+        },
+        success: function(data, textStatus, jqXHR) {
+          progressbar.style.width = '90%';
+          var ulcocktails = $('#ul-cocktails');
+          $.each(data, function(i, cktl){
+            var link = $('<a>', {
+              href: '#info-cktl',
+              click: function() {
+                loadCocktail(cktl);
+              },
+              text: cktl.nombre
+            });
+            link.attr('data-toggle', 'modal');
+            var li = $('<li>', {});
+            li.append(link);
+            ulcocktails.append(li);
+          });
+          progressbar.style.width = '100%';
+          setTimeout(eliminarBarra, 500);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          $(progressbar.parentElement).addClass('progress-danger');
+          $('#errors-cocktail-list').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+        }
+      });
+    });
+
+    function eliminarBarra() {
+      var progressbar = $('#progress-bar')[0];
+      progressbar.parentElement.remove();
+      $('#div-dropdown').removeClass('hide');
+    }
+
+    function loadCocktail(cktl) {
+      $('#info-cktl-title').text('Cocktail ' + cktl.nombre);
+      loadImageCocktail(cktl._id, cktl.nombre);
+      $('#info-cktl-info').append('<p><strong>Nombre:</strong> ' + cktl.nombre + '<br>'
+        + '<strong>Creado por:</strong> ' + cktl.creador + '<br>'
+        + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
+        + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
+        + '<strong>Carb&oacute;nico</strong> ' + cktl.carbonico + '</p>');
+      $('#info-cktl-guardar').unbind('click').click(function() {
+        recomendarCocktail(cktl._id);
+      });
+    }
+
+    function loadImageCocktail(id, nombre) {
+      var img = $('#info-cktl-img');
+      img.append('Loading...'); //TODO Posar un gif o una animacio
+      $.ajax({
+        url: '/images/' + id,
+        method: 'get',
+        dataType: 'json',
+        success: function(data) {
+          img.empty();
+          img.append($('<img>', {
+            src: data.img,
+            alt: 'Cocktail ' + nombre
+          }));
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+      });
+    }
+
+    function recomendarCocktail(id) {
+      alert('Recomendar: ' + id);
+      $('#info-cktl').modal('hide');
+    }
+
 block content
   #header.well
     h1 #{title}
@@ -18,11 +105,32 @@ block content
         form(action="/images", method="post", enctype="multipart/form-data")
           input(type="file", name="imageFile")
           input(type="submit", name="submitButton")
-            i.btn.btn-success
-              Subir
+            i.btn.btn-success Subir
+
     .row-fluid
-      #asdasd.well
-        p(name='loremipsum') Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      #map-locations.well
+        h2 Puntos en el mapa
+        p Pendiente...
+
     .row-fluid
-      .well
-        p(name='loremipsum2') Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      #recommended-cocktail.well
+        h2 Cocktail recomendado
+        #recommended-cocktail-container
+          .progress.progress-striped.active
+            #progress-bar.bar(style='width: 0%;')
+        #div-dropdown.btn-group.hide
+          a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Elige un cocktail
+          ul#ul-cocktails.dropdown-menu
+        #errors-cocktail-list.alert.alert-error.hide
+
+  #info-cktl.modal.hide.fade
+    .modal-header
+      button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      h3#info-cktl-title
+    .modal-body
+      .container-fluid
+        .row-fluid
+          .span3#info-cktl-img
+          .span9#info-cktl-info
+    .modal-footer
+      a#info-cktl-guardar.btn.btn-primary Recomendar
