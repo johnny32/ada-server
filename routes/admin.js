@@ -78,23 +78,15 @@ exports.loginPage = function(req, res) {
  */
 exports.loginAction = function(req, res) {
   var user = req.body.user;
-  var pass = req.body.pass;
+  var pass = req.body.passenc;
   console.log('Retrieving admin user: ' + user);
   console.log('Encrypted password: ' + pass);
   db.collection('reg_users', function(err, collection) {
-    collection.findOne({'user': user}, function(err, item) {
-      if (!err) {
-        db.collection('reg_users', function(err, collection) {
-          collection.findOne({'pass': pass}, function(err, item) { //TODO S'ho traga tot...
-            if (!err) {
-              console.log("Correct admin user: " + req.body.user);
-              req.session.logged = true;
-              res.redirect('/admin');
-            } else {
-              fail();
-            }
-          });
-        });
+    collection.findOne({'user': user, 'pass': pass}, function(err, item) {
+      if (!err && item != null) {
+        console.log("Correct admin user: " + req.body.user);
+        req.session.logged = true;
+        res.redirect('/admin');
       } else {
         fail();
       }
@@ -104,7 +96,7 @@ exports.loginAction = function(req, res) {
   function fail() {
     console.log("Incorrect admin user/password: " + req.body.user);
     res.render('login', {
-      title: 'Login | Sinatra Cockteleria',
+      title: 'Login',
       error: 'Usuario o contrase&ntilde;a incorrecto(s).'
     })
   }

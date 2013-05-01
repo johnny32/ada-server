@@ -7,24 +7,32 @@
 
 extends layout
 
-body
-  block content
-    #login-container(style="margin-left: auto;")
-      form(method="post", action="/login", onsubmit="$('#pass-tf').val(Sha256.hash($('#pass-tf').val()));")#login-form.well.span4
-        p.subheading Por favor, inicie sesión para continuar.
-        label Usuario
-        input(type="text", name="user", id='user-tf').span4.required
-        label Password
-        input(type="password", name="pass", id='pass-tf').span4.required
-        #errors.alert-error #{error}
-        .form-inline.row-fluid
-          button(type="submit")#btn-login.btn.btn-primary.span3
-            i.icon-lock.icon-white
-            | &nbsp;Entrar
-          label#remember-me.checkbox.span5.pull-right No cerrar sesi&oacute;n
-            input(type="checkbox", checked='checked')
-        div.clear-fix
-        hr
-        div.btm-links
-          a(href='#')#forgot-password Recordar contrase&ntilde;a
+block scripts
+  script
+    $(document).ready(function() {
+      if ($('#errors').text() == '') {
+        $('#errors').hide();
+      }
+    });
+
+block content
+  #login-container
+    form(method="post", action="/login", onsubmit="$('#passenc-tf').val(Sha256.hash($('#pass-tf').val())); $('#pass-enc').val('');")#login-form.well
+      p.subheading Por favor, inicie sesión para continuar.
+      label Usuario
+      input(type="text", name="user", id='user-tf').span4.required
+      label Password
+      input(type="password", name="pass", id='pass-tf').span4.required
+      input(type="hidden", name="passenc", id='passenc-tf')
+      #errors.alert.alert-error #{error}
+      .form-inline.row-fluid
+        button(type="submit")#btn-login.btn.btn-primary.span4
+          i.icon-lock.icon-white
+          | &nbsp;Entrar
+        label#remember-me.checkbox.span5.pull-right No cerrar sesi&oacute;n
+          input(type="checkbox", checked='checked')
+      div.clear-fix
+      hr
+      div.btm-links
+        a(href='#')#forgot-password Recordar contrase&ntilde;a
 
