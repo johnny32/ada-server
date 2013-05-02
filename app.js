@@ -8,6 +8,7 @@ var express = require('express')
   , user = require('./routes/user')
   , admin = require('./routes/admin')
   , cocktail = require('./routes/cocktail')
+  , web = require('./routes/web')
   , http = require('http')
   , path = require('path');
 
@@ -42,7 +43,7 @@ app.get('/users/twitter/:id_twitter', user.findByTwitter);
 app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/:id', cocktail.findById);
-app.get('/images/:id_cocktail', cocktail.image);
+app.get('/image/:id_cocktail', cocktail.image);
 app.get('/ratings/:id_cocktail', cocktail.rating);
 app.post('/cocktails', cocktail.create);
 
@@ -50,6 +51,10 @@ app.post('/cocktails', cocktail.create);
 app.get('/admin', checkLogged, admin.index);
 app.get('/login', admin.loginPage);
 app.post('/login', admin.loginAction);
+app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
+
+//Web (frontend)
+app.get('/:id_cocktail', web.cocktail);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

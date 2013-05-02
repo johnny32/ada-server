@@ -8,8 +8,8 @@
 var mongo = require('mongodb');
 
 var Server = mongo.Server,
-  Db = mongo.Db,
-  BSON = mongo.BSONPure;
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
 
 var server = new Server('localhost', 27017, {auto_reconnect: true});
 db = new Db('sinatra', server);
@@ -100,6 +100,43 @@ exports.loginAction = function(req, res) {
       error: 'Usuario o contrase&ntilde;a incorrecto(s).'
     })
   }
+}
+
+/**
+ * Marca un cocktail com a recomanat (i desmarca la resta).
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-01
+ */
+exports.recommendCocktail = function(req, res) {
+  var id_cocktail = req.params.id_cocktail;
+  db.collection('cocktails', function(err, collection) {
+    console.log('Unchecking recommended cocktails...');
+    collection.update({}, {$unset: {recomendado: 1}}, {safe: true, multi: true}, function(err, object) {
+      if (!err) {
+        console.log('Uncheck successful!');
+        console.log('Checking recommended cocktail: ' + id_cocktail);
+        collection.update({'_id': new BSON.ObjectID(id_cocktail)}, {$set: {recomendado: 1}}, {safe: true}, function(err, object) {
+          if (!err) {
+            console.log(object);
+            console.log(err);
+            console.log('Check successful!');
+            res.send({
+              id_cocktail: '2'
+            });
+          } else {
+            console.log('Check unsuccessful...');
+          }
+        }); //Linea magica 2: tampoco tocar!
+      } else {
+        console.log('Uncheck unsuccessful...');
+      }
+    });
+  });
 }
 
 function populateDB() {

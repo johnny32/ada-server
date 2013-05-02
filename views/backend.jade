@@ -16,43 +16,57 @@ block scripts
         $('#info-cktl-info').empty();
       });
 
-      var progressbar = $('#progress-bar')[0];
-      $.ajax({
-        url: '/cocktails',
-        method: 'get',
-        dataType: 'json',
-        beforeSend: function(header) {
-          progressbar.style.width = '40%';
-        },
-        success: function(data, textStatus, jqXHR) {
-          progressbar.style.width = '90%';
-          var ulcocktails = $('#ul-cocktails');
-          $.each(data, function(i, cktl){
-            var link = $('<a>', {
-              href: '#info-cktl',
-              click: function() {
-                loadCocktail(cktl);
-              },
-              text: cktl.nombre
-            });
-            link.attr('data-toggle', 'modal');
-            var li = $('<li>', {});
-            li.append(link);
-            ulcocktails.append(li);
-          });
-          progressbar.style.width = '100%';
-          setTimeout(eliminarBarra, 500);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          $(progressbar.parentElement).addClass('progress-danger');
-          $('#errors-cocktail-list').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
-        }
-      });
+      cargarCocktails();
+
     });
+
+    function cargarCocktails() {
+       var progressbar = $('#progress-bar')[0];
+       $(progressbar.parentElement).removeClass('hide');
+       var ulcocktails = $('#ul-cocktails');
+       $(ulcocktails).empty();
+       $('#div-dropdown').addClass('hide');
+         $.ajax({
+           url: '/cocktails',
+           method: 'get',
+           dataType: 'json',
+           beforeSend: function(header) {
+             progressbar.style.width = '40%';
+           },
+           success: function(data, textStatus, jqXHR) {
+             progressbar.style.width = '90%';
+             $.each(data, function(i, cktl){
+               var style = '';
+               if (cktl.recomendado) {
+                   var style = 'font-weight: bold;';
+                   $("#recommended-cocktail h2").text("Cocktail recomendado: " + cktl.nombre);
+               }
+               var link = $('<a>', {
+                 href: '#info-cktl',
+                 style: style,
+                 click: function() {
+                   loadCocktail(cktl);
+                 },
+                 text: cktl.nombre
+               });
+               link.attr('data-toggle', 'modal');
+               var li = $('<li>', {});
+               li.append(link);
+               ulcocktails.append(li);
+             });
+             progressbar.style.width = '100%';
+             setTimeout(eliminarBarra, 500);
+           },
+           error: function(jqXHR, textStatus, errorThrown) {
+             $(progressbar.parentElement).addClass('progress-danger');
+             $('#errors-cocktail-list').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+           }
+         });
+       }
 
     function eliminarBarra() {
       var progressbar = $('#progress-bar')[0];
-      progressbar.parentElement.remove();
+      $(progressbar.parentElement).addClass('hide');
       $('#div-dropdown').removeClass('hide');
     }
 
@@ -73,7 +87,7 @@ block scripts
       var img = $('#info-cktl-img');
       img.append('Loading...'); //TODO Posar un gif o una animacio
       $.ajax({
-        url: '/images/' + id,
+        url: '/image/' + id,
         method: 'get',
         dataType: 'json',
         success: function(data) {
@@ -90,8 +104,20 @@ block scripts
     }
 
     function recomendarCocktail(id) {
-      alert('Recomendar: ' + id);
-      $('#info-cktl').modal('hide');
+      $.ajax({
+        url: '/admin/recommend/' + id,
+        method: 'get',
+        success: function(data) {
+          $('#info-cktl').modal('hide');
+          cargarCocktails();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert("ERROR!");
+          console.log(jqXHR);
+          console.log(textStatus);
+          console.log(errorThrown);
+        }
+      });
     }
 
 block content

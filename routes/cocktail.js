@@ -5,7 +5,6 @@
  * Time: 17:51
  * To change this template use File | Settings | File Templates.
  */
-
 var mongo = require('mongodb');
 
 var Server = mongo.Server,
@@ -45,6 +44,21 @@ exports.list = function(req, res) {
   });
 }
 
+
+findCktlById = function(id, fn, fne) {
+  console.log('Retrieving cocktail: ' + id);
+  db.collection('cocktails', function(err, collection) {
+    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
+      if (!err) {
+        fn(item);
+      } else {
+        console.log("Error: cocktail " + id + " doesn't exist");
+        fne(err);
+      }
+    });
+  });
+}
+
 /**
  * Busca un cocktail pel seu id.
  *
@@ -57,16 +71,7 @@ exports.list = function(req, res) {
  */
 exports.findById = function(req, res) {
   var id = req.params.id;
-  console.log('Retrieving cocktail: ' + id);
-  db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
-      if (!err) {
-        res.send(item);
-      } else {
-        console.log("Error: cocktail " + id + " doesn't exist");
-      }
-    });
-  });
+  findCktlById(id, res.send, console.log)
 }
 
 /**
@@ -99,6 +104,9 @@ exports.create = function(req, res) {
       collection.insert(cktl_ok, function(err, item) {
         if (!err) {
           console.log("Cocktail inserted: " + cktl_ok.nombre);
+          res.send({
+            id_cocktail: item._id
+          });
         } else {
           console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
         }
@@ -126,7 +134,7 @@ exports.image = function(req, res) {
   db.collection('cocktails', function(err, collection) {
     collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
       if (!err) {
-        var img = "/public/images/" + item.vaso + "_" + item.color + ".jpg";
+        var img = "/images/chupitos/" + item.vaso + "_" + item.color + ".jpg";
         res.send({
           id_cocktail: id_cocktail,
           img: img
