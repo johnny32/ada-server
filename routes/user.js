@@ -24,14 +24,15 @@ db.open(function(err, db) {
   }
 });
 
+
 /**
- * Busca un usuari per id.
+ * Serveix un usuari per id
  *
  * @param req
  * @param res
  *
  * @author  jclara
- * @version 1.0
+ * @version 2.0
  * @date    2013-04-11
  */
 exports.findById = function(req, res) {

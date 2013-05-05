@@ -8,9 +8,10 @@
 extends layout
 
 block scripts
+  script(src='/javascripts/sha256.js')
   script
     $(document).ready(function() {
-      checkErrors($('#errors'));
+      checkField($('#errors'));
     });
 
 block content

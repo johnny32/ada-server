@@ -43,7 +43,7 @@ app.get('/users/twitter/:id_twitter', user.findByTwitter);
 app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/:id', cocktail.findById);
-app.get('/image/:id_cocktail', cocktail.image);
+app.get('/image/:vaso/:color', cocktail.image);
 app.get('/ratings/:id_cocktail', cocktail.rating);
 app.post('/cocktails', cocktail.create);
 
@@ -51,6 +51,9 @@ app.post('/cocktails', cocktail.create);
 app.get('/admin', checkLogged, admin.index);
 app.get('/login', admin.loginPage);
 app.post('/login', admin.loginAction);
+app.get('/cocktails_admin', checkLogged, admin.cocktails);
+app.post('/cocktails_admin', checkLogged, admin.createCocktail);
+app.get('/cocktails_admin/:id_cocktail', checkLogged, admin.findCktlById);
 app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
 
 //Web (frontend)

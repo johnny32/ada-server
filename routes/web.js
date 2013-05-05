@@ -7,6 +7,7 @@
  */
 var mongo = require('mongodb');
 require('./cocktail');
+require('./user');
 
 var Server = mongo.Server,
     Db = mongo.Db,
@@ -17,18 +18,10 @@ db = new Db('sinatra', server);
 
 exports.cocktail = function(req, res) {
   var id_cocktail = req.params.id_cocktail;
-  findCktlById(id_cocktail, function(cktl) {
-    res.render('frontend',
-      {
-        title: 'Cocktail',
-        nombre: cktl.nombre,
-        carbonico: cktl.carbonico,
-        zumos: cktl.zumos,
-        licores: cktl.licores,
-        vaso: cktl.vaso,
-        creador: cktl.creador,
-        recomendado: cktl.recomendado
-      }
-    );
-  }, console.log);
+  res.render('frontend',
+    {
+      title: 'Cocktail',
+      id_cocktail: id_cocktail
+    }
+  );
 }

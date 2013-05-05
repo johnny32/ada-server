@@ -7,4 +7,90 @@
 
 extends layout
 
+block style
+  style
+    #cktl-container {
+      margin-left: auto;
+      margin-right: auto;
+      width: 65%;
+    }
+
+    #cktl-img {
+      text-align: center;
+    }
+
+block scripts
+  script
+    $(document).ready(function() {
+      var id_cocktail = '#{id_cocktail}';
+      cargarCocktail(id_cocktail);
+    });
+
+    function cargarCocktail(id) {
+      var progressbar = $('#pb-bar')[0];
+      $(progressbar.parentElement).removeClass('hide');
+      var cktlinfo = $('#cktl-info');
+      $.ajax({
+        url: '/cocktails/' + id,
+        method: 'get',
+        dataType: 'json',
+        beforeSend: function(hdr) {
+          progressbar.style.width = '15%';
+        },
+        success: function(cktl, textStatus, jqXHR) {
+          progressbar.style.width = '30%';
+          var txt = '<h1>Cocktail "' + cktl.nombre + '"</h1>'
+              + '<p><strong>Creado por:</strong> ' + getUser(cktl.creador) + '<br>'
+              + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
+              + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
+              + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '</p>';
+          $(cktlinfo).append(txt);
+          progressbar.style.width = '60%';
+          cargarImgCocktail(id, cktl.nombre, progressbar);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          $(progressbar.parentElement).addClass('progress-danger');
+          $('#errors').text('Error recuperando el cocktail: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+        }
+      });
+    }
+
+    function cargarImgCocktail(id, nombre, progressbar) {
+      $.ajax({
+        url: '/image/' + id,
+        method: 'get',
+        dataType: 'json',
+        beforeSend: function(hdr) {
+          progressbar.style.width = '70%';
+        },
+        success: function(imagen, textStatus, jqXHR) {
+          progressbar.style.width = '85%';
+          var img = $('<img>', {
+            src: imagen.img,
+            alt: 'Cocktail ' + nombre
+          });
+          $('#cktl-img').append(img);
+          progressbar.style.width = '100%';
+          setTimeout(eliminarBarra(progressbar), 500);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          $(progressbar.parentElement).addClass('progress-danger');
+          $('#errors').text('Error recuperando imagen del cocktail: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+        }
+      });
+    }
+
+    function eliminarBarra(progressbar) {
+      $(progressbar.parentElement).addClass('hide');
+      $('#cktl-info').removeClass('hide');
+      $('#cktl-img').removeClass('hide');
+    }
+
 block content
+  .container-fluid
+    #cktl-container.well
+      .progress.progress-striped.active
+        #pb-bar.bar(style='width: 10%;')
+      .row-fluid
+        #cktl-img.hide.span4
+        #cktl-info.hide.span8

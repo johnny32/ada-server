@@ -44,34 +44,28 @@ exports.list = function(req, res) {
   });
 }
 
-
-findCktlById = function(id, fn, fne) {
-  console.log('Retrieving cocktail: ' + id);
-  db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
-      if (!err) {
-        fn(item);
-      } else {
-        console.log("Error: cocktail " + id + " doesn't exist");
-        fne(err);
-      }
-    });
-  });
-}
-
 /**
- * Busca un cocktail pel seu id.
+ * Retorna un cocktail com a objecte JSON pel seu id.
  *
  * @param req
  * @param res
  *
  * @author  jclara
- * @version 1.0
+ * @version 2.0
  * @date    2013-04-09
  */
 exports.findById = function(req, res) {
   var id = req.params.id;
-  findCktlById(id, res.send, console.log)
+  console.log('Retrieving cocktail: ' + id);
+  db.collection('cocktails', function(err, collection) {
+    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
+      if (!err) {
+        res.send(item);
+      } else {
+        console.log("Error: cocktail " + id + " doesn't exist");
+      }
+    });
+  });
 }
 
 /**
@@ -125,24 +119,15 @@ exports.create = function(req, res) {
  * @param res
  *
  * @author  jclara
- * @version 1.0
+ * @version 2.0
  * @date    2013-04-27
  */
 exports.image = function(req, res) {
-  var id_cocktail = req.params.id_cocktail;
-  console.log('Retrieving image for cocktail: ' + id_cocktail);
-  db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
-      if (!err) {
-        var img = "/images/chupitos/" + item.vaso + "_" + item.color + ".jpg";
-        res.send({
-          id_cocktail: id_cocktail,
-          img: img
-        });
-      } else {
-        console.log("Error: cocktail " + id_cocktail + " doesn't exist");
-      }
-    });
+  var vaso = req.params.vaso;
+  var color = req.params.color;
+  var img = "/images/chupitos/" + vaso + "_" + color + ".jpg";
+  res.send({
+    img: img
   });
 }
 
@@ -200,7 +185,7 @@ var populateDB = function() {
       vaso:         "Chupito",
       nombre:       "El mejor",
       color:        "Verde",
-      creador:      "Johnny"
+      creador:      "51680bbaa4f196e415000001"
     },
     {
       zumos:        ["Zumo de pi&ntilde;a"],
@@ -209,7 +194,25 @@ var populateDB = function() {
       vaso:         "Cubata",
       nombre:       "Sex on the mountain",
       color:        "Amarillo",
-      creador:      "Johnny"
+      creador:      "51680bbaa4f196e415000002"
+    },
+    {
+      zumos:        ["Zumo de fresa", "Zumo de naranja", "Zumo de mango"],
+      licores:      ["Ginebra", "Vodka", "Ron"],
+      carbonico:    "Cola",
+      vaso:         "Cubata",
+      nombre:       "GLaDOS",
+      color:        "Rojo",
+      creador:      "51680bbaa4f196e415000002"
+    },
+    {
+      zumos:        ["Naranja"],
+      licores:      ["Vodka"],
+      carbonico:    "Naranja",
+      vaso:         "Chupito",
+      nombre:       "Chupito de vodka con naranja",
+      color:        "Naranja",
+      creador:      "51680bbaa4f196e415000004"
     }
   ];
 
