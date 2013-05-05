@@ -8,6 +8,8 @@
 extends layout
 
 block scripts
+  script(src='/javascripts/backend.js')
+
   script
     $(document).ready(function() {
 
@@ -23,109 +25,9 @@ block scripts
       cargarCocktails();
 
       $('#btn-new').click(function() {
-        $('#new-cktl').modal();
+        nuevoCocktail();
       });
     });
-
-    function cargarCocktails() {
-      var progressbar = $('#progress-bar')[0];
-      $(progressbar.parentElement).removeClass('hide');
-      var ulcocktails = $('#ul-cocktails');
-      $(ulcocktails).empty();
-      $('#div-dropdown').addClass('hide');
-      $.ajax({
-       url: '/cocktails_admin',
-       method: 'get',
-       dataType: 'json',
-       beforeSend: function(header) {
-         progressbar.style.width = '40%';
-       },
-       success: function(data, textStatus, jqXHR) {
-         progressbar.style.width = '80%';
-         $.each(data, function(i, cktl){
-           var style = '';
-           if (cktl.recomendado) {
-               var style = 'font-weight: bold;';
-               $("#recommended-cocktail h2").text("Cocktail recomendado: " + cktl.nombre);
-           }
-           var link = $('<a>', {
-             href: '#info-cktl',
-             style: style,
-             click: function() {
-               loadCocktail(cktl);
-             },
-             text: cktl.nombre
-           });
-           link.attr('data-toggle', 'modal');
-           var li = $('<li>', {});
-           li.append(link);
-           ulcocktails.append(li);
-         });
-         progressbar.style.width = '100%';
-         setTimeout(eliminarBarra, 500);
-       },
-       error: function(jqXHR, textStatus, errorThrown) {
-         $(progressbar.parentElement).addClass('progress-danger');
-         $('#errors-cocktail-list').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
-       }
-      });
-    }
-
-    function eliminarBarra() {
-      var progressbar = $('#progress-bar')[0];
-      $(progressbar.parentElement).addClass('hide');
-      $('#div-dropdown').removeClass('hide');
-      $('#btn-new').removeClass('hide');
-    }
-
-    function loadCocktail(cktl) {
-      $('#info-cktl-title').text('Cocktail ' + cktl.nombre);
-      loadImageCocktail(cktl.nombre, cktl.vaso, cktl.color);
-      $('#info-cktl-info').append('<p><strong>Nombre:</strong> ' + cktl.nombre + '<br>'
-        + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
-        + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
-        + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '</p>');
-      $('#info-cktl-guardar').unbind('click').click(function() {
-        recomendarCocktail(cktl._id);
-      });
-    }
-
-    function loadImageCocktail(nombre, vaso, color) {
-      var img = $('#info-cktl-img');
-      img.append('Loading...'); //TODO Posar un gif o una animacio
-      $.ajax({
-        url: '/image/' + vaso + '/' + color,
-        method: 'get',
-        dataType: 'json',
-        success: function(data) {
-          img.empty();
-          img.append($('<img>', {
-            src: data.img,
-            alt: 'Cocktail ' + nombre
-          }));
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-
-        }
-      });
-    }
-
-    function recomendarCocktail(id) {
-      $.ajax({
-        url: '/admin/recommend/' + id,
-        method: 'get',
-        success: function(data) {
-          $('#info-cktl').modal('hide');
-          cargarCocktails();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert("ERROR!");
-          console.log(jqXHR);
-          console.log(textStatus);
-          console.log(errorThrown);
-        }
-      });
-    }
 
 
 block content
@@ -189,45 +91,21 @@ block content
           label.control-label(for='inputZumos') Zumos
           .controls
             select#inputZumos(multiple='multiple', name='zumos', required)
-              option Zumo de naranja
-              option Zumo de manzana
-              option Zumo de pi&ntilde;a
-              option Zumo de fresa
         .control-group
           label.control-label(for='inputLicores') Licores
           .controls
             select#inputLicores(multiple='multiple', name='licores', required)
-              option Ron
-              option Whisky
-              option Vodka
-              option Ginebra
-              option Tequila
-              option Absenta
         .control-group
           label.control-label(for='inputCarbonico') Carb&oacute;nico
           .controls
             select#inputCarbonico(name='carbonico', required)
-              option Cola
-              option Lim&oacute;n
-              option Naranja
-              option T&oacute;nica
         .control-group
           label.control-label(for='inputVaso') Vaso
           .controls
             select#inputVaso(name='vaso', required)
-              option Cubata
-              option Chupito
-              option Pinta
         .control-group
           label.control-label(for='inputColor') Color
           .controls
             select#inputColor(name='color', required)
-              option Blanco
-              option Amarillo
-              option Verde
-              option Naranja
-              option Rojo
-              option Azul
-              option Negro
     .modal-footer
       btn#new-cktl-guardar.btn.btn-primary(onclick='$("#form-new").submit();') Guardar

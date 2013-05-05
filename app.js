@@ -9,6 +9,7 @@ var express = require('express')
   , admin = require('./routes/admin')
   , cocktail = require('./routes/cocktail')
   , web = require('./routes/web')
+  , ingredients = require('./routes/ingredients')
   , http = require('http')
   , path = require('path');
 
@@ -43,9 +44,12 @@ app.get('/users/twitter/:id_twitter', user.findByTwitter);
 app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/:id', cocktail.findById);
+app.post('/cocktails', cocktail.create);
 app.get('/image/:vaso/:color', cocktail.image);
 app.get('/ratings/:id_cocktail', cocktail.rating);
-app.post('/cocktails', cocktail.create);
+app.get('/ingredients', ingredients.list);
+app.get('/ingredients/tipo/:tipo', ingredients.listByType);
+app.get('/ingredients/:id', ingredients.findById);
 
 //Backend
 app.get('/admin', checkLogged, admin.index);
