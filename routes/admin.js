@@ -9,17 +9,18 @@ var mongo = require('mongodb');
 
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/sinatra';
 
+var dbPort = (mongoUri == 'mongodb://localhost/sinatra') ? 27017 : 10034;
+
 var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
+var server = new Server(mongoUri, dbPort, {auto_reconnect: true});
 db = new Db('sinatra', server);
 
-//db.open(function(err, db) {
-mongo.Db.connect(mongoUri, function(err, db) {
+db.open(function(err, db) {
   if (!err) {
-    db.collection('users', {strict: true}, function(err, collection) {
+    dba.collection('users', {strict: true}, function(err, collection) {
       if (err) {
         console.log("The 'reg_users' collection doesn't exist. Creating it with sample data...");
         populateDB();
