@@ -85,7 +85,7 @@ exports.loginAction = function(req, res) {
   console.log('Encrypted password: ' + pass);
   db.collection('reg_users', function(err, collection) {
     if (err) {
-      console.log("Errorrrrrrrrrrrrrrrrrrrrrrrrr: " + err);
+      console.log("Errorrrrrrrrrrrrrrrrrrrrrrrrr: " + mongoUri);
     }
     collection.findOne({'user': user, 'pass': pass}, function(err, item) {
       if (!err && item != null) {
