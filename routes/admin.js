@@ -22,6 +22,8 @@ mongo.Db.connect(mongoUri, function (err, db) {
   });
 });
 
+var db = mongo.Db;
+
 /**
  * Accedeix a la part de backend (si l'admin ha iniciat sessio) o renderitza la pagina de login
  *
@@ -82,6 +84,9 @@ exports.loginAction = function(req, res) {
   console.log('Retrieving admin user: ' + user);
   console.log('Encrypted password: ' + pass);
   db.collection('reg_users', function(err, collection) {
+    if (err) {
+      console.log("Errorrrrrrrrrrrrrrrrrrrrrrrrr: " + err);
+    }
     collection.findOne({'user': user, 'pass': pass}, function(err, item) {
       if (!err && item != null) {
         console.log("Correct admin user: " + req.body.user);
