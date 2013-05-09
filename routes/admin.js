@@ -53,7 +53,7 @@ exports.index = function(req, res) {
  * @date    2013-04-28
  */
 exports.loginPage = function(req, res) {
-  console.log("HOLLAAAAAV AJHDVASGUDVGASKDVASGKJDVGJASVDKGJASVDKJASG·KDJA");
+  console.log("HOLLAAAAAVAJHDVASGUDVGASKDVASGKJDVGJASVDKGJASVDKJASG·KDJA");
   if (req.session.logged) {
     res.redirect('/admin');
   }
