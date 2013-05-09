@@ -7,22 +7,13 @@
  */
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHOW_URL || 'mongodb://localhost/sinatra';
 
-var server = new Server('ds061757-a.mongolab.com/10.62.23.112', 61757, {auto_reconnect: true});
-db = new Db('heroku_app15542801', server);
-
-db.open(function(err, db) {
-  if (!err) {
-    db.collection('users', {strict: true}, function(err, collection) {
-      if (err) {
-        console.log("The 'reg_users' collection doesn't exist. Creating it with sample data...");
-        populateDB();
-      }
+mongo.Db.connect(mongoUri, function (err, db) {
+  db.collection('mydocs', function(er, collection) {
+    collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
     });
-  }
+  });
 });
 
 /**
