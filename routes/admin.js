@@ -11,11 +11,11 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHOW_URL || 'mongodb:
 
 mongo.Db.connect(mongoUri, function (err, db) {
   if (err) {
-    console.log("Error 1:" + mongoUri);
+    console.log("Error 1: " + mongoUri);
   }
   db.collection('mydocs', function(er, collection) {
     if (er) {
-      console.log("Error 2": + mongoUri);
+      console.log("Error 2: " + mongoUri);
     }
     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
     });
