@@ -15,6 +15,8 @@ block scripts
 
       checkField($('#error_new'));
       checkField($('#msg_new'));
+      checkField($('#error_new_ingredient'));
+      checkField($('#msg_new_ingredient'));
 
       $('#info-cktl').on('hide', function () {
         $('#info-cktl-title').empty();
@@ -23,9 +25,14 @@ block scripts
       });
 
       cargarCocktails();
+      cargarIngredientes();
 
-      $('#btn-new').click(function() {
+      $('#btn-new-cktl').click(function() {
         nuevoCocktail();
+      });
+
+      $('#btn-new-ingredient').click(function() {
+        nuevoIngrediente();
       });
     });
 
@@ -49,21 +56,59 @@ block content
         p Pendiente...
 
     .row-fluid
-      #recommended-cocktail.well
-        h2 Cocktails
-        #recommended-cocktail-container
-          .progress.progress-striped.active
-            #progress-bar.bar(style='width: 0%;')
-        #div-dropdown.btn-group.hide
-          a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Elige un cocktail
-          ul#ul-cocktails.dropdown-menu
-        &nbsp;
-        &nbsp;
-        button#btn-new.btn.btn-primary.hide Nuevo cocktail
-        #errors-cocktail-list.alert.alert-error.hide
-        #alerts
-          #error_new.alert.alert-error #{error_new}
-          #msg_new.alert.alert-info #{msg_new}
+      .span6
+        #recommended-cocktail.well
+          h2 Cocktails
+          #recommended-cocktail-container
+            .progress.progress-striped.active
+              #pb-cocktails.bar(style='width: 0%;')
+          #div-dropdown.btn-group.hide
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Elige un cocktail
+            ul#ul-cocktails.dropdown-menu
+          &nbsp;
+          &nbsp;
+          button#btn-new-cktl.btn.btn-primary.hide Nuevo cocktail
+          #errors-cocktail-list.alert.alert-error.hide
+          #alerts
+            #error_new.alert.alert-error #{error_new}
+            #msg_new.alert.alert-info #{msg_new}
+
+      .span6
+        #ingredients.well
+          h2 Ingredientes
+          #ingredients-container
+            .progress.progress-striped.active
+              #pb-ingredients.bar(style='width: 0%;')
+          #drop-zumos.btn-group.hide
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Zumos
+            ul#ul-zumos.dropdown-menu
+          &nbsp;
+          &nbsp;
+          #drop-licores.btn-group.hide
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Licores
+            ul#ul-licores.dropdown-menu
+          &nbsp;
+          &nbsp;
+          #drop-carbonicos.btn-group.hide
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Carbónicos
+            ul#ul-carbonicos.dropdown-menu
+          &nbsp;
+          &nbsp;
+          #drop-vasos.btn-group.hide
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Vasos
+            ul#ul-vasos.dropdown-menu
+          &nbsp;
+          &nbsp;
+          #drop-colores.btn-group.hide
+            a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Colores
+            ul#ul-colores.dropdown-menu
+          &nbsp;
+          &nbsp;
+          button#btn-new-ingredient.btn.btn-primary.hide Nuevo ingrediente
+          #errors-ingredients.alert.alert-error.hide
+          #alerts
+            #error_new_ingredient.alert.alert-error #{error_new}
+            #msg_new_ingredient.alert.alert-info #{msg_new}
 
   #info-cktl.modal.hide.fade
     .modal-header
@@ -82,7 +127,7 @@ block content
       button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
       h3#info-cktl-title Nuevo cocktail
     .modal-body
-      form#form-new.form-horizontal(action='/cocktails_admin', method='post')
+      form#form-new-cktl.form-horizontal(action='/cocktails_admin', method='post')
         .control-group
           label.control-label(for='inputNombre') Nombre
           .controls
@@ -108,4 +153,26 @@ block content
           .controls
             select#inputColor(name='color', required)
     .modal-footer
-      btn#new-cktl-guardar.btn.btn-primary(onclick='$("#form-new").submit();') Guardar
+      btn#new-cktl-guardar.btn.btn-primary(onclick='$("#form-new-cktl").submit();') Guardar
+
+  #new-ingredient.modal.hide.fade
+    .modal-header
+      button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      h3#info-cktl-title Nuevo ingrediente
+    .modal-body
+      form#form-new-ingredient.form-horizontal(action='/cocktails_admin', method='post')
+        .control-group
+          label.control-label(for='inputDescripcion') Descripción
+          .controls
+            input#inputDescripcion(type='text', placeholder='Descripción', name='descripcion', required)
+        .control-group
+          label.control-label(for='inputTipo') Tipo
+          .controls
+            select#inputZumos(name='zumos', required)
+              option(value='Zumo') Zumo
+              option(value='Licor') Licor
+              option(value='Carbonico') Carbónico
+              option(value='Vaso') Vaso
+              option(value='Color') Color
+    .modal-footer
+      btn#new-cktl-guardar.btn.btn-primary(onclick='$("#form-new-ingredient").submit();') Guardar
