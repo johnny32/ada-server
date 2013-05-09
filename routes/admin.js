@@ -14,7 +14,7 @@ var mongo = require('mongodb');
 var server = new Server('localhost', 27017, {auto_reconnect: true});
 db = new Db('sinatra', server);*/
 
-db = mongo.db('mongodb://devsinatracockteleria@gmail.com:glAdos22@hatch.mongohq.com:10034/app15542801)
+db = mongo.db('mongodb://devsinatracockteleria:glAdos22@hatch.mongohq.com:10034/app15542801)
 
 
 db.open(function(err, db) {
