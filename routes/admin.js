@@ -7,21 +7,23 @@
  */
 var mongo = require('mongodb');
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHOW_URL || 'mongodb://localhost/sinatra';
+var Server = mongo.Server,
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
 
-mongo.Db.connect(mongoUri, function (err, db) {
-  if (err) {
-    console.log("Error 1: " + mongoUri);
-  }
-  db.collection('mydocs', function(er, collection) {
-    if (er) {
-      console.log("Error 2: " + mongoUri);
-    }
-    collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
+var server = new Server('localhost', 27017, {auto_reconnect: true});
+db = new Db('sinatra', server);
+
+db.open(function(err, db) {
+  if (!err) {
+    db.collection('users', {strict: true}, function(err, collection) {
+      if (err) {
+        console.log("The 'reg_users' collection doesn't exist. Creating it with sample data...");
+        populateDB();
+      }
     });
-  });
+  }
 });
-
 
 /**
  * Accedeix a la part de backend (si l'admin ha iniciat sessio) o renderitza la pagina de login
@@ -53,7 +55,6 @@ exports.index = function(req, res) {
  * @date    2013-04-28
  */
 exports.loginPage = function(req, res) {
-  console.log("HOLLAAAAAVAJHDVASGUDVGASKDVASGKJDVGJASVDKGJASVDKJASG·KDJA");
   if (req.session.logged) {
     res.redirect('/admin');
   }
@@ -82,10 +83,7 @@ exports.loginAction = function(req, res) {
   var pass = req.body.passenc;
   console.log('Retrieving admin user: ' + user);
   console.log('Encrypted password: ' + pass);
-  mongo.Db.collection('reg_users', function(err, collection) {
-    if (err) {
-      console.log("Errorrrrrrrrrrrrrrrrrrrrrrrrr: " + mongoUri);
-    }
+  db.collection('reg_users', function(err, collection) {
     collection.findOne({'user': user, 'pass': pass}, function(err, item) {
       if (!err && item != null) {
         console.log("Correct admin user: " + req.body.user);
