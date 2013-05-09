@@ -82,7 +82,7 @@ exports.loginAction = function(req, res) {
   var pass = req.body.passenc;
   console.log('Retrieving admin user: ' + user);
   console.log('Encrypted password: ' + pass);
-  db.collection('reg_users', function(err, collection) {
+  mongo.Db.collection('reg_users', function(err, collection) {
     if (err) {
       console.log("Errorrrrrrrrrrrrrrrrrrrrrrrrr: " + mongoUri);
     }
