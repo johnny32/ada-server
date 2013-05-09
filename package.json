@@ -1,9 +1,9 @@
 {
   "name": "sinatracockteleria",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "private": true,
   "engines": {
-    "node": "0.10.1",
+    "node": "0.8.22",
     "npm": "1.2.15"
   },
   "scripts": {
@@ -12,5 +12,6 @@
   "dependencies": {
     "express": "3.1.1",
     "jade": "*"
-  }
+  },
+  "subdomain": "sinatracockteleria"
 }
