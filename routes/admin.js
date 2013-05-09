@@ -22,7 +22,6 @@ mongo.Db.connect(mongoUri, function (err, db) {
   });
 });
 
-var db = mongo.Db;
 
 /**
  * Accedeix a la part de backend (si l'admin ha iniciat sessio) o renderitza la pagina de login
