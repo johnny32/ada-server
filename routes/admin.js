@@ -7,7 +7,17 @@
  */
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/sinatra';
+
+mongo.Db.connect(mongoUri, function (err, db) {
+  db.collection('reg_users', function(er, collection) {
+    if (err) {
+      populateDB();
+    }
+  });
+});
+
+/*var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
@@ -23,7 +33,7 @@ db.open(function(err, db) {
       }
     });
   }
-});
+});*/
 
 /**
  * Accedeix a la part de backend (si l'admin ha iniciat sessio) o renderitza la pagina de login
