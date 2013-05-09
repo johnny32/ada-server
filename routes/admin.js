@@ -7,26 +7,12 @@
  */
 var mongo = require('mongodb');
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/sinatra';
-
-mongo.Db.connect(mongoUri, function (err, db) {
-  if (!err) {
-    db.collection('reg_users', function(er, collection) {
-      if (err) {
-        populateDB();
-      }
-    });
-  } else {
-    console.log("SU PUTA MADRE: " + err);
-  }
-});
-
-/*var Server = mongo.Server,
+var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server('devsinatracockteleria:glAdos22@hatch.mongohq.com', 10034, {auto_reconnect: true});
-db = new Db('app15542801', server);
+var server = new Server('ds061757-a.mongolab.com/10.62.23.112', 61757, {auto_reconnect: true});
+db = new Db('heroku_app15542801', server);
 
 db.open(function(err, db) {
   if (!err) {
@@ -37,7 +23,7 @@ db.open(function(err, db) {
       }
     });
   }
-});*/
+});
 
 /**
  * Accedeix a la part de backend (si l'admin ha iniciat sessio) o renderitza la pagina de login
