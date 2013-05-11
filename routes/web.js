@@ -6,15 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 var mongo = require('mongodb');
-require('./cocktail');
-require('./user');
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var mongoUri = process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/sinatra';
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('sinatra', server);
+var BSON = mongo.BSONPure;
 
 exports.cocktail = function(req, res) {
   var id_cocktail = req.params.id_cocktail;

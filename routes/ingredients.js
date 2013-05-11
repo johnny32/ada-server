@@ -7,24 +7,11 @@
  */
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
-  Db = mongo.Db,
-  BSON = mongo.BSONPure;
+var mongoUri = process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/sinatra';
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('sinatra', server);
-
-db.open(function(err, db) {
-  if (!err) {
-    console.log("Connected to 'sinatra' database");
-    db.collection('ingredients', {strict: true}, function(err, collection) {
-      if (err) {
-        console.log("The 'ingredients' collection doesn't exist. Creating it with sample data...");
-        populateDB();
-      }
-    });
-  }
-});
+var BSON = mongo.BSONPure;
 
 /**
  * Llista tots els ingredients.
@@ -37,9 +24,11 @@ db.open(function(err, db) {
  * @date    2013-05-05
  */
 exports.list = function(req, res) {
-  db.collection('ingredients', function(err, collection) {
-    collection.find().sort({descripcion: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.find().sort({descripcion: 1}).toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -57,9 +46,11 @@ exports.list = function(req, res) {
 exports.listByType = function(req, res) {
   var tipo = req.params.tipo;
   console.log('Retrieving ingredients of type: ' + tipo);
-  db.collection('ingredients', function(err, collection) {
-    collection.find({tipo: tipo}).sort({descripcion: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.find({tipo: tipo}).sort({descripcion: 1}).toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -77,13 +68,15 @@ exports.listByType = function(req, res) {
 exports.findById = function(req, res) {
   var id = req.params.id;
   console.log('Retrieving ingredient: ' + id);
-  db.collection('ingredients', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
-      if (!err) {
-        res.send(item);
-      } else {
-        console.log("Error: ingredient " + id + " doesn't exist");
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
+        if (!err) {
+          res.send(item);
+        } else {
+          console.log("Error: ingredient " + id + " doesn't exist");
+        }
+      });
     });
   });
 }

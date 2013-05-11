@@ -9,7 +9,9 @@ var mongo = require('mongodb');
 
 var mongoUri = process.env.MONGOLAB_URI || 
   process.env.MONGOHQ_URL || 
-  'mongodb://localhost/sinatra'; 
+  'mongodb://localhost/sinatra';
+
+var BSON = mongo.BSONPure;
 
 /**
  * Accedeix a la part de backend (si l'admin ha iniciat sessio) o renderitza la pagina de login
@@ -105,27 +107,29 @@ exports.loginAction = function(req, res) {
  */
 exports.recommendCocktail = function(req, res) {
   var id_cocktail = req.params.id_cocktail;
-  db.collection('cocktails_admin', function(err, collection) {
-    console.log('Unchecking recommended cocktails...');
-    collection.update({}, {$unset: {recomendado: 1}}, {safe: true, multi: true}, function(err, object) {
-      if (!err) {
-        console.log('Uncheck successful!');
-        console.log('Checking recommended cocktail: ' + id_cocktail);
-        collection.update({'_id': new BSON.ObjectID(id_cocktail)}, {$set: {recomendado: 1}}, {safe: true}, function(err, object) {
-          if (!err) {
-            console.log(object);
-            console.log(err);
-            console.log('Check successful!');
-            res.send({
-              id_cocktail: id_cocktail
-            });
-          } else {
-            console.log('Check unsuccessful...');
-          }
-        }); //Linea magica 2: tampoco tocar!
-      } else {
-        console.log('Uncheck unsuccessful...');
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      console.log('Unchecking recommended cocktails...');
+      collection.update({}, {$unset: {recomendado: 1}}, {safe: true, multi: true}, function(err, object) {
+        if (!err) {
+          console.log('Uncheck successful!');
+          console.log('Checking recommended cocktail: ' + id_cocktail);
+          collection.update({'_id': new BSON.ObjectID(id_cocktail)}, {$set: {recomendado: 1}}, {safe: true}, function(err, object) {
+            if (!err) {
+              console.log(object);
+              console.log(err);
+              console.log('Check successful!');
+              res.send({
+                id_cocktail: id_cocktail
+              });
+            } else {
+              console.log('Check unsuccessful...');
+            }
+          }); //Linea magica 2: tampoco tocar!
+        } else {
+          console.log('Uncheck unsuccessful...');
+        }
+      });
     });
   });
 }
@@ -141,9 +145,11 @@ exports.recommendCocktail = function(req, res) {
  * @date    2013-05-04
  */
 exports.cocktails = function(req, res) {
-  db.collection('cocktails_admin', function(err, collection) {
-    collection.find().sort({nombre: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      collection.find().sort({nombre: 1}).toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -161,27 +167,15 @@ exports.cocktails = function(req, res) {
 exports.findCktlById = function(req, res) {
   var id = req.params.id_cocktail;
   console.log('Retrieving admin cocktail: ' + id);
-  db.collection('cocktails_admin', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
-      if (!err) {
-        res.send(cktl);
-      } else {
-        console.log("Error: admin cocktail " + id + " doesn't exist");
-      }
-    });
-  });
-}
-
-function getIngredient(id_ingredient) {
-  console.log("Retrieving ingredient " + id_ingredient);
-  db.collection('ingredients', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id_ingredient)}, {safe:true}, function (err, ing) {
-      if (!err) {
-        console.log("Voy a devolver " + ing.descripcion);
-        return ing.descripcion;
-      } else {
-        console.log("Ingredient not found: " + id_ingredient);
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
+        if (!err) {
+          res.send(cktl);
+        } else {
+          console.log("Error: admin cocktail " + id + " doesn't exist");
+        }
+      });
     });
   });
 }
@@ -201,32 +195,34 @@ exports.createCocktail = function(req, res) {
   console.log('Receiving admin cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
   if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.color) {
-    db.collection('cocktails_admin', function(err, collection) {
-      //Filtrem la resta de camps
-      var cktl_ok =
-      {
-        zumos:      [cktl.zumos],
-        licores:    [cktl.licores],
-        carbonico:  cktl.carbonico,
-        vaso:       cktl.vaso,
-        nombre:     cktl.nombre,
-        color:      cktl.color
-      };
-      collection.insert(cktl_ok, function(err, item) {
-        if (!err) {
-          console.log("Admin cocktail inserted: " + cktl_ok.nombre);
-          res.render('backend',
-            {
-              title: 'Zona de administraci&oacute;n',
-              error_new: '',
-              msg_new: 'Cocktail creado correctamente'
-            }
-          );
-        } else {
-          console.log("Error: admin cocktail couldn't be inserted: " + cktl_ok.nombre);
-        }
-      });
-    })
+    mongo.Db.connect(mongoUri, function (err, db) {
+      db.collection('cocktails_admin', function(err, collection) {
+        //Filtrem la resta de camps
+        var cktl_ok =
+        {
+          zumos:      [cktl.zumos],
+          licores:    [cktl.licores],
+          carbonico:  cktl.carbonico,
+          vaso:       cktl.vaso,
+          nombre:     cktl.nombre,
+          color:      cktl.color
+        };
+        collection.insert(cktl_ok, function(err, item) {
+          if (!err) {
+            console.log("Admin cocktail inserted: " + cktl_ok.nombre);
+            res.render('backend',
+              {
+                title: 'Zona de administraci&oacute;n',
+                error_new: '',
+                msg_new: 'Cocktail creado correctamente'
+              }
+            );
+          } else {
+            console.log("Error: admin cocktail couldn't be inserted: " + cktl_ok.nombre);
+          }
+        });
+      })
+    });
   } else {
     console.log("Error: admin cocktail not inserted (missing fields).");
     res.render('backend',

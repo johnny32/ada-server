@@ -7,24 +7,11 @@
  */
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var mongoUri = process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/sinatra';
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('sinatra', server);
-
-db.open(function(err, db) {
-  if (!err) {
-    console.log("Connected to 'sinatra' database");
-    db.collection('cocktails', {strict: true}, function(err, collection) {
-      if (err) {
-        console.log("The 'cocktails' collection doesn't exist. Creating it with sample data...");
-        populateDB();
-      }
-    });
-  }
-});
+var BSON = mongo.BSONPure;
 
 /**
  * Llista tots els cocktails.
@@ -37,9 +24,11 @@ db.open(function(err, db) {
  * @date    2013-04-09
  */
 exports.list = function(req, res) {
-  db.collection('cocktails', function(err, collection) {
-    collection.find().sort({rating: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.find().sort({rating: 1}).toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -57,13 +46,15 @@ exports.list = function(req, res) {
 exports.findById = function(req, res) {
   var id = req.params.id;
   console.log('Retrieving cocktail: ' + id);
-  db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
-      if (!err) {
-        res.send(cktl);
-      } else {
-        console.log("Error: cocktail " + id + " doesn't exist");
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
+        if (!err) {
+          res.send(cktl);
+        } else {
+          console.log("Error: cocktail " + id + " doesn't exist");
+        }
+      });
     });
   });
 }
@@ -83,29 +74,31 @@ exports.create = function(req, res) {
   console.log('Receiving cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
   if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.color && cktl.creador) {
-    db.collection('cocktails', function(err, collection) {
-      //Filtrem la resta de camps
-      var cktl_ok =
-      {
-        zumos:      cktl.zumos,
-        licores:    cktl.licores,
-        carbonico:  cktl.carbonico,
-        vaso:       cktl.vaso,
-        nombre:     cktl.nombre,
-        color:      cktl.color,
-        creador:    cktl.creador
-      };
-      collection.insert(cktl_ok, function(err, item) {
-        if (!err) {
-          console.log("Cocktail inserted: " + cktl_ok.nombre);
-          res.send({
-            id_cocktail: item._id
-          });
-        } else {
-          console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
-        }
+    mongo.Db.connect(mongoUri, function (err, db) {
+      db.collection('cocktails', function(err, collection) {
+        //Filtrem la resta de camps
+        var cktl_ok =
+        {
+          zumos:      cktl.zumos,
+          licores:    cktl.licores,
+          carbonico:  cktl.carbonico,
+          vaso:       cktl.vaso,
+          nombre:     cktl.nombre,
+          color:      cktl.color,
+          creador:    cktl.creador
+        };
+        collection.insert(cktl_ok, function(err, item) {
+          if (!err) {
+            console.log("Cocktail inserted: " + cktl_ok.nombre);
+            res.send({
+              id_cocktail: item._id
+            });
+          } else {
+            console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
+          }
+        });
       });
-    })
+    });
   } else {
     console.log("Error: cocktail not inserted (missing fields).");
     console.log(cktl);
@@ -144,27 +137,29 @@ exports.image = function(req, res) {
 exports.rating = function(req, res) {
   var id_cocktail = req.params.id_cocktail;
   console.log('Retrieving rating for cocktail: ' + id_cocktail);
-  db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
-      if (!err) {
-        db.collection('ratings', function(err, collection) {
-          collection.find({'id_cocktail': id_cocktail}).toArray(function(err, items) {
-            var rating = 0;
-            if (items.length > 0) {
-              for (var i in items) {
-                rating += parseInt(items[i].rating);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
+        if (!err) {
+          db.collection('ratings', function(err, collection) {
+            collection.find({'id_cocktail': id_cocktail}).toArray(function(err, items) {
+              var rating = 0;
+              if (items.length > 0) {
+                for (var i in items) {
+                  rating += parseInt(items[i].rating);
+                }
+                rating = rating / items.length;
               }
-              rating = rating / items.length;
-            }
-            res.send({
-              id_cocktail: id_cocktail,
-              rating: rating
+              res.send({
+                id_cocktail: id_cocktail,
+                rating: rating
+              });
             });
           });
-        });
-      } else {
-        console.log("Error: cocktail " + id_cocktail + " doesn't exist");
-      }
+        } else {
+          console.log("Error: cocktail " + id_cocktail + " doesn't exist");
+        }
+      });
     });
   });
 }
@@ -181,30 +176,32 @@ exports.rate = function(req, res) {
   var id_user = req.body.id_user;
   var rating = req.body.rating;
   console.log("User " + id_user + " has rated cocktail " + id_cocktail + " with rate " + rating);
-  db.collection('ratings', function(err, collection) {
-    var row = {
-      id_cocktail: id_cocktail,
-      id_user: id_user,
-      rating: rating
-    };
-    collection.insert(row, function(err, item) {
-      if (!err) {
-        console.log("Rating inserted");
-        res.render('frontend', {
-          title: 'Cocktail',
-          id_cocktail: id_cocktail,
-          error: '',
-          msg: 'Cocktail puntuado correctamente.'
-        });
-      } else {
-        console.log("Error: rating couldn't be inserted");
-        res.render('frontend', {
-          title: 'Cocktail',
-          id_cocktail: id_cocktail,
-          error: 'Ha habido un error puntuando el cocktail.',
-          msg: ''
-        });
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ratings', function(err, collection) {
+      var row = {
+        id_cocktail: id_cocktail,
+        id_user: id_user,
+        rating: rating
+      };
+      collection.insert(row, function(err, item) {
+        if (!err) {
+          console.log("Rating inserted");
+          res.render('frontend', {
+            title: 'Cocktail',
+            id_cocktail: id_cocktail,
+            error: '',
+            msg: 'Cocktail puntuado correctamente.'
+          });
+        } else {
+          console.log("Error: rating couldn't be inserted");
+          res.render('frontend', {
+            title: 'Cocktail',
+            id_cocktail: id_cocktail,
+            error: 'Ha habido un error puntuando el cocktail.',
+            msg: ''
+          });
+        }
+      });
     });
   });
 }
@@ -222,16 +219,18 @@ exports.rate = function(req, res) {
 exports.userRate = function(req, res) {
   var id_cocktail = req.params.id_cocktail;
   var id_user = req.params.id_user;
-  db.collection('ratings', function(err, collection) {
-    collection.findOne({$and: [{id_cocktail: id_cocktail}, {id_user: id_user}]}, function(err, rating) {
-      if (rating) {
-        res.send({
-          rating: rating.rating
-        })
-      } else {
-        rating: -1
-      }
-    })
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ratings', function(err, collection) {
+      collection.findOne({$and: [{id_cocktail: id_cocktail}, {id_user: id_user}]}, function(err, rating) {
+        if (rating) {
+          res.send({
+            rating: rating.rating
+          })
+        } else {
+          rating: -1
+        }
+      })
+    });
   });
 }
 
