@@ -12,7 +12,7 @@ var Server = mongo.Server,
     BSON = mongo.BSONPure;
 
 var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('sinatra', server);
+db = new Db('sinatra', server, {safe: true});
 
 db.open(function(err, db) {
   if (!err) {
@@ -173,11 +173,25 @@ exports.findCktlById = function(req, res) {
   var id = req.params.id_cocktail;
   console.log('Retrieving admin cocktail: ' + id);
   db.collection('cocktails_admin', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
+    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
       if (!err) {
-        res.send(item);
+        res.send(cktl);
       } else {
         console.log("Error: admin cocktail " + id + " doesn't exist");
+      }
+    });
+  });
+}
+
+function getIngredient(id_ingredient) {
+  console.log("Retrieving ingredient " + id_ingredient);
+  db.collection('ingredients', function(err, collection) {
+    collection.findOne({'_id': new BSON.ObjectID(id_ingredient)}, {safe:true}, function (err, ing) {
+      if (!err) {
+        console.log("Voy a devolver " + ing.descripcion);
+        return ing.descripcion;
+      } else {
+        console.log("Ingredient not found: " + id_ingredient);
       }
     });
   });

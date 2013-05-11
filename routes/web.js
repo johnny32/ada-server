@@ -21,7 +21,9 @@ exports.cocktail = function(req, res) {
   res.render('frontend',
     {
       title: 'Cocktail',
-      id_cocktail: id_cocktail
+      id_cocktail: id_cocktail,
+      error: '',
+      msg: ''
     }
   );
 }

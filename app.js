@@ -50,6 +50,8 @@ app.get('/ratings/:id_cocktail', cocktail.rating);
 app.get('/ingredients', ingredients.list);
 app.get('/ingredients/tipo/:tipo', ingredients.listByType);
 app.get('/ingredients/:id', ingredients.findById);
+app.post('/ratings', cocktail.rate);
+app.get('/ratings/:id_cocktail/:id_user', cocktail.userRate);
 
 //Backend
 app.get('/admin', checkLogged, admin.index);
@@ -57,7 +59,7 @@ app.get('/login', admin.loginPage);
 app.post('/login', admin.loginAction);
 app.get('/cocktails_admin', checkLogged, admin.cocktails);
 app.post('/cocktails_admin', checkLogged, admin.createCocktail);
-app.get('/cocktails_admin/:id_cocktail', checkLogged, admin.findCktlById);
+app.get('/cocktails_admin/:id_cocktail', admin.findCktlById);
 app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
 
 //Web (frontend)

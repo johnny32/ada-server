@@ -58,9 +58,9 @@ exports.findById = function(req, res) {
   var id = req.params.id;
   console.log('Retrieving cocktail: ' + id);
   db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
+    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
       if (!err) {
-        res.send(item);
+        res.send(cktl);
       } else {
         console.log("Error: cocktail " + id + " doesn't exist");
       }
@@ -152,7 +152,7 @@ exports.rating = function(req, res) {
             var rating = 0;
             if (items.length > 0) {
               for (var i in items) {
-                rating += items[i].rating;
+                rating += parseInt(items[i].rating);
               }
               rating = rating / items.length;
             }
@@ -166,6 +166,72 @@ exports.rating = function(req, res) {
         console.log("Error: cocktail " + id_cocktail + " doesn't exist");
       }
     });
+  });
+}
+
+/**
+ * Puntua un cocktail
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-11
+ */
+exports.rate = function(req, res) {
+  var id_cocktail = req.body.id_cocktail;
+  var id_user = req.body.id_user;
+  var rating = req.body.rating;
+  console.log("User " + id_user + " has rated cocktail " + id_cocktail + " with rate " + rating);
+  db.collection('ratings', function(err, collection) {
+    var row = {
+      id_cocktail: id_cocktail,
+      id_user: id_user,
+      rating: rating
+    };
+    collection.insert(row, function(err, item) {
+      if (!err) {
+        console.log("Rating inserted");
+        res.render('frontend', {
+          title: 'Cocktail',
+          id_cocktail: id_cocktail,
+          error: '',
+          msg: 'Cocktail puntuado correctamente.'
+        });
+      } else {
+        console.log("Error: rating couldn't be inserted");
+        res.render('frontend', {
+          title: 'Cocktail',
+          id_cocktail: id_cocktail,
+          error: 'Ha habido un error puntuando el cocktail.',
+          msg: ''
+        });
+      }
+    });
+  });
+}
+
+/**
+ * Retorna la puntuacio que ha donat un usuari a un cocktail, o -1 si no ha votat
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-11
+ */
+exports.userRate = function(req, res) {
+  var id_cocktail = req.params.id_cocktail;
+  var id_user = req.params.id_user;
+  db.collection('ratings', function(err, collection) {
+    collection.findOne({$and: [{id_cocktail: id_cocktail}, {id_user: id_user}]}, function(err, rating) {
+      if (rating) {
+        res.send({
+          rating: rating.rating
+        })
+      } else {
+        rating: -1
+      }
+    })
   });
 }
 
@@ -185,7 +251,7 @@ var populateDB = function() {
       vaso:         "Chupito",
       nombre:       "El mejor",
       color:        "Verde",
-      creador:      "51680bbaa4f196e415000001"
+      creador:      "johnny32"
     },
     {
       zumos:        ["Zumo de pi&ntilde;a"],
@@ -194,7 +260,7 @@ var populateDB = function() {
       vaso:         "Cubata",
       nombre:       "Sex on the mountain",
       color:        "Amarillo",
-      creador:      "51680bbaa4f196e415000002"
+      creador:      "JosepManrique"
     },
     {
       zumos:        ["Zumo de fresa", "Zumo de naranja", "Zumo de mango"],
@@ -203,7 +269,7 @@ var populateDB = function() {
       vaso:         "Cubata",
       nombre:       "GLaDOS",
       color:        "Rojo",
-      creador:      "51680bbaa4f196e415000002"
+      creador:      "johnny32"
     },
     {
       zumos:        ["Naranja"],
@@ -212,7 +278,7 @@ var populateDB = function() {
       vaso:         "Chupito",
       nombre:       "Chupito de vodka con naranja",
       color:        "Naranja",
-      creador:      "51680bbaa4f196e415000004"
+      creador:      "PaulMcCartney"
     }
   ];
 
