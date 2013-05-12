@@ -13,6 +13,8 @@ var mongoUri = process.env.MONGOLAB_URI ||
 
 var BSON = mongo.BSONPure;
 
+var fs = require('fs');
+
 /**
  * Llista tots els ingredients.
  *
@@ -81,7 +83,110 @@ exports.findById = function(req, res) {
   });
 }
 
-
+/**
+ * Crea un nou ingredient
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-12
+ */
+exports.create = function(req, res) {
+  if (req.body.descripcion && req.body.tipo && req.files.imagen) {
+    mongo.Db.connect(mongoUri, function (err, db) {
+      db.collection('ingredients', function(err, collection) {
+        fs.readFile(req.files.imagen.path, function(err, data) {
+          if (req.files.imagen.type.indexOf("image/") != -1) {
+            var ruta_parcial = req.body.tipo + "_" + req.body.descripcion;
+            ruta_parcial = "/../public/images/ingredients/" + ruta_parcial.replace(/ /g, "_");
+            var parts = req.files.imagen.name.split(".");
+            if (parts.length > 1) {
+              var ext = parts[parts.length-1];
+              var ruta = __dirname + ruta_parcial + "." + ext;
+              fs.writeFile(ruta, data, function(err) {
+                if (!err) {
+                  var ing_ok = {
+                    descripcion: req.body.descripcion,
+                    tipo: req.body.tipo,
+                    imagen: ruta
+                  };
+                  collection.insert(ing_ok, function(err, item) {
+                    if (!err) {
+                      console.log("Ingredient inserted");
+                      res.render('backend', {
+                        title: 'Zona de administraci&oacute;n',
+                        error_cktl: '',
+                        msg_cktl: '',
+                        error_ingredient: '',
+                        msg_ingredient: 'Ingrediente creado correctamente'
+                      });
+                    } else {
+                      console.log("Error: admin cocktail couldn't be inserted: " + cktl_ok.nombre);
+                      console.log(err);
+                      res.render('backend',
+                        {
+                          title: 'Zona de administraci&oacute;n',
+                          error_cktl: '',
+                          msg_cktl: '',
+                          error_ingredient: 'Hubo un error insertando el ingrediente.',
+                          msg_ingredient: ''
+                        }
+                      );
+                    }
+                  });
+                } else {
+                  console.log("Error: file couldn't be uploaded.");
+                  console.log(err);
+                  res.render('backend', {
+                    title: 'Zona de administraci&oacute;n',
+                    error_cktl: '',
+                    msg_cktl: '',
+                    error_ingredient: 'Hubo un error subiendo la imagen al servidor.',
+                    msg_ingredient: ''
+                  });
+                }
+              });
+            } else {
+              console.log("Error: file has no extension");
+              console.log(err);
+              res.render('backend', {
+                title: 'Zona de administraci&oacute;n',
+                error_cktl: '',
+                msg_cktl: '',
+                error_ingredient: 'La imagen no tiene extensi&oacute;n.',
+                msg_ingredient: ''
+              });
+            }
+          } else {
+            console.log("Error: file isn't an image.");
+            console.log(err);
+            res.render('backend', {
+              title: 'Zona de administraci&oacute;n',
+              error_cktl: '',
+              msg_cktl: '',
+              error_ingredient: 'El archivo seleccionado debe ser una imagen.',
+              msg_ingredient: ''
+            });
+          }
+        });
+      });
+    });
+  } else {
+    console.log("Error: ingredient not inserted (missing fields).")
+    console.log("Description: " + req.body.descripcion);
+    console.log("Type: " + req.body.tipo);
+    console.log("Image: " + req.files.imagen);
+    res.render('backend', {
+      title: 'Zona de administraci&oacute;n',
+      error_cktl: '',
+      msg_cktl: '',
+      error_ingredient: 'Faltan campos en la creaci&oacute;n del ingrediente.',
+      msg_ingredient: ''
+    });
+  }
+}
 
 /**
  * Crea dades de prova per la base de dades.

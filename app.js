@@ -61,6 +61,7 @@ app.get('/cocktails_admin', checkLogged, admin.cocktails);
 app.post('/cocktails_admin', checkLogged, admin.createCocktail);
 app.get('/cocktails_admin/:id_cocktail', admin.findCktlById);
 app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
+app.post('/ingredients', checkLogged, ingredients.create);
 
 //Web (frontend)
 app.get('/:id_cocktail', web.cocktail);

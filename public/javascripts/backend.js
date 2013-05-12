@@ -44,7 +44,7 @@ function cargarCocktails() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-cocktail-list').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_cktl').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
 }
@@ -204,7 +204,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de zumos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de zumos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
   $.ajax({
@@ -226,7 +226,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de licores: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de licores: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
   $.ajax({
@@ -248,7 +248,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de carbónicos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de carbónicos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
   $.ajax({
@@ -270,7 +270,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de vasos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de vasos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
   $.ajax({
@@ -292,7 +292,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de colores: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de colores: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
 }

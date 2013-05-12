@@ -13,10 +13,10 @@ block scripts
   script
     $(document).ready(function() {
 
-      checkField($('#error_new'));
-      checkField($('#msg_new'));
-      checkField($('#error_new_ingredient'));
-      checkField($('#msg_new_ingredient'));
+      checkField($('#error_cktl'));
+      checkField($('#msg_cktl'));
+      checkField($('#error_ingredient'));
+      checkField($('#msg_ingredient'));
 
       $('#info-cktl').on('hide', function () {
         $('#info-cktl-title').empty();
@@ -68,10 +68,9 @@ block content
           &nbsp;
           &nbsp;
           button#btn-new-cktl.btn.btn-primary.hide Nuevo cocktail
-          #errors-cocktail-list.alert.alert-error.hide
           #alerts
-            #error_new.alert.alert-error #{error_new}
-            #msg_new.alert.alert-info #{msg_new}
+            #error_cktl.alert.alert-error #{error_cktl}
+            #msg_cktl.alert.alert-info #{msg_cktl}
 
       .span7
         #ingredients.well
@@ -105,10 +104,9 @@ block content
           &nbsp;
           &nbsp;
           button#btn-new-ingredient.btn.btn-primary.hide Nuevo ingrediente
-          #errors-ingredients.alert.alert-error.hide
           #alerts
-            #error_new_ingredient.alert.alert-error #{error_new}
-            #msg_new_ingredient.alert.alert-info #{msg_new}
+            #error_ingredient.alert.alert-error #{error_ingredient}
+            #msg_ingredient.alert.alert-info #{msg_ingredient}
 
   #info-cktl.modal.hide.fade
     .modal-header
@@ -160,7 +158,7 @@ block content
       button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
       h3#info-cktl-title Nuevo ingrediente
     .modal-body
-      form#form-new-ingredient.form-horizontal(action='/cocktails_admin', method='post')
+      form#form-new-ingredient.form-horizontal(action='/ingredients', method='post', enctype='multipart/form-data')
         .control-group
           label.control-label(for='inputDescripcion') Descripción
           .controls
@@ -168,11 +166,14 @@ block content
         .control-group
           label.control-label(for='inputTipo') Tipo
           .controls
-            select#inputZumos(name='zumos', required)
+            select#inputZumos(name='tipo', required)
               option(value='Zumo') Zumo
               option(value='Licor') Licor
               option(value='Carbonico') Carbónico
               option(value='Vaso') Vaso
               option(value='Color') Color
+        .control-group
+          label.control-label(for='inputImagen') Imagen
+            input#inputImagen(type='file', name='imagen', required)
     .modal-footer
       btn#new-cktl-guardar.btn.btn-primary(onclick='$("#form-new-ingredient").submit();') Guardar

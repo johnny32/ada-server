@@ -27,8 +27,10 @@ exports.index = function(req, res) {
   res.render('backend',
     {
       title: 'Zona de administraci&oacute;n',
-      error_new: '',
-      msg_new: ''
+      error_cktl: '',
+      msg_cktl: '',
+      error_ingredient: '',
+      msg_ingredient: ''
     });
 }
 
@@ -213,23 +215,43 @@ exports.createCocktail = function(req, res) {
             res.render('backend',
               {
                 title: 'Zona de administraci&oacute;n',
-                error_new: '',
-                msg_new: 'Cocktail creado correctamente'
+                error_cktl: '',
+                msg_cktl: 'Cocktail creado correctamente',
+                error_ingredient: '',
+                msg_ingredient: ''
               }
             );
           } else {
             console.log("Error: admin cocktail couldn't be inserted: " + cktl_ok.nombre);
+            console.log(err);
+            res.render('backend',
+              {
+                title: 'Zona de administraci&oacute;n',
+                error_cktl: 'Hubo un error insertando el cocktail.',
+                msg_cktl: '',
+                error_ingredient: '',
+                msg_ingredient: ''
+              }
+            );
           }
         });
       })
     });
   } else {
     console.log("Error: admin cocktail not inserted (missing fields).");
+    console.log("Juices: " + cktl.zumos);
+    console.log("Liqueurs: " + cktl.licores);
+    console.log("Soda: " + cktl.carbonico);
+    console.log("Glass: " + cktl.vaso);
+    console.log("Colour: " + cktl.color);
+    console.log("Name: " + cktl.nombre);
     res.render('backend',
       {
         title: 'Zona de administraci&oacute;n',
-        error_new: 'Faltan campos en la creaci&oacute;n del cocktail.',
-        msg_new: ''
+        error_cktl: 'Faltan campos en la creaci&oacute;n del cocktail.',
+        msg_cktl: '',
+        error_ingredient: '',
+        msg_ingredient: ''
       }
     );
   }
