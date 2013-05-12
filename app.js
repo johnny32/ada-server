@@ -45,7 +45,7 @@ app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/:id', cocktail.findById);
 app.post('/cocktails', cocktail.create);
-app.get('/image/:vaso/:color', cocktail.image);
+app.post('/image', cocktail.image);
 app.get('/ratings/:id_cocktail', cocktail.rating);
 app.get('/ingredients', ingredients.list);
 app.get('/ingredients/tipo/:tipo', ingredients.listByType);
@@ -61,7 +61,7 @@ app.get('/cocktails_admin', checkLogged, admin.cocktails);
 app.post('/cocktails_admin', checkLogged, admin.createCocktail);
 app.get('/cocktails_admin/:id_cocktail', admin.findCktlById);
 app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
-app.post('/ingredients', checkLogged, ingredients.create);
+//app.post('/ingredients', checkLogged, ingredients.create);
 
 //Web (frontend)
 app.get('/:id_cocktail', web.cocktail);

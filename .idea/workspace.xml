@@ -2,27 +2,58 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/carbonico/carbonico_cola.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/carbonico/carbonico_limon.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/carbonico/carbonico_naranja.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/carbonico/carbonico_soda.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/carbonico/carbonico_tefriolimon.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/carbonico/carbonico_tefriomelocoton.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/carbonico/carbonico_tonica.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/licores/licor_ginebra.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/licores/licor_orujo.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/licores/licor_ron.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/licores/licor_tequila.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/licores/licor_vodka.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/licores/licor_whisky.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/vaso/vaso_collins.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/vaso/vaso_hawaii.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/vaso/vaso_martini.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/vaso/vaso_mojito.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/vaso/vaso_ontherocks.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/vaso/vaso_penguen.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_fresa.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_frutadelapasion.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_limon.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_mango.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_melocoton.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_melon.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_naranja.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_pina.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_pomelo.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/ingredients/zumos/zumo_sandia.jpg" />
+      <change type="DELETED" beforePath="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images\cocktails\Chupito_Verde.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/admin.js" afterPath="$PROJECT_DIR$/routes/admin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/backend.jade" afterPath="$PROJECT_DIR$/views/backend.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/backend.js" afterPath="$PROJECT_DIR$/public/javascripts/backend.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/cocktail.js" afterPath="$PROJECT_DIR$/routes/cocktail.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/ingredients.js" afterPath="$PROJECT_DIR$/routes/ingredients.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SinatraServer.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368367783186" ignored="false" />
-    <file path="/app.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368368404137" ignored="false" />
-    <file path="/cocktail.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368295100754" ignored="false" />
+    <file path="/app.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368374002380" ignored="false" />
+    <file path="/cocktail.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368375551504" ignored="false" />
     <file path="/a.html" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262563556" ignored="false" />
     <file path="/a.css" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262554758" ignored="false" />
     <file path="/a.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262548667" ignored="false" />
     <file path="/user.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368285947780" ignored="false" />
-    <file path="/admin.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368368863122" ignored="false" />
+    <file path="/admin.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368375503508" ignored="false" />
     <file path="/login.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367743945650" ignored="false" />
     <file path="/layout.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367677902664" ignored="false" />
     <file path="/login.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367259054050" ignored="false" />
-    <file path="/backend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368369648168" ignored="false" />
+    <file path="/backend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368371600600" ignored="false" />
     <file path="/a.coffee" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262550735" ignored="false" />
     <file path="/a.dart" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262557365" ignored="false" />
     <file path="/a.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262566433" ignored="false" />
@@ -33,8 +64,8 @@
     <file path="/web.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368288836496" ignored="false" />
     <file path="/frontend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368291265410" ignored="false" />
     <file path="/fragment.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368284472764" ignored="false" />
-    <file path="/ingredients.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368370232000" ignored="false" />
-    <file path="/backend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367775706090" ignored="false" />
+    <file path="/ingredients.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368372639268" ignored="false" />
+    <file path="/backend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368374734399" ignored="false" />
     <file path="/frontend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368291849096" ignored="false" />
     <file path="/a.dummy" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368368338168" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,25 +90,25 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="58" selection-start="2198" selection-end="2198" vertical-scroll-proportion="0.0">
+            <state line="47" column="16" selection-start="1407" selection-end="1407" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ingredients.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ingredients.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/ingredients.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="74" selection-start="2466" selection-end="2466" vertical-scroll-proportion="0.3131313">
+            <state line="104" column="94" selection-start="2816" selection-end="2816" vertical-scroll-proportion="-3.52">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="admin.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="224" column="12" selection-start="5835" selection-end="6251" vertical-scroll-proportion="0.0">
+            <state line="208" column="32" selection-start="5301" selection-end="5301" vertical-scroll-proportion="0.7815385">
               <folding />
             </state>
           </provider>
@@ -104,7 +135,7 @@
       <file leaf-file-name="cocktail.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="158" selection-end="327" vertical-scroll-proportion="0.0">
+            <state line="123" column="82" selection-start="3085" selection-end="3085" vertical-scroll-proportion="-6.44">
               <folding />
             </state>
           </provider>
@@ -122,7 +153,7 @@
       <file leaf-file-name="backend.jade" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/backend.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="168" column="40" selection-start="5670" selection-end="5670" vertical-scroll-proportion="-7.12">
+            <state line="154" column="39" selection-start="5246" selection-end="5246" vertical-scroll-proportion="-67.08">
               <folding />
             </state>
           </provider>
@@ -131,7 +162,7 @@
       <file leaf-file-name="backend.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/backend.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="294" column="21" selection-start="8946" selection-end="8947" vertical-scroll-proportion="-3.96">
+            <state line="234" column="22" selection-start="7157" selection-end="7157" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -167,15 +198,15 @@
         <option value="$PROJECT_DIR$/public/javascripts/utils.js" />
         <option value="$PROJECT_DIR$/views/frontend.jade" />
         <option value="$PROJECT_DIR$/public/javascripts/frontend.js" />
-        <option value="$PROJECT_DIR$/routes/cocktail.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/routes/web.js" />
         <option value="$PROJECT_DIR$/routes/user.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/backend.js" />
-        <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/routes/admin.js" />
-        <option value="$PROJECT_DIR$/views/backend.jade" />
         <option value="$PROJECT_DIR$/routes/ingredients.js" />
+        <option value="$PROJECT_DIR$/views/backend.jade" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/backend.js" />
+        <option value="$PROJECT_DIR$/routes/admin.js" />
+        <option value="$PROJECT_DIR$/routes/cocktail.js" />
       </list>
     </option>
   </component>
@@ -367,24 +398,6 @@
               <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SinatraServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SinatraServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -404,6 +417,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images\ingredients" />
       <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images\ratings" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -564,17 +578,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32732317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32732317" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4186551" sideWeight="0.99810606" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16604617" sideWeight="0.5959253" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16530156" sideWeight="0.59083194" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4040747" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20327625" sideWeight="0.5959253" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4040747" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871014" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4091681" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43972835" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32597622" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -658,7 +672,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="28" />
+      <option name="time" value="29" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -708,13 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="158" selection-end="327" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="3" selection-start="924" selection-end="924" vertical-scroll-proportion="0.0">
@@ -731,35 +738,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="58" selection-start="2198" selection-end="2198" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/backend.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="294" column="21" selection-start="8946" selection-end="8947" vertical-scroll-proportion="-3.96">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="224" column="12" selection-start="5835" selection-end="6251" vertical-scroll-proportion="0.0">
+        <state line="47" column="16" selection-start="1407" selection-end="1407" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/backend.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="40" selection-start="5670" selection-end="5670" vertical-scroll-proportion="-7.12">
+        <state line="154" column="39" selection-start="5246" selection-end="5246" vertical-scroll-proportion="-67.08">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/backend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="234" column="22" selection-start="7157" selection-end="7157" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/ingredients.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="74" selection-start="2466" selection-end="2466" vertical-scroll-proportion="0.3131313">
+        <state line="104" column="94" selection-start="2816" selection-end="2816" vertical-scroll-proportion="-3.52">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="82" selection-start="3085" selection-end="3085" vertical-scroll-proportion="-6.44">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="208" column="32" selection-start="5301" selection-end="5301" vertical-scroll-proportion="0.7815385">
           <folding />
         </state>
       </provider>

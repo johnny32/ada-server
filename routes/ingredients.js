@@ -93,6 +93,8 @@ exports.findById = function(req, res) {
  * @version 1.0
  * @date    2013-05-12
  */
+//Heroku no permet pujar imatges al servidor, cal fer servir Amazon S3 o alguna alternativa.
+//Per aquesta versio de l'aplicacio, no es permetra crear ingredients, sino que els crearan "manualment" a la base de dades i es pujaran les imatges al servidor.
 exports.create = function(req, res) {
   if (req.body.descripcion && req.body.tipo && req.files.imagen) {
     mongo.Db.connect(mongoUri, function (err, db) {
@@ -198,116 +200,154 @@ exports.create = function(req, res) {
 var populateDB = function() {
   var ingredients = [
     {
-      descripcion:  "Zumo de naranja",
-      tipo:         "Zumo"
+      descripcion: 'Piña',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_pina.jpg'
     },
     {
-      descripcion:  "Zumo de fresa",
-      tipo:         "Zumo"
+      descripcion: 'Naranja',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_naranja.jpg'
     },
     {
-      descripcion:  "Zumo de mango",
-      tipo:         "Zumo"
+      descripcion: 'Melocotón',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_melocoton.jpg'
     },
     {
-      descripcion:  "Zumo de piña",
-      tipo:         "Zumo"
+      descripcion: 'Limón',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_limon.jpg'
     },
     {
-      descripcion:  "Zumo de melocotón",
-      tipo:         "Zumo"
+      descripcion: 'Fresa',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_fresa.jpg'
     },
     {
-      descripcion:  "Zumo de limón",
-      tipo:         "Zumo"
+      descripcion: 'Mango',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_mango.jpg'
     },
     {
-      descripcion:  "Ron",
-      tipo:         "Licor"
+      descripcion: 'Melón',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_melon.jpg'
+    },{
+      descripcion: 'Sandía',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_sandia.jpg'
     },
     {
-      descripcion:  "Whisky",
-      tipo:         "Licor"
+      descripcion: 'Fruta de la pasión',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_frutadelapasion.jpg'
     },
     {
-      descripcion:  "Vodka",
-      tipo:         "Licor"
+      descripcion: 'Pomelo',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_pomelo.jpg'
     },
     {
-      descripcion:  "Ginebra",
-      tipo:         "Licor"
+      descripcion: 'Ginebra',
+      tipo: 'Licor',
+      imagen: 'licores/licor_ginebra.jpg'
     },
     {
-      descripcion:  "Tequila",
-      tipo:         "Licor"
+      descripcion: 'Orujo',
+      tipo: 'Licor',
+      imagen: 'licores/licor_orujo.jpg'
     },
     {
-      descripcion:  "Absenta",
-      tipo:         "Licor"
+      descripcion: 'Ron',
+      tipo: 'Licor',
+      imagen: 'licores/licor_ron.jpg'
     },
     {
-      descripcion:  "Cola",
-      tipo:         "Carbonico"
+      descripcion: 'Tequila',
+      tipo: 'Licor',
+      imagen: 'licores/licor_tequila.jpg'
     },
     {
-      descripcion:  "Limón",
-      tipo:         "Carbonico"
+      descripcion: 'Vodka',
+      tipo: 'Licor',
+      imagen: 'licores/licor_vodka.jpg'
     },
     {
-      descripcion:  "Naranja",
-      tipo:         "Carbonico"
+      descripcion: 'Whisky',
+      tipo: 'Licor',
+      imagen: 'licores/licor_whisky.jpg'
     },
     {
-      descripcion:  "Tónica",
-      tipo:         "Carbonico"
+      descripcion: 'Cola',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_cola.jpg'
     },
     {
-      descripcion:  "Cubata",
-      tipo:         "Vaso"
+      descripcion: 'Limón',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_limon.jpg'
     },
     {
-      descripcion:  "Chupito",
-      tipo:         "Vaso"
+      descripcion: 'Naranja',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_naranja.jpg'
     },
     {
-      descripcion:  "Pinta",
-      tipo:         "Vaso"
+      descripcion: 'Soda',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_soda.jpg'
     },
     {
-      descripcion:  "Copa de champán",
-      tipo:         "Vaso"
+      descripcion: 'Te frío limón',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_tefriolimon.jpg'
     },
     {
-      descripcion:  "Blanco",
-      tipo:         "Color"
+      descripcion: 'Te frío melocotón',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_tefriomelocoton.jpg'
     },
     {
-      descripcion:  "Azul",
-      tipo:         "Color"
+      descripcion: 'Tónica',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_tonica.jpg'
     },
     {
-      descripcion:  "Naranja",
-      tipo:         "Color"
+      descripcion: 'Copa Martini',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_martini.jpg'
     },
     {
-      descripcion:  "Amarillo",
-      tipo:         "Color"
+      descripcion: 'Collins',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_collins.jpg'
     },
     {
-      descripcion:  "Rojo",
-      tipo:         "Color"
+      descripcion: 'Vaso Mojito',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_mojito.jpg'
     },
     {
-      descripcion:  "Verde",
-      tipo:         "Color"
+      descripcion: 'On the rocks',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_ontherocks.jpg'
     },
     {
-      descripcion:  "Negro",
-      tipo:         "Color"
+      descripcion: 'Copa Hawaii',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_hawaii.jpg'
+    },
+    {
+      descripcion: 'Penguen',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_penguen.jpg'
     }
   ];
 
-  db.collection('ingredients', function(err, collection) {
-    collection.insert(ingredients, {safe:true}, function(err, result) {});
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.insert(ingredients, {safe:true}, function(err, result) {});
+    });
   });
 }

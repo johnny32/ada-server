@@ -13,6 +13,8 @@ var mongoUri = process.env.MONGOLAB_URI ||
 
 var BSON = mongo.BSONPure;
 
+var path = require('path');
+
 /**
  * Llista tots els cocktails.
  *
@@ -73,7 +75,7 @@ exports.create = function(req, res) {
   var cktl = req.body;
   console.log('Receiving cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
-  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.color && cktl.creador) {
+  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.creador && cktl.imagen) {
     mongo.Db.connect(mongoUri, function (err, db) {
       db.collection('cocktails', function(err, collection) {
         //Filtrem la resta de camps
@@ -84,14 +86,14 @@ exports.create = function(req, res) {
           carbonico:  cktl.carbonico,
           vaso:       cktl.vaso,
           nombre:     cktl.nombre,
-          color:      cktl.color,
-          creador:    cktl.creador
+          creador:    cktl.creador,
+          imagen:     cktl.imagen
         };
         collection.insert(cktl_ok, function(err, item) {
           if (!err) {
             console.log("Cocktail inserted: " + cktl_ok.nombre);
             res.send({
-              id_cocktail: item._id
+              url: path + '/' + item._id
             });
           } else {
             console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
@@ -106,19 +108,20 @@ exports.create = function(req, res) {
 }
 
 /**
- * Obte la URL de la imatge d'un cocktail segons el seu color i el seu got
+ * Obte la URL de la imatge d'un cocktail segons els seus ingredients
  *
  * @param req
  * @param res
  *
  * @author  jclara
- * @version 2.0
+ * @version 3.0
  * @date    2013-04-27
  */
 exports.image = function(req, res) {
-  var vaso = req.params.vaso;
-  var color = req.params.color;
-  var img = "/images/chupitos/" + vaso + "_" + color + ".jpg";
+  var vaso = req.body.vaso;
+  var zumos = req.body.zumos;
+  var color = getColor(zumos);
+  var img = ("/images/cocktails/" + vaso + "_" + color + ".jpg").replace(/ /g, "_");
   res.send({
     img: img
   });
@@ -232,6 +235,33 @@ exports.userRate = function(req, res) {
       })
     });
   });
+}
+
+/**
+ * Calcula el color a partir dels sucs
+ *
+ * @param zumos
+ * @returns {*}
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-12
+ */
+function getColor(zumos) {
+  var totales = [];
+  $.each(zumos, function(i, zumo) {
+    if (zumo == "Fresa" || zumo == "Sandía" || zumo == "Pomelo") {
+      totales[i] = "Rojo";
+    } else if (zumo == "Naranja" || zumo == "Melocotón" || zumo == "Mango" || zumo == "Fruta de la pasión") {
+      totales[i] = "Naranja";
+    } else if (zumo == "Melón") {
+      totales[i] = "Verde";
+    } else {
+      totales[i] = "Amarillo";
+    }
+  });
+  var color = totales[Math.floor(Math.random()*totales.length)];
+  return color;
 }
 
 /**

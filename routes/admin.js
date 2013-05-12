@@ -196,10 +196,11 @@ exports.createCocktail = function(req, res) {
   var cktl = req.body;
   console.log('Receiving admin cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
-  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.color) {
+  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre) {
     mongo.Db.connect(mongoUri, function (err, db) {
       db.collection('cocktails_admin', function(err, collection) {
         //Filtrem la resta de camps
+        var color = getColor(cktl.zumos);
         var cktl_ok =
         {
           zumos:      [cktl.zumos],
@@ -207,7 +208,7 @@ exports.createCocktail = function(req, res) {
           carbonico:  cktl.carbonico,
           vaso:       cktl.vaso,
           nombre:     cktl.nombre,
-          color:      cktl.color
+          imagen:     ("/images/cocktails/" + cktl.vaso + "_" + color + ".jpg").replace(/ /g, "_")
         };
         collection.insert(cktl_ok, function(err, item) {
           if (!err) {
@@ -243,7 +244,6 @@ exports.createCocktail = function(req, res) {
     console.log("Liqueurs: " + cktl.licores);
     console.log("Soda: " + cktl.carbonico);
     console.log("Glass: " + cktl.vaso);
-    console.log("Colour: " + cktl.color);
     console.log("Name: " + cktl.nombre);
     res.render('backend',
       {
@@ -255,6 +255,36 @@ exports.createCocktail = function(req, res) {
       }
     );
   }
+}
+
+/**
+ * Calcula el color a partir dels sucs
+ *
+ * @param zumos
+ * @returns {*}
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-12
+ */
+function getColor(zumos) {
+  var totales = [];
+  if (typeof zumos === 'string') {
+    zumos = [zumos];
+  }
+  zumos.forEach(function(zumo, i, zumos) {
+    if (zumo == "Fresa" || zumo == "Sandía" || zumo == "Pomelo") {
+      totales[i] = "Rojo";
+    } else if (zumo == "Naranja" || zumo == "Melocotón" || zumo == "Mango" || zumo == "Fruta de la pasión") {
+      totales[i] = "Naranja";
+    } else if (zumo == "Melón") {
+      totales[i] = "Verde";
+    } else {
+      totales[i] = "Amarillo";
+    }
+  });
+  var color = totales[Math.floor(Math.random()*totales.length)];
+  return color;
 }
 
 function populateDB() {
@@ -272,75 +302,3 @@ function populateDB() {
   });
 }
 
-function populateDBCocktails() {
-  var cktls = [
-    {
-      zumos:        ["Zumo de manzana", "Zumo de fresa"],
-      licores:      ["Wishky"],
-      carbonico:    "Lim&oacute;n",
-      vaso:         "Chupito",
-      nombre:       "Luke Skywalker",
-      color:        "Verde"
-    },
-    {
-      zumos:        ["Zumo de pi&ntilde;a"],
-      licores:      ["Ron", "Ginebra"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "Han Solo",
-      color:        "Amarillo"
-    },
-    {
-      zumos:        ["Zumo de fresa", "Zumo de naranja", "Zumo de mango"],
-      licores:      ["Ginebra", "Vodka", "Ron"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "Darth Vader",
-      color:        "Rojo"
-    },
-    {
-      zumos:        ["Naranja"],
-      licores:      ["Vodka"],
-      carbonico:    "Naranja",
-      vaso:         "Chupito",
-      nombre:       "R2D2",
-      color:        "Naranja"
-    },
-    {
-      zumos:        ["Zumo de manzana", "Zumo de fresa"],
-      licores:      ["Wishky"],
-      carbonico:    "Lim&oacute;n",
-      vaso:         "Chupito",
-      nombre:       "Princess Leia",
-      color:        "Verde"
-    },
-    {
-      zumos:        ["Zumo de pi&ntilde;a"],
-      licores:      ["Ron", "Ginebra"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "Chewbacca",
-      color:        "Amarillo"
-    },
-    {
-      zumos:        ["Zumo de fresa", "Zumo de naranja", "Zumo de mango"],
-      licores:      ["Ginebra", "Vodka", "Ron"],
-      carbonico:    "Cola",
-      vaso:         "Darth Vader",
-      nombre:       "C3PO",
-      color:        "Rojo"
-    },
-    {
-      zumos:        ["Naranja"],
-      licores:      ["Vodka"],
-      carbonico:    "Naranja",
-      vaso:         "Chupito",
-      nombre:       "Yoda",
-      color:        "Naranja"
-    }
-  ];
-
-  db.collection('cocktails_admin', function(err, collection) {
-    collection.insert(cktls, {safe: true}, function(err, result) {});
-  });
-}
