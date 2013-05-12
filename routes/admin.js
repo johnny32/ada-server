@@ -45,7 +45,6 @@ exports.index = function(req, res) {
  * @date    2013-04-28
  */
 exports.loginPage = function(req, res) {
-  populateDB();
   if (req.session.logged) {
     res.redirect('/admin');
   }
