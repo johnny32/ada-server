@@ -249,17 +249,17 @@ exports.userRate = function(req, res) {
  */
 function getColor(zumos) {
   var totales = [];
-  $.each(zumos, function(i, zumo) {
-    if (zumo == "Fresa" || zumo == "Sandía" || zumo == "Pomelo") {
+  for (var i in zumos) {
+    if (zumos[i] == "Fresa" || zumos[i] == "Sandía" || zumos[i] == "Pomelo") {
       totales[i] = "Rojo";
-    } else if (zumo == "Naranja" || zumo == "Melocotón" || zumo == "Mango" || zumo == "Fruta de la pasión") {
+    } else if (zumos[i] == "Naranja" || zumos[i] == "Melocotón" || zumos[i] == "Mango" || zumos[i] == "Fruta de la pasión") {
       totales[i] = "Naranja";
-    } else if (zumo == "Melón") {
+    } else if (zumos[i] == "Melón") {
       totales[i] = "Verde";
     } else {
       totales[i] = "Amarillo";
     }
-  });
+  }
   var color = totales[Math.floor(Math.random()*totales.length)];
   return color;
 }
