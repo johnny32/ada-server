@@ -16,3 +16,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+#ingredients, #recommended-cocktail
+{
+  height: 10em;
+}

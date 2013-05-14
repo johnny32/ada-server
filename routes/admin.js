@@ -257,6 +257,27 @@ exports.createCocktail = function(req, res) {
 }
 
 /**
+ * Retorna el cocktail recomanat, si n'hi ha
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-13
+ */
+exports.recommendedCocktail = function(req, res) {
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      collection.findOne({'recomendado': 1}, function(err, cktl) {
+        res.send(cktl);
+      });
+    });
+  });
+  res.send({});
+}
+
+/**
  * Calcula el color a partir dels sucs
  *
  * @param zumos

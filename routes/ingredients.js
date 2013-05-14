@@ -25,7 +25,7 @@ var fs = require('fs');
  * @version 1.0
  * @date    2013-05-05
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
   mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('ingredients', function(err, collection) {
       collection.find().sort({descripcion: 1}).toArray(function(err, items) {

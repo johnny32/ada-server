@@ -43,6 +43,7 @@ app.get('/users/facebook/:id_facebook', user.findByFacebook);
 app.get('/users/twitter/:id_twitter', user.findByTwitter);
 app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
+app.get('/cocktails/recommended', admin.recommendedCocktail);
 app.get('/cocktails/:id', cocktail.findById);
 app.post('/cocktails', cocktail.create);
 app.post('/image', cocktail.image);
