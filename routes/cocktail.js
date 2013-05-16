@@ -93,8 +93,8 @@ exports.create = function(req, res) {
           if (!err) {
             console.log("Cocktail inserted: " + cktl_ok.nombre);
             res.send({
-              id: item._id,
-              url: path + '/' + item._id
+              id: new BSON.ObjectID(item._id),
+              url: path + '/' + new BSON.ObjectID(item._id)
             });
           } else {
             console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
