@@ -195,7 +195,7 @@ exports.createCocktail = function(req, res) {
   var cktl = req.body;
   console.log('Receiving admin cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
-  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre) {
+  if (cktl.zumos && cktl.carbonico && cktl.vaso && cktl.nombre) {
     mongo.Db.connect(mongoUri, function (err, db) {
       db.collection('cocktails_admin', function(err, collection) {
         //Filtrem la resta de camps
