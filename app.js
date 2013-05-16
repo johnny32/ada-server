@@ -65,8 +65,8 @@ app.post('/cocktails_admin', checkLogged, admin.createCocktail);
 app.get('/cocktails_admin/:id_cocktail', admin.findCktlById);
 app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
 //app.post('/ingredients', checkLogged, ingredients.create);
-app.post('/maps', maps.create);
-app.delete('/maps/:latitud/:longitud', maps.delete);
+app.post('/maps', checkLogged, maps.create);
+app.delete('/maps/:latitud/:longitud', checkLogged, maps.delete);
 
 //Web (frontend)
 app.get('/:id_cocktail', web.cocktail);
