@@ -2,19 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/admin.js" afterPath="$PROJECT_DIR$/routes/admin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/cocktail.js" afterPath="$PROJECT_DIR$/routes/cocktail.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SinatraServer.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368715314982" ignored="false" />
+    <file path="/Dummy.txt" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368715396755" ignored="false" />
     <file path="/app.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368715378976" ignored="false" />
-    <file path="/cocktail.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368714202881" ignored="false" />
+    <file path="/cocktail.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368715548707" ignored="false" />
     <file path="/a.html" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262563556" ignored="false" />
     <file path="/a.css" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262554758" ignored="false" />
     <file path="/a.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262548667" ignored="false" />
     <file path="/user.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368285947780" ignored="false" />
-    <file path="/admin.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368465060921" ignored="false" />
+    <file path="/admin.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368715604902" ignored="false" />
     <file path="/login.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367743945650" ignored="false" />
     <file path="/layout.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367677902664" ignored="false" />
     <file path="/login.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367259054050" ignored="false" />
@@ -83,7 +84,7 @@
       <file leaf-file-name="admin.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="254" column="6" selection-start="6916" selection-end="6916" vertical-scroll-proportion="0.0">
+            <state line="208" column="35" selection-start="5276" selection-end="5276" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -110,7 +111,7 @@
       <file leaf-file-name="cocktail.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="59" selection-start="2503" selection-end="2503" vertical-scroll-proportion="0.0">
+            <state line="88" column="22" selection-start="2118" selection-end="2118" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -167,12 +168,12 @@
         <option value="$PROJECT_DIR$/routes/user.js" />
         <option value="$PROJECT_DIR$/public/javascripts/backend.js" />
         <option value="$PROJECT_DIR$/routes/ingredients.js" />
-        <option value="$PROJECT_DIR$/routes/admin.js" />
         <option value="$PROJECT_DIR$/views/backend.jade" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
-        <option value="$PROJECT_DIR$/routes/cocktail.js" />
         <option value="$PROJECT_DIR$/routes/maps.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/routes/cocktail.js" />
+        <option value="$PROJECT_DIR$/routes/admin.js" />
       </list>
     </option>
   </component>
@@ -535,7 +536,11 @@
       <created>1368715322818</created>
       <updated>1368715322818</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="API maps checkLogged">
+      <created>1368715400330</created>
+      <updated>1368715400330</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -624,7 +629,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="API maps" />
+    <option name="LAST_COMMIT_MESSAGE" value="API maps checkLogged" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -655,6 +660,7 @@
     <MESSAGE value="Fix $.each per for." />
     <MESSAGE value="Retorn id a create cocktail" />
     <MESSAGE value="API maps" />
+    <MESSAGE value="API maps checkLogged" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -728,13 +734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="254" column="6" selection-start="6916" selection-end="6916" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="23" selection-start="268" selection-end="268" vertical-scroll-proportion="0.43510056">
@@ -756,16 +755,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
+    <entry file="file://$PROJECT_DIR$/routes/maps.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="59" selection-start="2503" selection-end="2503" vertical-scroll-proportion="0.0">
+        <state line="73" column="21" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/maps.js">
+    <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="21" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.0">
+        <state line="88" column="22" selection-start="2118" selection-end="2118" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="208" column="35" selection-start="5276" selection-end="5276" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

@@ -75,14 +75,18 @@ exports.create = function(req, res) {
   var cktl = req.body;
   console.log('Receiving cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
-  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.creador && cktl.imagen) {
+  if (cktl.zumos && && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.creador && cktl.imagen) {
     mongo.Db.connect(mongoUri, function (err, db) {
       db.collection('cocktails', function(err, collection) {
         //Filtrem la resta de camps
+        var licores = [];
+        if (cktl.licores) {
+          var licores = cktl.licores;
+        }
         var cktl_ok =
         {
           zumos:      cktl.zumos,
-          licores:    cktl.licores,
+          licores:    licores,
           carbonico:  cktl.carbonico,
           vaso:       cktl.vaso,
           nombre:     cktl.nombre,
