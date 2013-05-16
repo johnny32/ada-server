@@ -55,9 +55,13 @@ function cargarCocktail(id) {
 
 function cargarImgCocktail(cktl, progressbar) {
   $.ajax({
-    url: '/image/' + cktl.vaso + '/' + cktl.color,
-    method: 'get',
+    url: '/image',
+    method: 'post',
     dataType: 'json',
+    data: {
+      vaso: cktl.vaso,
+      zumos: cktl.zumos
+    },
     beforeSend: function(hdr) {
       progressbar.style.width = '70%';
     },
