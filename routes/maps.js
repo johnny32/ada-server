@@ -40,6 +40,7 @@ exports.list = function(req, res) {
  * @param res
  *
  * @author  jclara
+
  * @version 1.1
  * @date    2013-05-16
  */
@@ -74,20 +75,34 @@ exports.create = function(req, res) {
   }
 }
 
+/**
+ * Elimina un punt de mapa per la seva latitud i longitud
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-16
+ */
 exports.delete = function(req, res) {
   var latitud = req.params.latitud;
   var longitud = req.params.longitud;
   console.log('Deleting map point: ' + latitud + ', ' + longitud);
   mongo.Db.connect(mongoUri, function(err, db) {
     db.collection('maps', function(err, collection) {
-      collection.find({"latitud": latitud, "longitud": longitud}, function(err, item) {
-        item.remove(function(err) {
-          if (err) {
-            console.log("Error deleting map point: " + latitud + ", " + longitud);
-          } else {
-            res.send({});
-          }
-        });
+      collection.findOne({"latitud": latitud, "longitud": longitud}, function(err, item) {
+        if (!err && item.latitud !== undefined) {
+          collection.remove({"latitud": latitud, "longitud": longitud}, function(err) {
+            if (err) {
+              console.log("Error deleting map point: " + latitud + ", " + longitud);
+            } else {
+              res.send({});
+            }
+          });
+        } else {
+          console.log("Error: map point not found: " + latitud + ", " + longitud);
+        }
       });
     });
   });

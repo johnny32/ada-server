@@ -195,15 +195,19 @@ exports.createCocktail = function(req, res) {
   var cktl = req.body;
   console.log('Receiving admin cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
-  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre) {
+  if (cktl.zumos && cktl.carbonico && cktl.vaso && cktl.nombre) {
     mongo.Db.connect(mongoUri, function (err, db) {
       db.collection('cocktails_admin', function(err, collection) {
         //Filtrem la resta de camps
         var color = getColor(cktl.zumos);
+        var licores = [];
+        if (cktl.licores) {
+          licores = [cktl.licores];
+        }
         var cktl_ok =
         {
           zumos:      [cktl.zumos],
-          licores:    [cktl.licores],
+          licores:    licores,
           carbonico:  cktl.carbonico,
           vaso:       cktl.vaso,
           nombre:     cktl.nombre,
