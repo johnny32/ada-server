@@ -244,6 +244,28 @@ exports.userRate = function(req, res) {
 }
 
 /**
+ * Llista els cocktails d'un usuari
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-16
+ */
+exports.findByUser = function(req, res) {
+  var id_usuario = req.params.id_usuario;
+  console.log("Retrieving cocktails of user: " + id_usuario);
+  mongo.Db.connect(mongoUri, function(err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.find({creador: id_usuario}).toArray(function(err, items) {
+        res.send(items);
+      })
+    })
+  });
+}
+
+/**
  * Calcula el color a partir dels sucs
  *
  * @param zumos

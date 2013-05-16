@@ -46,6 +46,7 @@ app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/recommended', admin.recommendedCocktail);
 app.get('/cocktails/:id', cocktail.findById);
+app.get('/cocktails/user/:id_usuario', cocktail.findByUser);
 app.post('/cocktails', cocktail.create);
 app.post('/image', cocktail.image);
 app.get('/ratings/:id_cocktail', cocktail.rating);
