@@ -91,10 +91,11 @@ exports.create = function(req, res) {
         };
         collection.insert(cktl_ok, function(err, item) {
           if (!err) {
-            console.log("Cocktail inserted: " + cktl_ok.nombre);
+
+            console.log("Cocktail inserted: " + cktl_ok.nombre + " - " + item[0]._id);
             res.send({
-              id: item._id,
-              url: path + '/' + item._id
+              id: item[0]._id,
+              url: path + '/' + item[0]._id
             });
           } else {
             console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
