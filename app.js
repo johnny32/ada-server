@@ -10,6 +10,7 @@ var express = require('express')
   , cocktail = require('./routes/cocktail')
   , web = require('./routes/web')
   , ingredients = require('./routes/ingredients')
+  , maps = require('./routes/maps')
   , http = require('http')
   , path = require('path');
 
@@ -53,6 +54,7 @@ app.get('/ingredients/tipo/:tipo', ingredients.listByType);
 app.get('/ingredients/:id', ingredients.findById);
 app.post('/ratings', cocktail.rate);
 app.get('/ratings/:id_cocktail/:id_user', cocktail.userRate);
+app.get('/maps', maps.list);
 
 //Backend
 app.get('/admin', checkLogged, admin.index);
@@ -63,6 +65,8 @@ app.post('/cocktails_admin', checkLogged, admin.createCocktail);
 app.get('/cocktails_admin/:id_cocktail', admin.findCktlById);
 app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
 //app.post('/ingredients', checkLogged, ingredients.create);
+app.post('/maps', maps.create);
+app.delete('/maps/:latitud/:longitud', checkLogged, maps.delete);
 
 //Web (frontend)
 app.get('/:id_cocktail', web.cocktail);
@@ -72,8 +76,9 @@ http.createServer(app).listen(app.get('port'), function(){
 });
 
 function checkLogged(req,res,next){
-  if (req.session.logged)
-    next()
-  else
-    res.redirect('/login')
+  if (req.session.logged) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
 }

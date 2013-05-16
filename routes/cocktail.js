@@ -93,6 +93,7 @@ exports.create = function(req, res) {
           if (!err) {
             console.log("Cocktail inserted: " + cktl_ok.nombre);
             res.send({
+              id: item._id,
               url: path + '/' + item._id
             });
           } else {
