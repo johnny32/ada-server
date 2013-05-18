@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/cocktail.js" afterPath="$PROJECT_DIR$/routes/cocktail.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/frontend.jade" afterPath="$PROJECT_DIR$/views/frontend.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/frontend.js" afterPath="$PROJECT_DIR$/public/javascripts/frontend.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SinatraServer.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368893993716" ignored="false" />
+    <file path="/Dummy.txt" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368897013238" ignored="false" />
     <file path="/app.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368891117864" ignored="false" />
     <file path="/cocktail.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368896671906" ignored="false" />
     <file path="/a.html" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262563556" ignored="false" />
@@ -29,11 +28,11 @@
     <file path="/style.css" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368888697816" ignored="false" />
     <file path="/utils.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368288990528" ignored="false" />
     <file path="/web.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368288836496" ignored="false" />
-    <file path="/frontend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368897004495" ignored="false" />
+    <file path="/frontend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368897339316" ignored="false" />
     <file path="/fragment.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368876098466" ignored="false" />
     <file path="/ingredients.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368465042569" ignored="false" />
     <file path="/backend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368374734399" ignored="false" />
-    <file path="/frontend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368896526018" ignored="false" />
+    <file path="/frontend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368897356979" ignored="false" />
     <file path="/a.dummy" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368893106618" ignored="false" />
     <file path="/maps.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368714755456" ignored="false" />
     <file path="/index.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368888684817" ignored="false" />
@@ -56,10 +55,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="cocktail.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="cocktail.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="257" column="9" selection-start="6977" selection-end="6977" vertical-scroll-proportion="-10.48">
+            <state line="231" column="1" selection-start="6285" selection-end="6285" vertical-scroll-proportion="0.8967391">
               <folding />
             </state>
           </provider>
@@ -86,16 +85,16 @@
       <file leaf-file-name="frontend.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/frontend.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="158" selection-end="158" vertical-scroll-proportion="-4.76">
+            <state line="106" column="22" selection-start="3475" selection-end="3475" vertical-scroll-proportion="-2.64">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="frontend.jade" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="frontend.jade" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/frontend.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="51" selection-start="1633" selection-end="1633" vertical-scroll-proportion="0.697201">
+            <state line="47" column="58" selection-start="1517" selection-end="1517" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -147,8 +146,8 @@
         <option value="$PROJECT_DIR$/routes/web.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/cocktail.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/frontend.js" />
         <option value="$PROJECT_DIR$/views/frontend.jade" />
+        <option value="$PROJECT_DIR$/public/javascripts/frontend.js" />
       </list>
     </option>
   </component>
@@ -497,7 +496,11 @@
       <created>1368893998115</created>
       <updated>1368893998115</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Prova Facebook 2">
+      <created>1368897018799</created>
+      <updated>1368897018799</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -586,7 +589,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prova Facebook" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prova Facebook 2" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -622,6 +625,7 @@
     <MESSAGE value="Pàgina principal" />
     <MESSAGE value="Els ratings ja funcionen correctament (i es pot llistar ordenat per rating)." />
     <MESSAGE value="Prova Facebook" />
+    <MESSAGE value="Prova Facebook 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -737,23 +741,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/frontend.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="58" selection-start="1517" selection-end="1517" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/frontend.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="158" selection-end="158" vertical-scroll-proportion="-4.76">
+        <state line="106" column="22" selection-start="3475" selection-end="3475" vertical-scroll-proportion="-2.64">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="257" column="9" selection-start="6977" selection-end="6977" vertical-scroll-proportion="-10.48">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/frontend.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="51" selection-start="1633" selection-end="1633" vertical-scroll-proportion="0.697201">
+        <state line="231" column="1" selection-start="6285" selection-end="6285" vertical-scroll-proportion="0.8967391">
           <folding />
         </state>
       </provider>

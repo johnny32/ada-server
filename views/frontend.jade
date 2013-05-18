@@ -44,10 +44,12 @@ block scripts
                 if (response.authResponse) {
                   fbUserId = response.authResponse.userID;
                   token = response.authResponse.accessToken;
+
+                  cargarRatings('#{id_cocktail}', fbUserId);
                 }
                 else {
                   console.log('User cancelled login or did not fully authorize.');
-                  addPermissions('publish_stream');
+                  window.top.location = "https://www.facebook.com/dialog/oauth?client_id=326614590799358&redirect_uri=http://sinatracockteleria.herokuapp.com/#{id_cocktail}";
                 }
               }, {scope: 'user_location'});
             }
@@ -68,7 +70,6 @@ block scripts
       checkField($('#errors'));
       checkField($('#msgs'));
 
-      cargarRatings('#{id_cocktail}', 'johfgsdfsdfnny32');
     });
 
 
