@@ -23,23 +23,33 @@ function cargarCocktail(id) {
         method: 'get',
         dataType: 'json',
         success: function(rating) {
-          var txt = '<h1>Cocktail "' + cktl.nombre + '"</h1>';
-          var creador = getUser(cktl.creador);
-          if (creador !== undefined) {
-            txt += '<p><strong>Creado por:</strong> ' + creador + '<br>';
-          }
-          txt += '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
-              + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
-              + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '<br>'
-              + '<strong>Puntuaci&oacute;n media:</strong> ';
-          if (Math.round(rating.rating) > 0) {
-            txt += '<img src="/images/ratings/r' + Math.round(rating.rating) + '.png" alt="Puntuacion" width="50" /></p>';
-          } else {
-            txt += 'Nadie ha puntuado este cocktail a&uacute;n</p>';
-          }
-          $(cktlinfo).append(txt);
-          progressbar.style.width = '60%';
-          cargarImgCocktail(cktl, progressbar);
+          $.ajax({
+            type : "GET",
+            url : "http://graph.facebook.com/" + cktl.creador,
+            dataType : "json",
+            async : false,
+            success : function(data2){
+              var txt = '<h1>Cocktail "' + cktl.nombre + '"</h1>'
+                + '<p><strong>Creado por:</strong> <a href="http://www.facebook.com/' + cktl.creador + '">' + data2.name + '</a><br>'
+                + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
+                + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
+                + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '<br>'
+                + '<strong>Puntuaci&oacute;n media:</strong> ';
+              if (Math.round(rating.rating) > 0) {
+                txt += '<img src="/images/ratings/r' + Math.round(rating.rating) + '.png" alt="Puntuacion" width="50" /></p>';
+              } else {
+                txt += 'Nadie ha puntuado este cocktail a&uacute;n</p>';
+              }
+              $(cktlinfo).append(txt);
+              progressbar.style.width = '60%';
+              cargarImgCocktail(cktl, progressbar);
+            },
+            error: function(header, status, from){
+              console.log("Error retrieving Facebook user: " + id_facebook);
+            }
+          });
+
+
         }
       });
 
