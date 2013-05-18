@@ -252,7 +252,9 @@ exports.userRate = function(req, res) {
             rating: rating.rating
           })
         } else {
-          rating: -1
+          res.send({
+            rating: -1
+          });
         }
       })
     });

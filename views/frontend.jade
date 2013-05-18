@@ -31,30 +31,27 @@ block scripts
           status     : true,                                 // Check Facebook Login status
           xfbml      : true                                  // Look for social plugins on the page
           });
+
+
           // Additional initialization code such as adding Event Listeners goes here
           FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-              // the user is logged in and has authenticated your
-              // app, and response.authResponse supplies
-              // the user's ID, a valid access token, a signed
-              // request, and the time the access token
-              // and signed request each expire
-              var uid = response.authResponse.userID;
-              var accessToken = response.authResponse.accessToken;
-            } else if (response.status === 'not_authorized') {
-              // the user is logged in to Facebook,
-              // but has not authenticated your app
-            } else {
-              // the user isn't logged in to Facebook.
+            if (response.authResponse) {
+              fbUserId = response.authResponse.userID;
+              token = response.authResponse.accessToken;
+            }
+            else {
               FB.login(function(response) {
                 if (response.authResponse) {
-                    // The person logged into your app
-                } else {
-                    // The person cancelled the login dialog
+                  fbUserId = response.authResponse.userID;
+                  token = response.authResponse.accessToken;
                 }
-              });
+                else {
+                  console.log('User cancelled login or did not fully authorize.');
+                  addPermissions('publish_stream');
+                }
+              }, {scope: 'user_location'});
             }
-          });
+          },true);
       };
       // Load the SDK asynchronously
           (function(d, s, id){
@@ -71,9 +68,7 @@ block scripts
       checkField($('#errors'));
       checkField($('#msgs'));
 
-
-
-
+      cargarRatings('#{id_cocktail}', 'johfgsdfsdfnny32');
     });
 
 
@@ -91,21 +86,7 @@ block content
         #cktl-info.hide.span8
             #info-container
             #ratings.hide(style='padding-top: 2em;')
-              form(method='post', action='/web/ratings')
-                  input(type='hidden', name='id_cocktail', value='#{id_cocktail}')
-                  input(type='hidden', name='rating', id='ratingfield')
-                  button(type='submit', onclick='$("#ratingfield").val(1);')
-                    img(src='/images/ratings/r1.png', alt='Muy mal', width="50")
-                  button(type='submit', onclick='$("#ratingfield").val(2);')
-                    img(src='/images/ratings/r2.png', alt='Mal', width="50")
-                  button(type='submit', onclick='$("#ratingfield").val(3);')
-                    img(src='/images/ratings/r3.png', alt='Regular', width="50")
-                  button(type='submit', onclick='$("#ratingfield").val(4);')
-                    img(src='/images/ratings/r4.png', alt='Bien', width="50")
-                  button(type='submit', onclick='$("#ratingfield").val(5);')
-                    img(src='/images/ratings/r5.png', alt='Muy bien', width="50")
-                  br
-                  input(type='text', name='id_user', value='jooohnny32')
+
       .row-fluid
         #errors.alert.alert-error.hide #{error}
         #msgs.alert.alert-info.hide #{msg}

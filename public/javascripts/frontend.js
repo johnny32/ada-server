@@ -5,10 +5,6 @@
  * Time: 17:33
  * To change this template use File | Settings | File Templates.
  */
-
-var id_user = "johnny32";
-
-
 function cargarCocktail(id) {
   var progressbar = $('#pb-bar')[0];
   $(progressbar.parentElement).removeClass('hide');
@@ -41,7 +37,6 @@ function cargarCocktail(id) {
           $(cktlinfo).append(txt);
           progressbar.style.width = '60%';
           cargarImgCocktail(cktl, progressbar);
-          cargarRatings(cktl);
         }
       });
 
@@ -89,17 +84,41 @@ function eliminarBarra(progressbar) {
   $('#ratings').removeClass('hide');
 }
 
-function cargarRatings(cktl) {
-  if (id_user) {
-    $.ajax({
-      url: '/ratings/' + cktl._id + '/' + id_user,
-      method: 'get',
-      dataType: 'json',
-      success: function(data) {
-        if (data.rating != -1) {
-          $('#ratings').html('<p>Has puntuado este cocktail con: <img src="/images/ratings/r' + data.rating + '.png" alt="Puntuacion" width="50" /></p>');
-        }
+function cargarRatings(id_cktl, usuario) {
+  $.ajax({
+    url: '/ratings/' + id_cktl + '/' + usuario,
+    method: 'get',
+    dataType: 'json',
+    success: function(data) {
+      if (data.rating != -1) {
+        $('#ratings').html('<p>Has puntuado este cocktail con: <img src="/images/ratings/r' + data.rating + '.png" alt="Puntuacion" width="50" /></p>');
+      } else {
+        cargarFormRatings(id_cktl, usuario);
       }
-    })
-  }
+    },
+    error: function() {
+      cargarFormRatings(id_cktl, usuario);
+    }
+  });
+}
+
+function cargarFormRatings(id_cktl, usuario) {
+  var container = $('#ratings');
+  var form = $('<form>', {
+    method: 'post',
+    action: '/web/ratings'
+  });
+  $(form).append('<input type="hidden" name="id_cocktail" value="' + id_cktl + '" />');
+  $(form).append('<input type="hidden" name="id_user" value="' + usuario + '" />');
+  $(form).append('<input type="hidden" name="rating" id="ratingField" />');
+  $(form).append('<button type="submit" onclick="ponerValor(1)"><img src="/images/ratings/r1.png" alt="Muy mal" width="50" /></button>');
+  $(form).append('<button type="submit" onclick="ponerValor(2)"><img src="/images/ratings/r2.png" alt="Mal" width="50" /></button>');
+  $(form).append('<button type="submit" onclick="ponerValor(3)"><img src="/images/ratings/r3.png" alt="Regular" width="50" /></button>');
+  $(form).append('<button type="submit" onclick="ponerValor(4)"><img src="/images/ratings/r4.png" alt="Bien" width="50" /></button>');
+  $(form).append('<button type="submit" onclick="ponerValor(5)"><img src="/images/ratings/r5.png" alt="Muy bien"width="50"  /></button>');
+  $(container).append(form);
+}
+
+function ponerValor(valor) {
+  $('#ratingField').val(valor);
 }
