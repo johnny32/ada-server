@@ -54,3 +54,20 @@ a {
   color: silver;
   text-align: center;
 }
+
+/* Border imatges */
+.border-amarillo{
+  border: 2px solid gold;
+}
+
+.border-rojo{
+  border: 2px solid red;
+}
+
+.border-verde{
+  border: 2px solid greenyellow;
+}
+
+.border-naranja{
+  border: 2px solid orange;
+}

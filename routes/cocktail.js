@@ -130,7 +130,8 @@ exports.image = function(req, res) {
   var color = getColor(zumos);
   var img = ("/images/cocktails/" + vaso + "_" + color + ".jpg").replace(/ /g, "_");
   res.send({
-    img: img
+    img: img,
+    color: color
   });
 }
 

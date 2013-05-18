@@ -77,8 +77,10 @@ function cargarImgCocktail(cktl, progressbar) {
       progressbar.style.width = '85%';
       var img = $('<img>', {
         src: imagen.img,
-        alt: 'Cocktail ' + cktl.nombre
+        alt: 'Cocktail ' + cktl.nombre,
+        class: 'border-' + imagen.color.toLowerCase()
       });
+
       $('#cktl-img').append(img);
       progressbar.style.width = '100%';
       setTimeout(eliminarBarra(progressbar), 500);
