@@ -72,6 +72,7 @@ app.delete('/maps/:latitud/:longitud', checkLogged, maps.delete);
 
 //Web (frontend)
 app.get('/:id_cocktail', web.cocktail);
+app.post('/web/ratings', web.rate);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

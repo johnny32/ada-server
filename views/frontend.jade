@@ -42,7 +42,7 @@ block content
         #cktl-info.hide.span8
             #info-container
             #ratings.hide(style='padding-top: 2em;')
-              form(method='post', action='/ratings')
+              form(method='post', action='/web/ratings')
                   input(type='hidden', name='id_cocktail', value='#{id_cocktail}')
                   input(type='hidden', name='rating', id='ratingfield')
                   button(type='submit', onclick='$("#ratingfield").val(1);')
@@ -56,7 +56,7 @@ block content
                   button(type='submit', onclick='$("#ratingfield").val(5);')
                     img(src='/images/ratings/r5.png', alt='Muy bien', width="50")
                   br
-                  input(type='text', name='id_user', value='johnny32')
+                  input(type='text', name='id_user', value='jooohnny32')
       .row-fluid
         #errors.alert.alert-error.hide #{error}
         #msgs.alert.alert-info.hide #{msg}

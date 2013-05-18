@@ -28,7 +28,7 @@ var path = require('path');
 exports.list = function(req, res) {
   mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('cocktails', function(err, collection) {
-      collection.find().sort({rating: 1}).toArray(function(err, items) {
+      collection.find().toArray(function(err, items) {
         res.send(items);
       });
     });
@@ -91,7 +91,8 @@ exports.create = function(req, res) {
           vaso:       cktl.vaso,
           nombre:     cktl.nombre,
           creador:    cktl.creador,
-          imagen:     cktl.imagen
+          imagen:     cktl.imagen,
+          rating:     0
         };
         collection.insert(cktl_ok, function(err, item) {
           if (!err) {
@@ -195,11 +196,26 @@ exports.rate = function(req, res) {
       collection.insert(row, function(err, item) {
         if (!err) {
           console.log("Rating inserted");
-          res.render('frontend', {
-            title: 'Cocktail',
-            id_cocktail: id_cocktail,
-            error: '',
-            msg: 'Cocktail puntuado correctamente.'
+          collection.find({'id_cocktail': id_cocktail}).toArray(function(err, items) {
+            var rating = 0;
+            if (items.length > 0) {
+              for (var i in items) {
+                rating += parseInt(items[i].rating);
+              }
+              rating = rating / items.length;
+            }
+            db.collection('cocktails', function(err, collection) {
+              collection.update({'_id': new BSON.ObjectID(id_cocktail)}, {$set: {rating: rating}}, function(err, cktl) {
+                if (!err) {
+                  console.log("Ratings for cocktail " + id_cocktail + ": " + rating);
+                  res.send({
+                    rating: rating
+                  });
+                } else {
+                  console.log("Ratings cocktail update failed.");
+                }
+              });
+            });
           });
         } else {
           console.log("Error: rating couldn't be inserted");
@@ -276,7 +292,7 @@ exports.listLimit = function(req, res) {
   console.log("Retrieving cocktails from " + limit + " to " + (parseInt(limit) + 9));
   mongo.Db.connect(mongoUri, function(err, db) {
     db.collection('cocktails', function(err, collection) {
-      collection.find({}, {}, {"limit": 10, "skip": parseInt(limit)}).toArray(function(err, items) {
+      collection.find({}, {}, {"limit": 10, "skip": parseInt(limit)}).sort({rating: -1}).toArray(function(err, items) {
         res.send(items);
       })
     })
