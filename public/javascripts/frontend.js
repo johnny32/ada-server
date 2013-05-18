@@ -85,6 +85,7 @@ function eliminarBarra(progressbar) {
 }
 
 function cargarRatings(id_cktl, usuario) {
+  $('#ratings').empty();
   $.ajax({
     url: '/ratings/' + id_cktl + '/' + usuario,
     method: 'get',
@@ -104,7 +105,6 @@ function cargarRatings(id_cktl, usuario) {
 
 function cargarFormRatings(id_cktl, usuario) {
   var container = $('#ratings');
-  $(container).html();
   var form = $('<form>', {
     method: 'post',
     action: '/web/ratings'
