@@ -23,5 +23,16 @@ function checkField(fld) {
  * @date    2013-05-04
  */
 function getUser(id_facebook) {
-  return '<a href="http://www.facebook.com/' + id_facebook + '">' + id_facebook + '</a>';
+  $.ajax({
+    type : "GET",
+    url : "http://graph.facebook.com/" + id_facebook,
+    dataType : "json",
+    async : false,
+    success : function(data2){
+      return '<a href="http://www.facebook.com/' + id_facebook + '">' + data2.name + '</a>';
+    },
+    error: function(header, status, from){
+      console.log("Error retrieving Facebook user: " + id_facebook);
+    }
+  });
 }

@@ -23,9 +23,12 @@ function cargarCocktail(id) {
         method: 'get',
         dataType: 'json',
         success: function(rating) {
-          var txt = '<h1>Cocktail "' + cktl.nombre + '"</h1>'
-              + '<p><strong>Creado por:</strong> ' + getUser(cktl.creador) + '<br>'
-              + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
+          var txt = '<h1>Cocktail "' + cktl.nombre + '"</h1>';
+          var creador = getUser(cktl.creador);
+          if (creador !== undefined) {
+            txt += '<p><strong>Creado por:</strong> ' + creador + '<br>';
+          }
+          txt += '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
               + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
               + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '<br>'
               + '<strong>Puntuaci&oacute;n media:</strong> ';
