@@ -266,6 +266,24 @@ exports.findByUser = function(req, res) {
 }
 
 /**
+ * Retorna els 10 cocktails a partir de :limit
+ *
+ * @param req
+ * @param res
+ */
+exports.listLimit = function(req, res) {
+  var limit = req.params.limit;
+  console.log("Retrieving cocktails from " + limit + " to " + (parseInt(limit) + 9));
+  mongo.Db.connect(mongoUri, function(err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.find({}, {}, {"limit": 10, "skip": parseInt(limit)}).toArray(function(err, items) {
+        res.send(items);
+      })
+    })
+  })
+}
+
+/**
  * Calcula el color a partir dels sucs
  *
  * @param zumos

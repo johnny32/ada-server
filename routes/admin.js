@@ -271,14 +271,20 @@ exports.createCocktail = function(req, res) {
  * @date    2013-05-13
  */
 exports.recommendedCocktail = function(req, res) {
+  console.log("Retrieving recommended cocktail");
   mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('cocktails_admin', function(err, collection) {
       collection.findOne({'recomendado': 1}, function(err, cktl) {
-        res.send(cktl);
+        if (!err) {
+          console.log("Found: " + cktl.nombre);
+          res.send(cktl);
+        } else {
+          console.log("Not found");
+          res.send({});
+        }
       });
     });
   });
-  res.send({});
 }
 
 /**
