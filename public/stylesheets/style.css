@@ -1,7 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: darkslategray;
+  background-color: #000000;
 }
 
 #content {
@@ -15,4 +15,59 @@ body {
 
 a {
   color: #00B7FF;
+}
+
+#ingredients, #recommended-cocktail
+{
+  height: 10em;
+}
+
+#banner
+{
+  width: 100%;
+  text-align: center;
+  height: 12em;
+}
+
+#banner img
+{
+  height: 100%;
+}
+
+#content-index
+{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.img-android
+{
+  margin: 1em;
+  height: 33em;
+}
+
+#credits
+{
+  margin-top: 1.5em;
+  font-size: small;
+  color: silver;
+  text-align: center;
+}
+
+/* Border imatges */
+.border-amarillo{
+  border: 2px solid gold;
+}
+
+.border-rojo{
+  border: 2px solid red;
+}
+
+.border-verde{
+  border: 2px solid greenyellow;
+}
+
+.border-naranja{
+  border: 2px solid orange;
 }

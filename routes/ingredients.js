@@ -7,24 +7,13 @@
  */
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
-  Db = mongo.Db,
-  BSON = mongo.BSONPure;
+var mongoUri = process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/sinatra';
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('sinatra', server);
+var BSON = mongo.BSONPure;
 
-db.open(function(err, db) {
-  if (!err) {
-    console.log("Connected to 'sinatra' database");
-    db.collection('ingredients', {strict: true}, function(err, collection) {
-      if (err) {
-        console.log("The 'ingredients' collection doesn't exist. Creating it with sample data...");
-        populateDB();
-      }
-    });
-  }
-});
+var fs = require('fs');
 
 /**
  * Llista tots els ingredients.
@@ -37,9 +26,11 @@ db.open(function(err, db) {
  * @date    2013-05-05
  */
 exports.list = function(req, res) {
-  db.collection('ingredients', function(err, collection) {
-    collection.find().sort({descripcion: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.find().sort({descripcion: 1}).toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -57,9 +48,11 @@ exports.list = function(req, res) {
 exports.listByType = function(req, res) {
   var tipo = req.params.tipo;
   console.log('Retrieving ingredients of type: ' + tipo);
-  db.collection('ingredients', function(err, collection) {
-    collection.find({tipo: tipo}).sort({descripcion: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.find({tipo: tipo}).sort({descripcion: 1}).toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -77,21 +70,128 @@ exports.listByType = function(req, res) {
 exports.findById = function(req, res) {
   var id = req.params.id;
   console.log('Retrieving ingredient: ' + id);
-  db.collection('ingredients', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
-      if (!err) {
-        res.send(item);
-      } else {
-        console.log("Error: ingredient " + id + " doesn't exist");
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
+        if (!err) {
+          res.send(item);
+        } else {
+          console.log("Error: ingredient " + id + " doesn't exist");
+        }
+      });
     });
   });
 }
 
-
+/**
+ * Crea un nou ingredient
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-12
+ */
+//Heroku no permet pujar imatges al servidor, cal fer servir Amazon S3 o alguna alternativa.
+//Per aquesta versio de l'aplicacio, no es permetra crear ingredients, sino que els crearan "manualment" a la base de dades i es pujaran les imatges al servidor.
+exports.create = function(req, res) {
+  if (req.body.descripcion && req.body.tipo && req.files.imagen) {
+    mongo.Db.connect(mongoUri, function (err, db) {
+      db.collection('ingredients', function(err, collection) {
+        fs.readFile(req.files.imagen.path, function(err, data) {
+          if (req.files.imagen.type.indexOf("image/") != -1) {
+            var ruta_parcial = req.body.tipo + "_" + req.body.descripcion;
+            ruta_parcial = "/../public/images/ingredients/" + ruta_parcial.replace(/ /g, "_");
+            var parts = req.files.imagen.name.split(".");
+            if (parts.length > 1) {
+              var ext = parts[parts.length-1];
+              var ruta = __dirname + ruta_parcial + "." + ext;
+              fs.writeFile(ruta, data, function(err) {
+                if (!err) {
+                  var ing_ok = {
+                    descripcion: req.body.descripcion,
+                    tipo: req.body.tipo,
+                    imagen: ruta
+                  };
+                  collection.insert(ing_ok, function(err, item) {
+                    if (!err) {
+                      console.log("Ingredient inserted");
+                      res.render('backend', {
+                        title: 'Zona de administraci&oacute;n',
+                        error_cktl: '',
+                        msg_cktl: '',
+                        error_ingredient: '',
+                        msg_ingredient: 'Ingrediente creado correctamente'
+                      });
+                    } else {
+                      console.log("Error: admin cocktail couldn't be inserted: " + cktl_ok.nombre);
+                      console.log(err);
+                      res.render('backend',
+                        {
+                          title: 'Zona de administraci&oacute;n',
+                          error_cktl: '',
+                          msg_cktl: '',
+                          error_ingredient: 'Hubo un error insertando el ingrediente.',
+                          msg_ingredient: ''
+                        }
+                      );
+                    }
+                  });
+                } else {
+                  console.log("Error: file couldn't be uploaded.");
+                  console.log(err);
+                  res.render('backend', {
+                    title: 'Zona de administraci&oacute;n',
+                    error_cktl: '',
+                    msg_cktl: '',
+                    error_ingredient: 'Hubo un error subiendo la imagen al servidor.',
+                    msg_ingredient: ''
+                  });
+                }
+              });
+            } else {
+              console.log("Error: file has no extension");
+              console.log(err);
+              res.render('backend', {
+                title: 'Zona de administraci&oacute;n',
+                error_cktl: '',
+                msg_cktl: '',
+                error_ingredient: 'La imagen no tiene extensi&oacute;n.',
+                msg_ingredient: ''
+              });
+            }
+          } else {
+            console.log("Error: file isn't an image.");
+            console.log(err);
+            res.render('backend', {
+              title: 'Zona de administraci&oacute;n',
+              error_cktl: '',
+              msg_cktl: '',
+              error_ingredient: 'El archivo seleccionado debe ser una imagen.',
+              msg_ingredient: ''
+            });
+          }
+        });
+      });
+    });
+  } else {
+    console.log("Error: ingredient not inserted (missing fields).")
+    console.log("Description: " + req.body.descripcion);
+    console.log("Type: " + req.body.tipo);
+    console.log("Image: " + req.files.imagen);
+    res.render('backend', {
+      title: 'Zona de administraci&oacute;n',
+      error_cktl: '',
+      msg_cktl: '',
+      error_ingredient: 'Faltan campos en la creaci&oacute;n del ingrediente.',
+      msg_ingredient: ''
+    });
+  }
+}
 
 /**
- * Crea dades de prova per la base de dades.
+ * Crea els ingredients inicials per la base de dades.
  *
  * @author  jclara
  * @version 1.1
@@ -100,116 +200,154 @@ exports.findById = function(req, res) {
 var populateDB = function() {
   var ingredients = [
     {
-      descripcion:  "Zumo de naranja",
-      tipo:         "Zumo"
+      descripcion: 'Piña',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_pina.jpg'
     },
     {
-      descripcion:  "Zumo de fresa",
-      tipo:         "Zumo"
+      descripcion: 'Naranja',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_naranja.jpg'
     },
     {
-      descripcion:  "Zumo de mango",
-      tipo:         "Zumo"
+      descripcion: 'Melocotón',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_melocoton.jpg'
     },
     {
-      descripcion:  "Zumo de piña",
-      tipo:         "Zumo"
+      descripcion: 'Limón',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_limon.jpg'
     },
     {
-      descripcion:  "Zumo de melocotón",
-      tipo:         "Zumo"
+      descripcion: 'Fresa',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_fresa.jpg'
     },
     {
-      descripcion:  "Zumo de limón",
-      tipo:         "Zumo"
+      descripcion: 'Mango',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_mango.jpg'
     },
     {
-      descripcion:  "Ron",
-      tipo:         "Licor"
+      descripcion: 'Melón',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_melon.jpg'
+    },{
+      descripcion: 'Sandía',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_sandia.jpg'
     },
     {
-      descripcion:  "Whisky",
-      tipo:         "Licor"
+      descripcion: 'Fruta de la pasión',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_frutadelapasion.jpg'
     },
     {
-      descripcion:  "Vodka",
-      tipo:         "Licor"
+      descripcion: 'Pomelo',
+      tipo: 'Zumo',
+      imagen: 'zumos/zumo_pomelo.jpg'
     },
     {
-      descripcion:  "Ginebra",
-      tipo:         "Licor"
+      descripcion: 'Ginebra',
+      tipo: 'Licor',
+      imagen: 'licores/licor_ginebra.jpg'
     },
     {
-      descripcion:  "Tequila",
-      tipo:         "Licor"
+      descripcion: 'Orujo',
+      tipo: 'Licor',
+      imagen: 'licores/licor_orujo.jpg'
     },
     {
-      descripcion:  "Absenta",
-      tipo:         "Licor"
+      descripcion: 'Ron',
+      tipo: 'Licor',
+      imagen: 'licores/licor_ron.jpg'
     },
     {
-      descripcion:  "Cola",
-      tipo:         "Carbonico"
+      descripcion: 'Tequila',
+      tipo: 'Licor',
+      imagen: 'licores/licor_tequila.jpg'
     },
     {
-      descripcion:  "Limón",
-      tipo:         "Carbonico"
+      descripcion: 'Vodka',
+      tipo: 'Licor',
+      imagen: 'licores/licor_vodka.jpg'
     },
     {
-      descripcion:  "Naranja",
-      tipo:         "Carbonico"
+      descripcion: 'Whisky',
+      tipo: 'Licor',
+      imagen: 'licores/licor_whisky.jpg'
     },
     {
-      descripcion:  "Tónica",
-      tipo:         "Carbonico"
+      descripcion: 'Cola',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_cola.jpg'
     },
     {
-      descripcion:  "Cubata",
-      tipo:         "Vaso"
+      descripcion: 'Limón',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_limon.jpg'
     },
     {
-      descripcion:  "Chupito",
-      tipo:         "Vaso"
+      descripcion: 'Naranja',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_naranja.jpg'
     },
     {
-      descripcion:  "Pinta",
-      tipo:         "Vaso"
+      descripcion: 'Soda',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_soda.jpg'
     },
     {
-      descripcion:  "Copa de champán",
-      tipo:         "Vaso"
+      descripcion: 'Te frío limón',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_tefriolimon.jpg'
     },
     {
-      descripcion:  "Blanco",
-      tipo:         "Color"
+      descripcion: 'Te frío melocotón',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_tefriomelocoton.jpg'
     },
     {
-      descripcion:  "Azul",
-      tipo:         "Color"
+      descripcion: 'Tónica',
+      tipo: 'Carbonico',
+      imagen: 'carbonico/carbonico_tonica.jpg'
     },
     {
-      descripcion:  "Naranja",
-      tipo:         "Color"
+      descripcion: 'Copa Martini',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_martini.jpg'
     },
     {
-      descripcion:  "Amarillo",
-      tipo:         "Color"
+      descripcion: 'Collins',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_collins.jpg'
     },
     {
-      descripcion:  "Rojo",
-      tipo:         "Color"
+      descripcion: 'Vaso Mojito',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_mojito.jpg'
     },
     {
-      descripcion:  "Verde",
-      tipo:         "Color"
+      descripcion: 'On the rocks',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_ontherocks.jpg'
     },
     {
-      descripcion:  "Negro",
-      tipo:         "Color"
+      descripcion: 'Copa Hawaii',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_hawaii.jpg'
+    },
+    {
+      descripcion: 'Penguen',
+      tipo: 'Vaso',
+      imagen: 'vaso/vaso_penguen.jpg'
     }
   ];
 
-  db.collection('ingredients', function(err, collection) {
-    collection.insert(ingredients, {safe:true}, function(err, result) {});
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ingredients', function(err, collection) {
+      collection.insert(ingredients, {safe:true}, function(err, result) {});
+    });
   });
 }

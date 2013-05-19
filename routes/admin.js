@@ -7,23 +7,11 @@
  */
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var mongoUri = process.env.MONGOLAB_URI || 
+  process.env.MONGOHQ_URL || 
+  'mongodb://localhost/sinatra';
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('sinatra', server);
-
-db.open(function(err, db) {
-  if (!err) {
-    db.collection('users', {strict: true}, function(err, collection) {
-      if (err) {
-        console.log("The 'reg_users' collection doesn't exist. Creating it with sample data...");
-        populateDB();
-      }
-    });
-  }
-});
+var BSON = mongo.BSONPure;
 
 /**
  * Accedeix a la part de backend (si l'admin ha iniciat sessio) o renderitza la pagina de login
@@ -39,8 +27,10 @@ exports.index = function(req, res) {
   res.render('backend',
     {
       title: 'Zona de administraci&oacute;n',
-      error_new: '',
-      msg_new: ''
+      error_cktl: '',
+      msg_cktl: '',
+      error_ingredient: '',
+      msg_ingredient: ''
     });
 }
 
@@ -83,15 +73,17 @@ exports.loginAction = function(req, res) {
   var pass = req.body.passenc;
   console.log('Retrieving admin user: ' + user);
   console.log('Encrypted password: ' + pass);
-  db.collection('reg_users', function(err, collection) {
-    collection.findOne({'user': user, 'pass': pass}, function(err, item) {
-      if (!err && item != null) {
-        console.log("Correct admin user: " + req.body.user);
-        req.session.logged = true;
-        res.redirect('/admin');
-      } else {
-        fail();
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('reg_users', function(er, collection) {
+      collection.findOne({'user': user, 'pass': pass}, function(err, item) {
+        if (!err && item != null) {
+          console.log("Correct admin user: " + req.body.user);
+          req.session.logged = true;
+          res.redirect('/admin');
+        } else {
+          fail();
+        }
+      });
     });
   });
 
@@ -111,32 +103,34 @@ exports.loginAction = function(req, res) {
  * @param res
  *
  * @author  jclara
- * @version 1.0
+ * @version 2.0
  * @date    2013-05-01
  */
 exports.recommendCocktail = function(req, res) {
-  var id_cocktail = req.params.id_cocktail;
-  db.collection('cocktails_admin', function(err, collection) {
-    console.log('Unchecking recommended cocktails...');
-    collection.update({}, {$unset: {recomendado: 1}}, {safe: true, multi: true}, function(err, object) {
-      if (!err) {
-        console.log('Uncheck successful!');
-        console.log('Checking recommended cocktail: ' + id_cocktail);
-        collection.update({'_id': new BSON.ObjectID(id_cocktail)}, {$set: {recomendado: 1}}, {safe: true}, function(err, object) {
-          if (!err) {
-            console.log(object);
-            console.log(err);
-            console.log('Check successful!');
-            res.send({
-              id_cocktail: id_cocktail
-            });
-          } else {
-            console.log('Check unsuccessful...');
-          }
-        }); //Linea magica 2: tampoco tocar!
-      } else {
-        console.log('Uncheck unsuccessful...');
-      }
+  var id_cocktail = req.body.id_cocktail;
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      console.log('Unchecking recommended cocktails...');
+      collection.update({}, {$unset: {recomendado: 1}}, {safe: true, multi: true}, function(err, object) {
+        if (!err) {
+          console.log('Uncheck successful!');
+          console.log('Checking recommended cocktail: ' + id_cocktail);
+          collection.update({'_id': new BSON.ObjectID(id_cocktail)}, {$set: {recomendado: 1}}, {safe: true}, function(err, object) {
+            if (!err) {
+              console.log(object);
+              console.log(err);
+              console.log('Check successful!');
+              res.send({
+                id_cocktail: id_cocktail
+              });
+            } else {
+              console.log('Check unsuccessful...');
+            }
+          }); //Linea magica 2: tampoco tocar!
+        } else {
+          console.log('Uncheck unsuccessful...');
+        }
+      });
     });
   });
 }
@@ -152,9 +146,11 @@ exports.recommendCocktail = function(req, res) {
  * @date    2013-05-04
  */
 exports.cocktails = function(req, res) {
-  db.collection('cocktails_admin', function(err, collection) {
-    collection.find().sort({nombre: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      collection.find().sort({nombre: 1}).toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -172,13 +168,15 @@ exports.cocktails = function(req, res) {
 exports.findCktlById = function(req, res) {
   var id = req.params.id_cocktail;
   console.log('Retrieving admin cocktail: ' + id);
-  db.collection('cocktails_admin', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
-      if (!err) {
-        res.send(item);
-      } else {
-        console.log("Error: admin cocktail " + id + " doesn't exist");
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
+        if (!err) {
+          res.send(cktl);
+        } else {
+          console.log("Error: admin cocktail " + id + " doesn't exist");
+        }
+      });
     });
   });
 }
@@ -197,45 +195,134 @@ exports.createCocktail = function(req, res) {
   var cktl = req.body;
   console.log('Receiving admin cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
-  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.color) {
-    db.collection('cocktails_admin', function(err, collection) {
-      //Filtrem la resta de camps
-      var cktl_ok =
-      {
-        zumos:      [cktl.zumos],
-        licores:    [cktl.licores],
-        carbonico:  cktl.carbonico,
-        vaso:       cktl.vaso,
-        nombre:     cktl.nombre,
-        color:      cktl.color
-      };
-      collection.insert(cktl_ok, function(err, item) {
-        if (!err) {
-          console.log("Admin cocktail inserted: " + cktl_ok.nombre);
-          res.render('backend',
-            {
-              title: 'Zona de administraci&oacute;n',
-              error_new: '',
-              msg_new: 'Cocktail creado correctamente'
-            }
-          );
-        } else {
-          console.log("Error: admin cocktail couldn't be inserted: " + cktl_ok.nombre);
+  if (cktl.zumos && cktl.carbonico && cktl.vaso && cktl.nombre) {
+    mongo.Db.connect(mongoUri, function (err, db) {
+      db.collection('cocktails_admin', function(err, collection) {
+        //Filtrem la resta de camps
+        var color = getColor(cktl.zumos);
+        var licores = [];
+        if (cktl.licores) {
+          licores = [cktl.licores];
         }
-      });
-    })
+        var cktl_ok =
+        {
+          zumos:      [cktl.zumos],
+          licores:    licores,
+          carbonico:  cktl.carbonico,
+          vaso:       cktl.vaso,
+          nombre:     cktl.nombre,
+          imagen:     ("/images/cocktails/" + cktl.vaso + "_" + color + ".jpg").replace(/ /g, "_")
+        };
+        collection.insert(cktl_ok, function(err, item) {
+          if (!err) {
+            console.log("Admin cocktail inserted: " + cktl_ok.nombre);
+            res.render('backend',
+              {
+                title: 'Zona de administraci&oacute;n',
+                error_cktl: '',
+                msg_cktl: 'Cocktail creado correctamente',
+                error_ingredient: '',
+                msg_ingredient: ''
+              }
+            );
+          } else {
+            console.log("Error: admin cocktail couldn't be inserted: " + cktl_ok.nombre);
+            console.log(err);
+            res.render('backend',
+              {
+                title: 'Zona de administraci&oacute;n',
+                error_cktl: 'Hubo un error insertando el cocktail.',
+                msg_cktl: '',
+                error_ingredient: '',
+                msg_ingredient: ''
+              }
+            );
+          }
+        });
+      })
+    });
   } else {
     console.log("Error: admin cocktail not inserted (missing fields).");
+    console.log("Juices: " + cktl.zumos);
+    console.log("Liqueurs: " + cktl.licores);
+    console.log("Soda: " + cktl.carbonico);
+    console.log("Glass: " + cktl.vaso);
+    console.log("Name: " + cktl.nombre);
     res.render('backend',
       {
         title: 'Zona de administraci&oacute;n',
-        error_new: 'Faltan campos en la creaci&oacute;n del cocktail.',
-        msg_new: ''
+        error_cktl: 'Faltan campos en la creaci&oacute;n del cocktail.',
+        msg_cktl: '',
+        error_ingredient: '',
+        msg_ingredient: ''
       }
     );
   }
 }
 
+/**
+ * Retorna el cocktail recomanat, si n'hi ha
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-13
+ */
+exports.recommendedCocktail = function(req, res) {
+  console.log("Retrieving recommended cocktail");
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails_admin', function(err, collection) {
+      collection.findOne({'recomendado': 1}, function(err, cktl) {
+        if (!err) {
+          console.log("Found: " + cktl.nombre);
+          res.send(cktl);
+        } else {
+          console.log("Not found");
+          res.send({});
+        }
+      });
+    });
+  });
+}
+
+/**
+ * Calcula el color a partir dels sucs
+ *
+ * @param zumos
+ * @returns {*}
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-12
+ */
+function getColor(zumos) {
+  var totales = [];
+  if (typeof zumos === 'string') {
+    zumos = [zumos];
+  }
+  zumos.forEach(function(zumo, i, zumos) {
+    if (zumo == "Fresa" || zumo == "Sandía" || zumo == "Pomelo") {
+      totales[i] = "Rojo";
+    } else if (zumo == "Naranja" || zumo == "Melocotón" || zumo == "Mango" || zumo == "Fruta de la pasión") {
+      totales[i] = "Naranja";
+    } else if (zumo == "Melón") {
+      totales[i] = "Verde";
+    } else {
+      totales[i] = "Amarillo";
+    }
+  });
+  var color = totales[Math.floor(Math.random()*totales.length)];
+  return color;
+}
+
+/**
+ * Crea l'usuari admin/admin.
+ *
+ * @author  jclara
+ * @version 1.0
+ */
 function populateDB() {
   console.log('Creating registered users collection...');
   var admin =
@@ -244,80 +331,10 @@ function populateDB() {
     pass: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
   };
 
-  db.collection('reg_users', function(err, collection) {
-    collection.insert(admin, {safe:true}, function(err, result) {});
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('reg_users', function(err, collection) {
+      collection.insert(admin, {safe:true}, function(err, result) {});
+    });
   });
 }
 
-function populateDBCocktails() {
-  var cktls = [
-    {
-      zumos:        ["Zumo de manzana", "Zumo de fresa"],
-      licores:      ["Wishky"],
-      carbonico:    "Lim&oacute;n",
-      vaso:         "Chupito",
-      nombre:       "Luke Skywalker",
-      color:        "Verde"
-    },
-    {
-      zumos:        ["Zumo de pi&ntilde;a"],
-      licores:      ["Ron", "Ginebra"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "Han Solo",
-      color:        "Amarillo"
-    },
-    {
-      zumos:        ["Zumo de fresa", "Zumo de naranja", "Zumo de mango"],
-      licores:      ["Ginebra", "Vodka", "Ron"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "Darth Vader",
-      color:        "Rojo"
-    },
-    {
-      zumos:        ["Naranja"],
-      licores:      ["Vodka"],
-      carbonico:    "Naranja",
-      vaso:         "Chupito",
-      nombre:       "R2D2",
-      color:        "Naranja"
-    },
-    {
-      zumos:        ["Zumo de manzana", "Zumo de fresa"],
-      licores:      ["Wishky"],
-      carbonico:    "Lim&oacute;n",
-      vaso:         "Chupito",
-      nombre:       "Princess Leia",
-      color:        "Verde"
-    },
-    {
-      zumos:        ["Zumo de pi&ntilde;a"],
-      licores:      ["Ron", "Ginebra"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "Chewbacca",
-      color:        "Amarillo"
-    },
-    {
-      zumos:        ["Zumo de fresa", "Zumo de naranja", "Zumo de mango"],
-      licores:      ["Ginebra", "Vodka", "Ron"],
-      carbonico:    "Cola",
-      vaso:         "Darth Vader",
-      nombre:       "C3PO",
-      color:        "Rojo"
-    },
-    {
-      zumos:        ["Naranja"],
-      licores:      ["Vodka"],
-      carbonico:    "Naranja",
-      vaso:         "Chupito",
-      nombre:       "Yoda",
-      color:        "Naranja"
-    }
-  ];
-
-  db.collection('cocktails_admin', function(err, collection) {
-    collection.insert(cktls, {safe: true}, function(err, result) {});
-  });
-}

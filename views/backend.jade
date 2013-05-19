@@ -13,10 +13,10 @@ block scripts
   script
     $(document).ready(function() {
 
-      checkField($('#error_new'));
-      checkField($('#msg_new'));
-      checkField($('#error_new_ingredient'));
-      checkField($('#msg_new_ingredient'));
+      checkField($('#error_cktl'));
+      checkField($('#msg_cktl'));
+      checkField($('#error_ingredient'));
+      checkField($('#msg_ingredient'));
 
       $('#info-cktl').on('hide', function () {
         $('#info-cktl-title').empty();
@@ -39,24 +39,12 @@ block scripts
 
 block content
   #header.well
-    h1 #{title}
+    h1(style='text-align: center;')
+      a(href='/admin') #{title}
 
   #content.container-fluid
     .row-fluid
-      #img-uploader.well
-        h2 Subida de im&aacute;genes
-        form(action="/images", method="post", enctype="multipart/form-data")
-          input(type="file", name="imageFile")
-          input(type="submit", name="submitButton")
-            i.btn.btn-success Subir
-
-    .row-fluid
-      #map-locations.well
-        h2 Puntos en el mapa
-        p Pendiente...
-
-    .row-fluid
-      .span6
+      .span7
         #recommended-cocktail.well
           h2 Cocktails
           #recommended-cocktail-container
@@ -68,12 +56,11 @@ block content
           &nbsp;
           &nbsp;
           button#btn-new-cktl.btn.btn-primary.hide Nuevo cocktail
-          #errors-cocktail-list.alert.alert-error.hide
           #alerts
-            #error_new.alert.alert-error #{error_new}
-            #msg_new.alert.alert-info #{msg_new}
+            #error_cktl.alert.alert-error #{error_cktl}
+            #msg_cktl.alert.alert-info #{msg_cktl}
 
-      .span6
+      .span5
         #ingredients.well
           h2 Ingredientes
           #ingredients-container
@@ -97,18 +84,6 @@ block content
           #drop-vasos.btn-group.hide
             a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Vasos
             ul#ul-vasos.dropdown-menu
-          &nbsp;
-          &nbsp;
-          #drop-colores.btn-group.hide
-            a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Colores
-            ul#ul-colores.dropdown-menu
-          &nbsp;
-          &nbsp;
-          button#btn-new-ingredient.btn.btn-primary.hide Nuevo ingrediente
-          #errors-ingredients.alert.alert-error.hide
-          #alerts
-            #error_new_ingredient.alert.alert-error #{error_new}
-            #msg_new_ingredient.alert.alert-info #{msg_new}
 
   #info-cktl.modal.hide.fade
     .modal-header
@@ -148,10 +123,6 @@ block content
           label.control-label(for='inputVaso') Vaso
           .controls
             select#inputVaso(name='vaso', required)
-        .control-group
-          label.control-label(for='inputColor') Color
-          .controls
-            select#inputColor(name='color', required)
     .modal-footer
       btn#new-cktl-guardar.btn.btn-primary(onclick='$("#form-new-cktl").submit();') Guardar
 
@@ -160,7 +131,7 @@ block content
       button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
       h3#info-cktl-title Nuevo ingrediente
     .modal-body
-      form#form-new-ingredient.form-horizontal(action='/cocktails_admin', method='post')
+      form#form-new-ingredient.form-horizontal(action='/ingredients', method='post', enctype='multipart/form-data')
         .control-group
           label.control-label(for='inputDescripcion') Descripción
           .controls
@@ -168,11 +139,13 @@ block content
         .control-group
           label.control-label(for='inputTipo') Tipo
           .controls
-            select#inputZumos(name='zumos', required)
+            select#inputZumos(name='tipo', required)
               option(value='Zumo') Zumo
               option(value='Licor') Licor
               option(value='Carbonico') Carbónico
               option(value='Vaso') Vaso
-              option(value='Color') Color
+        .control-group
+          label.control-label(for='inputImagen') Imagen
+            input#inputImagen(type='file', name='imagen', required)
     .modal-footer
       btn#new-cktl-guardar.btn.btn-primary(onclick='$("#form-new-ingredient").submit();') Guardar

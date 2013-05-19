@@ -2,65 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/SinatraServer.iml" afterPath="$PROJECT_DIR$/.idea/SinatraServer.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Johnny.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/admin.js" afterPath="$PROJECT_DIR$/routes/admin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/runConfigurations/app_js.xml" afterPath="$PROJECT_DIR$/.idea/runConfigurations/app_js.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/mongodb/node_modules/bson/ext/bson.cc" afterPath="$PROJECT_DIR$/node_modules/mongodb/node_modules/bson/ext/bson.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/mongodb/node_modules/bson/ext/bson.h" afterPath="$PROJECT_DIR$/node_modules/mongodb/node_modules/bson/ext/bson.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/backend.jade" afterPath="$PROJECT_DIR$/views/backend.jade" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/backend.js" afterPath="$PROJECT_DIR$/public/javascripts/backend.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/cocktail.js" afterPath="$PROJECT_DIR$/routes/cocktail.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/.bin/express.cmd" afterPath="$PROJECT_DIR$/node_modules/.bin/express.cmd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/frontend.jade" afterPath="$PROJECT_DIR$/views/frontend.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.jade" afterPath="$PROJECT_DIR$/views/index.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/ingredients.js" afterPath="$PROJECT_DIR$/routes/ingredients.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/.bin/jade.cmd" afterPath="$PROJECT_DIR$/node_modules/.bin/jade.cmd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/jquery-1.9.1.min.js" afterPath="$PROJECT_DIR$/public/javascripts/jquery-1.9.1.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layout.jade" afterPath="$PROJECT_DIR$/views/layout.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/login.jade" afterPath="$PROJECT_DIR$/views/login.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/sha256.js" afterPath="$PROJECT_DIR$/public/javascripts/sha256.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/style.css" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/user.js" afterPath="$PROJECT_DIR$/routes/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/utils.js" afterPath="$PROJECT_DIR$/public/javascripts/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.js" afterPath="$PROJECT_DIR$/routes/web.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/wines.js" afterPath="$PROJECT_DIR$/routes/wines.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SinatraServer.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368125377701" ignored="false" />
-    <file path="/app.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367773765667" ignored="false" />
-    <file path="/cocktail.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367678618294" ignored="false" />
+    <file path="/Dummy.txt" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368963256517" ignored="false" />
+    <file path="/app.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368963358843" ignored="false" />
+    <file path="/cocktail.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368899868205" ignored="false" />
     <file path="/a.html" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262563556" ignored="false" />
     <file path="/a.css" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262554758" ignored="false" />
     <file path="/a.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262548667" ignored="false" />
-    <file path="/user.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367774268687" ignored="false" />
-    <file path="/admin.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367744119473" ignored="false" />
+    <file path="/user.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368730942888" ignored="false" />
+    <file path="/admin.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368963375946" ignored="false" />
     <file path="/login.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367743945650" ignored="false" />
     <file path="/layout.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367677902664" ignored="false" />
     <file path="/login.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367259054050" ignored="false" />
-    <file path="/backend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367774484012" ignored="false" />
+    <file path="/backend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368371600600" ignored="false" />
     <file path="/a.coffee" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262550735" ignored="false" />
     <file path="/a.dart" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262557365" ignored="false" />
     <file path="/a.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262566433" ignored="false" />
     <file path="/a.less" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367262570179" ignored="false" />
     <file path="/a.xml" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367656230289" ignored="false" />
-    <file path="/style.css" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367396816480" ignored="false" />
-    <file path="/utils.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367743964626" ignored="false" />
-    <file path="/web.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367656579059" ignored="false" />
-    <file path="/frontend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367677476661" ignored="false" />
-    <file path="/fragment.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367743377253" ignored="false" />
-    <file path="/ingredients.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367775396863" ignored="false" />
-    <file path="/backend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1367775706090" ignored="false" />
+    <file path="/style.css" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368899955567" ignored="false" />
+    <file path="/utils.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368899001010" ignored="false" />
+    <file path="/web.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368288836496" ignored="false" />
+    <file path="/frontend.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368897680890" ignored="false" />
+    <file path="/fragment.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368876098466" ignored="false" />
+    <file path="/ingredients.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368465042569" ignored="false" />
+    <file path="/backend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368963496933" ignored="false" />
+    <file path="/frontend.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368899932213" ignored="false" />
+    <file path="/a.dummy" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368966123218" ignored="false" />
+    <file path="/maps.js" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368714755456" ignored="false" />
+    <file path="/index.jade" changelist="5a77a09b-16a9-4fdd-9671-bc7b8c7612a7" time="1368888684817" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,19 +64,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="backend.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/backend.jade">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="46" selection-start="1601" selection-end="1601" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app.js">
+      <file leaf-file-name="ingredients.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/ingredients.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="27" selection-start="356" selection-end="356" vertical-scroll-proportion="0.5538847">
+            <state line="193" column="33" selection-start="6210" selection-end="6210" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="maps.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/maps.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="0" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="89" column="5" selection-start="2075" selection-end="2075" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -101,34 +103,16 @@
       <file leaf-file-name="admin.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="322" column="1" selection-start="8317" selection-end="8317" vertical-scroll-proportion="0.0">
+            <state line="323" column="15" selection-start="8435" selection-end="8435" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cocktail.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
+      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="21" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/login.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="6" selection-start="790" selection-end="824" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/layout.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="6" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0">
+            <state line="21" column="31" selection-start="550" selection-end="550" vertical-scroll-proportion="-0.819797">
               <folding />
             </state>
           </provider>
@@ -157,22 +141,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/javascripts/login.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/sha256.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/jquery-2.0.0.min.js" />
-        <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
-        <option value="$PROJECT_DIR$/routes/web.js" />
-        <option value="$PROJECT_DIR$/routes/cocktail.js" />
-        <option value="$PROJECT_DIR$/views/frontend.jade" />
-        <option value="$PROJECT_DIR$/views/login.jade" />
-        <option value="$PROJECT_DIR$/public/javascripts/utils.js" />
-        <option value="$PROJECT_DIR$/routes/admin.js" />
-        <option value="$PROJECT_DIR$/routes/user.js" />
-        <option value="$PROJECT_DIR$/views/backend.jade" />
-        <option value="$PROJECT_DIR$/routes/ingredients.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/backend.js" />
         <option value="$PROJECT_DIR$/views/layout.jade" />
+        <option value="$PROJECT_DIR$/routes/maps.js" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/views/index.jade" />
+        <option value="$PROJECT_DIR$/views/frontend.jade" />
+        <option value="$PROJECT_DIR$/public/javascripts/utils.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/frontend.js" />
+        <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
+        <option value="$PROJECT_DIR$/public/javascripts/backend.js" />
+        <option value="$PROJECT_DIR$/views/backend.jade" />
+        <option value="$PROJECT_DIR$/routes/cocktail.js" />
+        <option value="$PROJECT_DIR$/routes/ingredients.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/routes/user.js" />
+        <option value="$PROJECT_DIR$/routes/admin.js" />
+        <option value="$PROJECT_DIR$/routes/web.js" />
       </list>
     </option>
   </component>
@@ -190,54 +174,12 @@
             <id />
           </State>
           <State>
-            <id>CSS</id>
-          </State>
-          <State>
-            <id>Code style issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Control flow issuesJavaScript</id>
-          </State>
-          <State>
-            <id>DOM issuesJavaScript</id>
-          </State>
-          <State>
-            <id>GeneralJavaScript</id>
-          </State>
-          <State>
-            <id>HTML</id>
-          </State>
-          <State>
-            <id>JavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript function metricsJavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript validity issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Node.jsJavaScript</id>
-          </State>
-          <State>
-            <id>Potentially confusing code constructsJavaScript</id>
-          </State>
-          <State>
-            <id>RELAX NG</id>
-          </State>
-          <State>
             <id>Spelling</id>
-          </State>
-          <State>
-            <id>XPath</id>
-          </State>
-          <State>
-            <id>XSLT</id>
           </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>CoffeeScript</id>
+            <id>Spelling</id>
           </State>
         </selected-state>
       </profile-state>
@@ -269,7 +211,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -329,10 +270,6 @@
               <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stylesheets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -362,41 +299,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chupitos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SinatraServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SinatraServer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
+              <option name="myItemId" value="node_modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="editor.preferences.appearance" />
+    <property name="options.lastSelected" value="Errors" />
     <property name="last_opened_file_path" value="C:/Program Files (x86)/nodejs/node.exe" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
@@ -404,13 +320,19 @@
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images" />
+      <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images\ingredients" />
+      <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images\ratings" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images\website" />
       <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images\chupitos" />
       <recent name="D:\Johnny\Dropbox\UdG\Alternatives de disseny d'aplicacions\SinatraServer\public\images" />
     </key>
   </component>
   <component name="RestClientSettings">
-    <option name="LAST_HOST" value="http://localhost:3000/users/facebook/johnny32" />
+    <option name="LAST_HOST" value="http://localhost:3000/maps" />
   </component>
   <component name="RunManager" selected="Node.js.app.js">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
@@ -533,7 +455,79 @@
       <created>1368125387809</created>
       <updated>1368125387809</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Ratings. &quot;Usuaris&quot; eliminats (es controla tot per id_facebook). Els ingredients es controlen per la seva descripció.">
+      <created>1368291980864</created>
+      <updated>1368291980864</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix ingredients">
+      <created>1368550364972</created>
+      <updated>1368550364972</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Fix $.each per for.">
+      <created>1368551262190</created>
+      <updated>1368551262190</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Retorn id a create cocktail">
+      <created>1368713186400</created>
+      <updated>1368713186400</updated>
+    </task>
+    <task id="LOCAL-00016" summary="API maps">
+      <created>1368715322818</created>
+      <updated>1368715322818</updated>
+    </task>
+    <task id="LOCAL-00017" summary="API maps checkLogged">
+      <created>1368715400330</created>
+      <updated>1368715400330</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Cocktails d'1 user">
+      <created>1368731566032</created>
+      <updated>1368731566032</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Pàgina principal">
+      <created>1368889189105</created>
+      <updated>1368889189105</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Els ratings ja funcionen correctament (i es pot llistar ordenat per rating).">
+      <created>1368891904728</created>
+      <updated>1368891904728</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Prova Facebook">
+      <created>1368893998115</created>
+      <updated>1368893998115</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Prova Facebook 2">
+      <created>1368897018799</created>
+      <updated>1368897018799</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Prova Facebook (definitiva?)">
+      <created>1368897392354</created>
+      <updated>1368897392354</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Prova Facebook (definitiva 2)">
+      <created>1368897698494</created>
+      <updated>1368897698494</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Prova Facebook (definitiva 3)">
+      <created>1368897873337</created>
+      <updated>1368897873337</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Prova Facebook (definitiva de debó)">
+      <created>1368898300277</created>
+      <updated>1368898300277</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Facebook recupera nom del creador.">
+      <created>1368899106814</created>
+      <updated>1368899106814</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Facebook recupera nom del creador (definitiu).">
+      <created>1368899513523</created>
+      <updated>1368899513523</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Imatges: bordes de colors.">
+      <created>1368900154768</created>
+      <updated>1368900154768</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -558,23 +552,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32732317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32732317" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15243472" sideWeight="0.58945906" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44937587" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3259362" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2149792" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41747573" sideWeight="0.99810606" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16604617" sideWeight="0.5959253" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20183486" sideWeight="0.5825243" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40360612" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871014" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4105409" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32732317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20943135" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32597622" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871014" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="REST Client" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.53268427" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871014" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4299584" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -622,7 +616,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Recuperat el merge del desastre que va ocòrrer el dia Dijous 9 de maig de 2013 de 15:00 a 18:20 a classe d'ADA." />
+    <option name="LAST_COMMIT_MESSAGE" value="Imatges: bordes de colors." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -636,11 +630,6 @@
     <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Implementat /cocktails, que retorna la llista de tots els cocktails." />
-    <MESSAGE value="Implementat /cocktails/:id, que retorna la informació d'1 sol cocktail." />
-    <MESSAGE value="Arreglat user.findByFacebook i user.findByTwitter. Implementat POST cocktails." />
-    <MESSAGE value="Millorada la funció que crea un cocktail nou. Afegida documentació." />
-    <MESSAGE value="Afegida funció per obtenir la URL de la imatge d'un cocktail." />
     <MESSAGE value="Afegida funció per obtenir el rating d'un cocktail." />
     <MESSAGE value="Començat backend. Implementat login (falta corregir un bug) i començat el view del backend." />
     <MESSAGE value="Implementada la llista de cocktails per recomanar amb el modal que mostra la info d'un cocktail i el botó per a triar-lo com a recomanat." />
@@ -648,111 +637,156 @@
     <MESSAGE value="Crear cocktail. Missatges d'info i error." />
     <MESSAGE value="Començats ingredients a la BD." />
     <MESSAGE value="Recuperat el merge del desastre que va ocòrrer el dia Dijous 9 de maig de 2013 de 15:00 a 18:20 a classe d'ADA." />
+    <MESSAGE value="Ratings. &quot;Usuaris&quot; eliminats (es controla tot per id_facebook). Els ingredients es controlen per la seva descripció." />
+    <MESSAGE value="Fix ingredients" />
+    <MESSAGE value="Fix $.each per for." />
+    <MESSAGE value="Retorn id a create cocktail" />
+    <MESSAGE value="API maps" />
+    <MESSAGE value="API maps checkLogged" />
+    <MESSAGE value="Cocktails d'1 user" />
+    <MESSAGE value="Pàgina principal" />
+    <MESSAGE value="Els ratings ja funcionen correctament (i es pot llistar ordenat per rating)." />
+    <MESSAGE value="Prova Facebook" />
+    <MESSAGE value="Prova Facebook 2" />
+    <MESSAGE value="Prova Facebook (definitiva?)" />
+    <MESSAGE value="Prova Facebook (definitiva 2)" />
+    <MESSAGE value="Prova Facebook (definitiva 3)" />
+    <MESSAGE value="Prova Facebook (definitiva de debó)" />
+    <MESSAGE value="Facebook recupera nom del creador." />
+    <MESSAGE value="Facebook recupera nom del creador (definitiu)." />
+    <MESSAGE value="Imatges: bordes de colors." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/routes/maps.js</url>
+          <line>95</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/routes/maps.js</url>
+          <line>47</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/routes/cocktail.js</url>
+          <line>209</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="51" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/routes/admin.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="1" selection-start="2588" selection-end="2588" vertical-scroll-proportion="0.0">
+        <state line="14" column="23" selection-start="268" selection-end="268" vertical-scroll-proportion="0.64850134">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/frontend.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="21" selection-start="942" selection-end="960" vertical-scroll-proportion="0.0">
+        <state line="76" column="38" selection-start="2635" selection-end="2635" vertical-scroll-proportion="0.024926687">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/login.jade">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="6" selection-start="795" selection-end="829" vertical-scroll-proportion="0.0">
+        <state line="25" column="0" selection-start="453" selection-end="453" vertical-scroll-proportion="0.6115108">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.jade">
+    <entry file="file://$PROJECT_DIR$/views/frontend.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0">
+        <state line="75" column="0" selection-start="2533" selection-end="2533" vertical-scroll-proportion="0.32697946">
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/express/node_modules/connect/lib/middleware/session/memory.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="0" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.332" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/express/node_modules/connect/lib/proto.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="0" selection-start="5008" selection-end="5008" vertical-scroll-proportion="0.332" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="1" selection-start="221" selection-end="221" vertical-scroll-proportion="0.6741214" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="37" selection-start="3720" selection-end="3720" vertical-scroll-proportion="1.93531" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/login.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="6" selection-start="790" selection-end="824" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="51" selection-start="1473" selection-end="1473" vertical-scroll-proportion="0.54986525" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="6" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="322" column="1" selection-start="8317" selection-end="8317" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="21" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="10" selection-start="194" selection-end="194" vertical-scroll-proportion="0.43187067">
+        <state line="72" column="1" selection-start="808" selection-end="808" vertical-scroll-proportion="0.8532374">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/backend.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="46" selection-start="1601" selection-end="1601" vertical-scroll-proportion="0.0">
+        <state line="98" column="0" selection-start="2837" selection-end="2837" vertical-scroll-proportion="0.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/session/lib/session/session.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="446" column="3" selection-start="8309" selection-end="8309" vertical-scroll-proportion="0.33183858">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/cocktail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="329" column="1" selection-start="8739" selection-end="8739" vertical-scroll-proportion="0.8111111">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/ingredients.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="193" column="33" selection-start="6210" selection-end="6210" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="0" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="5" selection-start="2075" selection-end="2075" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="323" column="15" selection-start="8435" selection-end="8435" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="22" selection-start="489" selection-end="489" vertical-scroll-proportion="0.9923858">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/backend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="25" selection-start="700" selection-end="700" vertical-scroll-proportion="-0.30203044">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="27" selection-start="356" selection-end="356" vertical-scroll-proportion="0.5538847">
+        <state line="21" column="31" selection-start="550" selection-end="550" vertical-scroll-proportion="-0.819797">
           <folding />
         </state>
       </provider>

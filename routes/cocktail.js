@@ -7,24 +7,13 @@
  */
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var mongoUri = process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/sinatra';
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('sinatra', server);
+var BSON = mongo.BSONPure;
 
-db.open(function(err, db) {
-  if (!err) {
-    console.log("Connected to 'sinatra' database");
-    db.collection('cocktails', {strict: true}, function(err, collection) {
-      if (err) {
-        console.log("The 'cocktails' collection doesn't exist. Creating it with sample data...");
-        populateDB();
-      }
-    });
-  }
-});
+var path = require('path');
 
 /**
  * Llista tots els cocktails.
@@ -37,9 +26,11 @@ db.open(function(err, db) {
  * @date    2013-04-09
  */
 exports.list = function(req, res) {
-  db.collection('cocktails', function(err, collection) {
-    collection.find().sort({rating: 1}).toArray(function(err, items) {
-      res.send(items);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.find().toArray(function(err, items) {
+        res.send(items);
+      });
     });
   });
 }
@@ -57,13 +48,15 @@ exports.list = function(req, res) {
 exports.findById = function(req, res) {
   var id = req.params.id;
   console.log('Retrieving cocktail: ' + id);
-  db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, item) {
-      if (!err) {
-        res.send(item);
-      } else {
-        console.log("Error: cocktail " + id + " doesn't exist");
-      }
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, cktl) {
+        if (!err) {
+          res.send(cktl);
+        } else {
+          console.log("Error: cocktail " + id + " doesn't exist");
+        }
+      });
     });
   });
 }
@@ -82,30 +75,39 @@ exports.create = function(req, res) {
   var cktl = req.body;
   console.log('Receiving cocktail: ' + cktl.nombre);
   //Comprovem que els camps del cocktail siguin els correctes
-  if (cktl.zumos && cktl.licores && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.color && cktl.creador) {
-    db.collection('cocktails', function(err, collection) {
-      //Filtrem la resta de camps
-      var cktl_ok =
-      {
-        zumos:      cktl.zumos,
-        licores:    cktl.licores,
-        carbonico:  cktl.carbonico,
-        vaso:       cktl.vaso,
-        nombre:     cktl.nombre,
-        color:      cktl.color,
-        creador:    cktl.creador
-      };
-      collection.insert(cktl_ok, function(err, item) {
-        if (!err) {
-          console.log("Cocktail inserted: " + cktl_ok.nombre);
-          res.send({
-            id_cocktail: item._id
-          });
-        } else {
-          console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
+  if (cktl.zumos && cktl.carbonico && cktl.vaso && cktl.nombre && cktl.creador && cktl.imagen) {
+    mongo.Db.connect(mongoUri, function (err, db) {
+      db.collection('cocktails', function(err, collection) {
+        //Filtrem la resta de camps
+        var licores = [];
+        if (cktl.licores) {
+          var licores = cktl.licores;
         }
+        var cktl_ok =
+        {
+          zumos:      cktl.zumos,
+          licores:    licores,
+          carbonico:  cktl.carbonico,
+          vaso:       cktl.vaso,
+          nombre:     cktl.nombre,
+          creador:    cktl.creador,
+          imagen:     cktl.imagen,
+          rating:     0
+        };
+        collection.insert(cktl_ok, function(err, item) {
+          if (!err) {
+
+            console.log("Cocktail inserted: " + cktl_ok.nombre + " - " + item[0]._id);
+            res.send({
+              id: item[0]._id,
+              url: path + '/' + item[0]._id
+            });
+          } else {
+            console.log("Error: cocktail couldn't be inserted: " + cktl_ok.nombre);
+          }
+        });
       });
-    })
+    });
   } else {
     console.log("Error: cocktail not inserted (missing fields).");
     console.log(cktl);
@@ -113,21 +115,23 @@ exports.create = function(req, res) {
 }
 
 /**
- * Obte la URL de la imatge d'un cocktail segons el seu color i el seu got
+ * Obte la URL de la imatge d'un cocktail segons els seus ingredients
  *
  * @param req
  * @param res
  *
  * @author  jclara
- * @version 2.0
+ * @version 3.0
  * @date    2013-04-27
  */
 exports.image = function(req, res) {
-  var vaso = req.params.vaso;
-  var color = req.params.color;
-  var img = "/images/chupitos/" + vaso + "_" + color + ".jpg";
+  var vaso = req.body.vaso;
+  var zumos = req.body.zumos;
+  var color = getColor(zumos);
+  var img = ("/images/cocktails/" + vaso + "_" + color + ".jpg").replace(/ /g, "_");
   res.send({
-    img: img
+    img: img,
+    color: color
   });
 }
 
@@ -144,79 +148,183 @@ exports.image = function(req, res) {
 exports.rating = function(req, res) {
   var id_cocktail = req.params.id_cocktail;
   console.log('Retrieving rating for cocktail: ' + id_cocktail);
-  db.collection('cocktails', function(err, collection) {
-    collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
-      if (!err) {
-        db.collection('ratings', function(err, collection) {
-          collection.find({'id_cocktail': id_cocktail}).toArray(function(err, items) {
-            var rating = 0;
-            if (items.length > 0) {
-              for (var i in items) {
-                rating += items[i].rating;
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.findOne({'_id': new BSON.ObjectID(id_cocktail)}, function(err, item) {
+        if (!err) {
+          db.collection('ratings', function(err, collection) {
+            collection.find({'id_cocktail': id_cocktail}).toArray(function(err, items) {
+              var rating = 0;
+              if (items.length > 0) {
+                for (var i in items) {
+                  rating += parseInt(items[i].rating);
+                }
+                rating = rating / items.length;
               }
-              rating = rating / items.length;
-            }
-            res.send({
-              id_cocktail: id_cocktail,
-              rating: rating
+              res.send({
+                id_cocktail: id_cocktail,
+                rating: rating
+              });
             });
           });
-        });
-      } else {
-        console.log("Error: cocktail " + id_cocktail + " doesn't exist");
-      }
+        } else {
+          console.log("Error: cocktail " + id_cocktail + " doesn't exist");
+        }
+      });
     });
   });
 }
 
 /**
- * Crea dades de prova per la base de dades.
+ * Puntua un cocktail
  *
  * @author  jclara
- * @version 1.1
- * @date    2013-04-09
+ * @version 1.0
+ * @date    2013-05-11
  */
-var populateDB = function() {
-  var cocktails = [
-    {
-      zumos:        ["Zumo de manzana", "Zumo de fresa"],
-      licores:      ["Wishky"],
-      carbonico:    "Lim&oacute;n",
-      vaso:         "Chupito",
-      nombre:       "El mejor",
-      color:        "Verde",
-      creador:      "51680bbaa4f196e415000001"
-    },
-    {
-      zumos:        ["Zumo de pi&ntilde;a"],
-      licores:      ["Ron", "Ginebra"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "Sex on the mountain",
-      color:        "Amarillo",
-      creador:      "51680bbaa4f196e415000002"
-    },
-    {
-      zumos:        ["Zumo de fresa", "Zumo de naranja", "Zumo de mango"],
-      licores:      ["Ginebra", "Vodka", "Ron"],
-      carbonico:    "Cola",
-      vaso:         "Cubata",
-      nombre:       "GLaDOS",
-      color:        "Rojo",
-      creador:      "51680bbaa4f196e415000002"
-    },
-    {
-      zumos:        ["Naranja"],
-      licores:      ["Vodka"],
-      carbonico:    "Naranja",
-      vaso:         "Chupito",
-      nombre:       "Chupito de vodka con naranja",
-      color:        "Naranja",
-      creador:      "51680bbaa4f196e415000004"
-    }
-  ];
-
-  db.collection('cocktails', function(err, collection) {
-    collection.insert(cocktails, {safe:true}, function(err, result) {});
+exports.rate = function(req, res) {
+  var id_cocktail = req.body.id_cocktail;
+  var id_user = req.body.id_user;
+  var rating = req.body.rating;
+  console.log("User " + id_user + " has rated cocktail " + id_cocktail + " with rate " + rating);
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ratings', function(err, collection) {
+      var row = {
+        id_cocktail: id_cocktail,
+        id_user: id_user,
+        rating: rating
+      };
+      collection.insert(row, function(err, item) {
+        if (!err) {
+          console.log("Rating inserted");
+          collection.find({'id_cocktail': id_cocktail}).toArray(function(err, items) {
+            var rating = 0;
+            if (items.length > 0) {
+              for (var i in items) {
+                rating += parseInt(items[i].rating);
+              }
+              rating = rating / items.length;
+            }
+            db.collection('cocktails', function(err, collection) {
+              collection.update({'_id': new BSON.ObjectID(id_cocktail)}, {$set: {rating: rating}}, function(err, cktl) {
+                if (!err) {
+                  console.log("Ratings for cocktail " + id_cocktail + ": " + rating);
+                  res.send({
+                    rating: rating
+                  });
+                } else {
+                  console.log("Ratings cocktail update failed.");
+                }
+              });
+            });
+          });
+        } else {
+          console.log("Error: rating couldn't be inserted");
+          res.render('frontend', {
+            title: 'Cocktail',
+            id_cocktail: id_cocktail,
+            error: 'Ha habido un error puntuando el cocktail.',
+            msg: ''
+          });
+        }
+      });
+    });
   });
+}
+
+/**
+ * Retorna la puntuacio que ha donat un usuari a un cocktail, o -1 si no ha votat
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-11
+ */
+exports.userRate = function(req, res) {
+  var id_cocktail = req.params.id_cocktail;
+  var id_user = req.params.id_user;
+  mongo.Db.connect(mongoUri, function (err, db) {
+    db.collection('ratings', function(err, collection) {
+      collection.findOne({$and: [{id_cocktail: id_cocktail}, {id_user: id_user}]}, function(err, rating) {
+        if (rating) {
+          res.send({
+            rating: rating.rating
+          })
+        } else {
+          res.send({
+            rating: -1
+          });
+        }
+      })
+    });
+  });
+}
+
+/**
+ * Llista els cocktails d'un usuari
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-16
+ */
+exports.findByUser = function(req, res) {
+  var id_usuario = req.params.id_usuario;
+  console.log("Retrieving cocktails of user: " + id_usuario);
+  mongo.Db.connect(mongoUri, function(err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.find({creador: id_usuario}).toArray(function(err, items) {
+        res.send(items);
+      })
+    })
+  });
+}
+
+/**
+ * Retorna els 10 cocktails a partir de :limit
+ *
+ * @param req
+ * @param res
+ */
+exports.listLimit = function(req, res) {
+  var limit = req.params.limit;
+  console.log("Retrieving cocktails from " + limit + " to " + (parseInt(limit) + 9));
+  mongo.Db.connect(mongoUri, function(err, db) {
+    db.collection('cocktails', function(err, collection) {
+      collection.find({}, {}, {"limit": 10, "skip": parseInt(limit)}).sort({rating: -1}).toArray(function(err, items) {
+        res.send(items);
+      })
+    })
+  })
+}
+
+/**
+ * Calcula el color a partir dels sucs
+ *
+ * @param zumos
+ * @returns {*}
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-12
+ */
+function getColor(zumos) {
+  var totales = [];
+  for (var i in zumos) {
+    if (zumos[i] == "Fresa" || zumos[i] == "Sandía" || zumos[i] == "Pomelo") {
+      totales[i] = "Rojo";
+    } else if (zumos[i] == "Naranja" || zumos[i] == "Melocotón" || zumos[i] == "Mango" || zumos[i] == "Fruta de la pasión") {
+      totales[i] = "Naranja";
+    } else if (zumos[i] == "Melón") {
+      totales[i] = "Verde";
+    } else {
+      totales[i] = "Amarillo";
+    }
+  }
+  var color = totales[Math.floor(Math.random()*totales.length)];
+  return color;
 }

@@ -20,73 +20,66 @@ block style
     }
 
 block scripts
+  script(src='/javascripts/frontend.js')
   script
     $(document).ready(function() {
+      window.fbAsyncInit = function() {
+          // init the FB JS SDK
+          FB.init({
+          appId      : '326614590799358',                        // App ID from the app dashboard
+          channelUrl : '//sinatracockteleria.herokuapp.com', // Channel file for x-domain comms
+          status     : true,                                 // Check Facebook Login status
+          xfbml      : true                                  // Look for social plugins on the page
+          });
+
+
+          // Additional initialization code such as adding Event Listeners goes here
+          FB.getLoginStatus(function(response) {
+            if (response.authResponse) {
+              fbUserId = response.authResponse.userID;
+              token = response.authResponse.accessToken;
+
+              cargarRatings('#{id_cocktail}', fbUserId);
+            }
+            else {
+              FB.login(function(response) {
+                if (response.authResponse) {
+                  fbUserId = response.authResponse.userID;
+                  token = response.authResponse.accessToken;
+
+                  cargarRatings('#{id_cocktail}', fbUserId);
+                }
+                else {
+                  console.log('User cancelled login or did not fully authorize.');
+                  window.top.location = "https://www.facebook.com/dialog/oauth?client_id=326614590799358&redirect_uri=http://sinatracockteleria.herokuapp.com/#{id_cocktail}";
+                }
+              }, {scope: 'user_location'});
+            }
+          },true);
+      };
+      // Load the SDK asynchronously
+          (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=326614590799358";
+          fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+
       var id_cocktail = '#{id_cocktail}';
       cargarCocktail(id_cocktail);
+
+      checkField($('#errors'));
+      checkField($('#msgs'));
+
     });
 
-    function cargarCocktail(id) {
-      var progressbar = $('#pb-bar')[0];
-      $(progressbar.parentElement).removeClass('hide');
-      var cktlinfo = $('#cktl-info');
-      $.ajax({
-        url: '/cocktails/' + id,
-        method: 'get',
-        dataType: 'json',
-        beforeSend: function(hdr) {
-          progressbar.style.width = '15%';
-        },
-        success: function(cktl, textStatus, jqXHR) {
-          progressbar.style.width = '30%';
-          var txt = '<h1>Cocktail "' + cktl.nombre + '"</h1>'
-              + '<p><strong>Creado por:</strong> ' + getUser(cktl.creador) + '<br>'
-              + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
-              + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
-              + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '</p>';
-          $(cktlinfo).append(txt);
-          progressbar.style.width = '60%';
-          cargarImgCocktail(id, cktl.nombre, progressbar);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          $(progressbar.parentElement).addClass('progress-danger');
-          $('#errors').text('Error recuperando el cocktail: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
-        }
-      });
-    }
 
-    function cargarImgCocktail(id, nombre, progressbar) {
-      $.ajax({
-        url: '/image/' + id,
-        method: 'get',
-        dataType: 'json',
-        beforeSend: function(hdr) {
-          progressbar.style.width = '70%';
-        },
-        success: function(imagen, textStatus, jqXHR) {
-          progressbar.style.width = '85%';
-          var img = $('<img>', {
-            src: imagen.img,
-            alt: 'Cocktail ' + nombre
-          });
-          $('#cktl-img').append(img);
-          progressbar.style.width = '100%';
-          setTimeout(eliminarBarra(progressbar), 500);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          $(progressbar.parentElement).addClass('progress-danger');
-          $('#errors').text('Error recuperando imagen del cocktail: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
-        }
-      });
-    }
 
-    function eliminarBarra(progressbar) {
-      $(progressbar.parentElement).addClass('hide');
-      $('#cktl-info').removeClass('hide');
-      $('#cktl-img').removeClass('hide');
-    }
+
 
 block content
+  #fb-root
   .container-fluid
     #cktl-container.well
       .progress.progress-striped.active
@@ -94,3 +87,10 @@ block content
       .row-fluid
         #cktl-img.hide.span4
         #cktl-info.hide.span8
+            #info-container
+            #ratings.hide(style='padding-top: 2em;')
+              .fb-login-button(data-show-faces='true', data-width='200', data-max-rows='1')
+
+      .row-fluid
+        #errors.alert.alert-error.hide #{error}
+        #msgs.alert.alert-info.hide #{msg}

@@ -11,6 +11,7 @@ function cargarCocktails() {
   var ulcocktails = $('#ul-cocktails');
   $(ulcocktails).empty();
   $('#div-dropdown').addClass('hide');
+  $('#btn-new-cktl').addClass('hide');
   $.ajax({
     url: '/cocktails_admin',
     method: 'get',
@@ -44,7 +45,7 @@ function cargarCocktails() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-cocktail-list').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_cktl').text('Error recuperando la lista de cocktails: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
 }
@@ -58,7 +59,10 @@ function eliminarBarraCocktails() {
 
 function loadCocktail(cktl) {
   $('#info-cktl-title').text('Cocktail ' + cktl.nombre);
-  loadImageCocktail(cktl.nombre, cktl.vaso, cktl.color);
+  $('#info-cktl-img').empty().append($('<img>', {
+    src: cktl.imagen,
+    alt: 'Cocktail ' + cktl.nombre
+  }));
   $('#info-cktl-info').append('<p><strong>Nombre:</strong> ' + cktl.nombre + '<br>'
     + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
     + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
@@ -66,32 +70,16 @@ function loadCocktail(cktl) {
   $('#info-cktl-guardar').unbind('click').click(function() {
     recomendarCocktail(cktl._id);
   });
-}
 
-function loadImageCocktail(nombre, vaso, color) {
-  var img = $('#info-cktl-img');
-  img.append('Loading...'); //TODO Posar un gif o una animacio
-  $.ajax({
-    url: '/image/' + vaso + '/' + color,
-    method: 'get',
-    dataType: 'json',
-    success: function(data) {
-      img.empty();
-      img.append($('<img>', {
-        src: data.img,
-        alt: 'Cocktail ' + nombre
-      }));
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-
-    }
-  });
 }
 
 function recomendarCocktail(id) {
   $.ajax({
-    url: '/admin/recommend/' + id,
-    method: 'get',
+    url: '/admin/recommend',
+    method: 'post',
+    data: {
+      id_cocktail: id
+    },
     success: function(data) {
       $('#info-cktl').modal('hide');
       cargarCocktails();
@@ -112,7 +100,7 @@ function nuevoCocktail() {
     dataType: 'json',
     success: function(data) {
       $.each(data, function(i, item) {
-        var opt = new Option(item.descripcion, item._id);
+        var opt = new Option(item.descripcion, item.descripcion);
         $('#inputZumos').append(opt);
       });
     }
@@ -123,7 +111,7 @@ function nuevoCocktail() {
     dataType: 'json',
     success: function(data) {
       $.each(data, function(i, item) {
-        var opt = new Option(item.descripcion, item._id);
+        var opt = new Option(item.descripcion, item.descripcion);
         $('#inputLicores').append(opt);
       });
     }
@@ -134,7 +122,7 @@ function nuevoCocktail() {
     dataType: 'json',
     success: function(data) {
       $.each(data, function(i, item) {
-        var opt = new Option(item.descripcion, item._id);
+        var opt = new Option(item.descripcion, item.descripcion);
         $('#inputCarbonico').append(opt);
       });
     }
@@ -145,19 +133,8 @@ function nuevoCocktail() {
     dataType: 'json',
     success: function(data) {
       $.each(data, function(i, item) {
-        var opt = new Option(item.descripcion, item._id);
+        var opt = new Option(item.descripcion, item.descripcion);
         $('#inputVaso').append(opt);
-      });
-    }
-  });
-  $.ajax({
-    url: '/ingredients/tipo/Color',
-    method: 'get',
-    dataType: 'json',
-    success: function(data) {
-      $.each(data, function(i, item) {
-        var opt = new Option(item.descripcion, item._id);
-        $('#inputColor').append(opt);
       });
     }
   });
@@ -173,17 +150,14 @@ function cargarIngredientes() {
   var ullicores = $('#ul-licores');
   var ulcarbonicos = $('#ul-carbonicos');
   var ulvasos = $('#ul-vasos');
-  var ulcolores = $('#ul-colores');
   $(ulzumos).empty();
   $(ullicores).empty();
   $(ulcarbonicos).empty();
   $(ulvasos).empty();
-  $(ulcolores).empty();
   $('#drop-zumos').addClass('hide');
   $('#drop-licores').addClass('hide');
   $('#drop-carbonicos').addClass('hide');
   $('#drop-vasos').addClass('hide');
-  $('#drop-colores').addClass('hide');
   progressbar.style.width = completado + '%';
   $.ajax({
     url: '/ingredients/tipo/Zumo',
@@ -196,7 +170,7 @@ function cargarIngredientes() {
         li.append(a);
         ulzumos.append(li);
       });
-      completado += 20;
+      completado += 25;
       progressbar.style.width = completado + '%';
       if (completado == 100) {
         setTimeout(eliminarBarraIngredientes, 500);
@@ -204,7 +178,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de zumos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de zumos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
   $.ajax({
@@ -218,7 +192,7 @@ function cargarIngredientes() {
         li.append(a);
         ullicores.append(li);
       });
-      completado += 20;
+      completado += 25;
       progressbar.style.width = completado + '%';
       if (completado == 100) {
         setTimeout(eliminarBarraIngredientes, 500);
@@ -226,7 +200,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de licores: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de licores: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
   $.ajax({
@@ -240,7 +214,7 @@ function cargarIngredientes() {
         li.append(a);
         ulcarbonicos.append(li);
       });
-      completado += 20;
+      completado += 25;
       progressbar.style.width = completado + '%';
       if (completado == 100) {
         setTimeout(eliminarBarraIngredientes, 500);
@@ -248,7 +222,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de carbónicos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de carbónicos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
   $.ajax({
@@ -262,7 +236,7 @@ function cargarIngredientes() {
         li.append(a);
         ulvasos.append(li);
       });
-      completado += 20;
+      completado += 25;
       progressbar.style.width = completado + '%';
       if (completado == 100) {
         setTimeout(eliminarBarraIngredientes, 500);
@@ -270,29 +244,7 @@ function cargarIngredientes() {
     },
     error: function(jqXHR, textStatus, errorThrown) {
       $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de vasos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
-    }
-  });
-  $.ajax({
-    url: '/ingredients/tipo/Color',
-    method: 'get',
-    dataType: 'json',
-    success: function(data, textStatus, jqXHR) {
-      $.each(data, function(i, item){
-        var a = $('<a>', {text: item.descripcion});
-        var li = $('<li>', {});
-        li.append(a);
-        ulcolores.append(li);
-      });
-      completado += 20;
-      progressbar.style.width = completado + '%';
-      if (completado == 100) {
-        setTimeout(eliminarBarraIngredientes, 500);
-      }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      $(progressbar.parentElement).addClass('progress-danger');
-      $('#errors-ingredients').text('Error recuperando la lista de colores: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
+      $('#error_ingredient').text('Error recuperando la lista de vasos: ' + jqXHR.status + ' ' + errorThrown).removeClass('hide');
     }
   });
 }
@@ -304,7 +256,6 @@ function eliminarBarraIngredientes() {
   $('#drop-licores').removeClass('hide');
   $('#drop-carbonicos').removeClass('hide');
   $('#drop-vasos').removeClass('hide');
-  $('#drop-colores').removeClass('hide');
   $('#btn-new-ingredient').removeClass('hide');
 }
 
