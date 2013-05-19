@@ -66,7 +66,8 @@ function loadCocktail(cktl) {
   $('#info-cktl-info').append('<p><strong>Nombre:</strong> ' + cktl.nombre + '<br>'
     + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
     + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
-    + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '</p>');
+    + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '<br>'
+    + '<strong>Vaso:</strong> ' + cktl.vaso + '</p>');
   $('#info-cktl-guardar').unbind('click').click(function() {
     recomendarCocktail(cktl._id);
   });

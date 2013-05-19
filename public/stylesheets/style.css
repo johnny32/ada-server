@@ -49,9 +49,16 @@ a {
 
 #credits
 {
-  margin-top: 1.5em;
-  font-size: small;
+  margin-top: 2em;
+  font-size: smaller;
   color: silver;
+  text-align: center;
+}
+
+#logo-play-store
+{
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 
@@ -70,4 +77,8 @@ a {
 
 .border-naranja{
   border: 2px solid orange;
+}
+
+.border-amarillo, .border-rojo, .border-verde, .border-naranja {
+  border-radius: 5px;
 }

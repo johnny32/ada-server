@@ -202,11 +202,18 @@ exports.createCocktail = function(req, res) {
         var color = getColor(cktl.zumos);
         var licores = [];
         if (cktl.licores) {
-          licores = [cktl.licores];
+          licores = cktl.licores;
+          if (typeof licores === 'string') {
+            licores = [licores];
+          }
+        }
+        var zumos = cktl.zumos;
+        if (typeof zumos === 'string') {
+          zumos = [zumos];
         }
         var cktl_ok =
         {
-          zumos:      [cktl.zumos],
+          zumos:      zumos,
           licores:    licores,
           carbonico:  cktl.carbonico,
           vaso:       cktl.vaso,
@@ -328,7 +335,7 @@ function populateDB() {
   var admin =
   {
     user: 'admin',
-    pass: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
+    pass: '277210c75d5088a4ac9d733954d14541bcae9e843e04ab72520d6e08794a270d'
   };
 
   mongo.Db.connect(mongoUri, function (err, db) {

@@ -34,6 +34,7 @@ function cargarCocktail(id) {
                 + '<strong>Zumos:</strong> ' + cktl.zumos.join(', ') + '<br>'
                 + '<strong>Licores:</strong> ' + cktl.licores.join(', ') + '<br>'
                 + '<strong>Carb&oacute;nico:</strong> ' + cktl.carbonico + '<br>'
+                + '<strong>Vaso:</strong> ' + cktl.vaso + '<br>'
                 + '<strong>Puntuaci&oacute;n media:</strong> ';
               if (Math.round(rating.rating) > 0) {
                 txt += '<img src="/images/ratings/r' + Math.round(rating.rating) + '.png" alt="Puntuacion" width="50" /></p>';
