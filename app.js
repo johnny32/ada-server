@@ -38,11 +38,10 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list); //TODO Eliminar
+app.get('/users', user.list);
 app.get('/users/:id', user.findById);
 app.get('/users/facebook/:id_facebook', user.findByFacebook);
 app.get('/users/twitter/:id_twitter', user.findByTwitter);
-app.get('/users/friends/:id', user.friends);
 app.get('/cocktails', cocktail.list);
 app.get('/cocktails/q/:limit', cocktail.listLimit);
 app.get('/cocktails/recommended', admin.recommendedCocktail);
@@ -65,8 +64,8 @@ app.post('/login', admin.loginAction);
 app.get('/cocktails_admin', checkLogged, admin.cocktails);
 app.post('/cocktails_admin', checkLogged, admin.createCocktail);
 app.get('/cocktails_admin/:id_cocktail', admin.findCktlById);
-app.get('/admin/recommend/:id_cocktail', checkLogged, admin.recommendCocktail);
-//app.post('/ingredients', checkLogged, ingredients.create);
+app.post('/admin/recommend', checkLogged, admin.recommendCocktail);
+app.post('/ingredients', checkLogged, ingredients.create);
 app.post('/maps', checkLogged, maps.create);
 app.delete('/maps/:latitud/:longitud', checkLogged, maps.delete);
 

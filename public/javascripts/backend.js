@@ -11,6 +11,7 @@ function cargarCocktails() {
   var ulcocktails = $('#ul-cocktails');
   $(ulcocktails).empty();
   $('#div-dropdown').addClass('hide');
+  $('#btn-new-cktl').addClass('hide');
   $.ajax({
     url: '/cocktails_admin',
     method: 'get',
@@ -74,8 +75,11 @@ function loadCocktail(cktl) {
 
 function recomendarCocktail(id) {
   $.ajax({
-    url: '/admin/recommend/' + id,
-    method: 'get',
+    url: '/admin/recommend',
+    method: 'post',
+    data: {
+      id_cocktail: id
+    },
     success: function(data) {
       $('#info-cktl').modal('hide');
       cargarCocktails();

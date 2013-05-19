@@ -44,7 +44,7 @@ block content
 
   #content.container-fluid
     .row-fluid
-      .span5
+      .span7
         #recommended-cocktail.well
           h2 Cocktails
           #recommended-cocktail-container
@@ -60,7 +60,7 @@ block content
             #error_cktl.alert.alert-error #{error_cktl}
             #msg_cktl.alert.alert-info #{msg_cktl}
 
-      .span7
+      .span5
         #ingredients.well
           h2 Ingredientes
           #ingredients-container
@@ -84,14 +84,6 @@ block content
           #drop-vasos.btn-group.hide
             a.btn.dropdown-toggle(data-toggle='dropdown', href='#') Vasos
             ul#ul-vasos.dropdown-menu
-          //button#btn-new-ingredient.btn.btn-primary.hide Nuevo ingrediente
-          //#alerts
-            #error_ingredient.alert.alert-error #{error_ingredient}
-            #msg_ingredient.alert.alert-info #{msg_ingredient}
-    .row-fluid
-      #map-locations.well
-          h2 Puntos en el mapa
-          p Pendiente...
 
   #info-cktl.modal.hide.fade
     .modal-header

@@ -191,7 +191,7 @@ exports.create = function(req, res) {
 }
 
 /**
- * Crea dades de prova per la base de dades.
+ * Crea els ingredients inicials per la base de dades.
  *
  * @author  jclara
  * @version 1.1

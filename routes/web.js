@@ -13,6 +13,16 @@ var mongoUri = process.env.MONGOLAB_URI ||
 
 var BSON = mongo.BSONPure;
 
+/**
+ * Obte un cocktail i renderitza la pagina amb la seva informacio
+ *
+ * @param req
+ * @param res
+ *
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-05-11
+ */
 exports.cocktail = function(req, res) {
   var id_cocktail = req.params.id_cocktail;
   res.render('frontend',

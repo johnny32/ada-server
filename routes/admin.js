@@ -103,11 +103,11 @@ exports.loginAction = function(req, res) {
  * @param res
  *
  * @author  jclara
- * @version 1.0
+ * @version 2.0
  * @date    2013-05-01
  */
 exports.recommendCocktail = function(req, res) {
-  var id_cocktail = req.params.id_cocktail;
+  var id_cocktail = req.body.id_cocktail;
   mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('cocktails_admin', function(err, collection) {
       console.log('Unchecking recommended cocktails...');
@@ -317,6 +317,12 @@ function getColor(zumos) {
   return color;
 }
 
+/**
+ * Crea l'usuari admin/admin.
+ *
+ * @author  jclara
+ * @version 1.0
+ */
 function populateDB() {
   console.log('Creating registered users collection...');
   var admin =

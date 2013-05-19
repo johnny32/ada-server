@@ -100,59 +100,12 @@ exports.findByTwitter = function(req, res) {
  * @version 1.0
  * @date    2013-04-11
  */
-exports.list = function(req, res) { //TODO Esborrar aquesta funcio
+exports.list = function(req, res) {
   mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('users', function(err, collection) {
       collection.find().toArray(function(err, items) {
         res.send(items);
       });
     });
-  });
-}
-
-/**
- * Llista tots els amics (Facebook) i seguits (Twitter) de l'usuari que hi ha a l'aplicacio.
- *
- * @param req
- * @param res
- *
- * @author  jclara
- * @version 1.0
- * @date    2013-04-18
- */
-exports.friends = function(req, res) {
-  //TODO Necessitem token d'app (a Facebook)
-}
-
-/**
- * Crea dades de prova per la base de dades.
- *
- * @author  jclara
- * @version 1.0
- * @date    2013-04-11
- */
-var populateDB = function() {
-  var users = [
-    {
-      id_facebook:  "johnny32",
-      id_twitter:   "jooohnny32"
-    },
-    {
-      id_facebook:  "JosepManrique",
-      id_twitter:   "Josep_Manrique"
-    },
-    {
-      id_twitter:   "BillGates"
-    },
-    {
-      id_facebook:  "PaulMcCartney"
-    },
-    {
-      id_twitter:   "sinatracoctel"
-    }
-  ];
-
-  db.collection('users', function(err, collection) {
-    collection.insert(users, {safe:true}, function(err, result) {});
   });
 }
